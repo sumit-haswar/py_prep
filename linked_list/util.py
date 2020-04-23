@@ -33,6 +33,7 @@ def print_list(head):
 
     print("->".join(list))
 
+
 def length(head):
 
     count = 0
