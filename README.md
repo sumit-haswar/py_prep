@@ -8,25 +8,26 @@ Reference materials used:
 6. Leetcode
 
 #### Stage I:
-Start by reading the following 3 absolute basic material provided at the http://cslibrary.stanford.edu/
+Start by reading the following 3 fundamental Computer Science materials provided at http://cslibrary.stanford.edu/. 
+It is a basic online library which collects education CS material from Stanford courses and distributes 
+them for free.
 1. Linked List Basics 
 2. Linked List Problems
 3. Binary Trees
-4. The Great Tree List Recursion Problem (optional)
+4. Big O Notations
+5. The Great Tree List Recursion Problem (optional)
 
 For people with Computer Science background or even a few years of programming experience this 
-should be a good refresher. Its just to get your hands a little dirty, to get re-introduces . 
-Also for the go-getters I highly also recommend no. 4, as stated on the web-page it is one of the neatest 
+should be a good refresher. Its just to get your hands a little dirty, to get re-introduced... 
+Also for the go-getters I highly recommend no. 4, as stated on the web-page it is one of the neatest 
 pointer/recursion problems you will ever see. It is an advanced problem that uses linked lists, 
 binary trees, and recursion.
 
-It is a basic online library which collects education CS material from Stanford courses and 
-distributes them for free.
-
 #### Stage II:
-Now its time to turn it up a notch. This stage is to cover the basic building data structures
-in computer science starting with bits, ints, strings till stacks and queues. 
-We further extend on linked-list with a further deep-dive on the problems beyond the basics. 
+Now its time to turn it up a notch. This stage is to cover the basic data structures
+in computer science starting from bits, ints, strings to stacks and queues. 
+We further extend on linked-list with a deep-dive on looking at problems beyond the basics 
+from the previous section. 
 - Primitive Types
 - Arrays
 - Strings
@@ -41,7 +42,18 @@ We further extend on linked-list with a further deep-dive on the problems beyond
 - Hash Tables
 - Binary Search Trees
 - N-ary Trees
+- System Design
 
 #### Stage IV:
 - Graphs
+- Recursion
 - Dynamic Programming
+
+
+---------------------
+
+#### Functional Programming
+It is a style of programming which avoids side-effect, uses immutable data-structures and performs 
+code execution using function evaluation.
+Using this style, one can reduce the likelihood of bugs, make code much more readable and also make sure 
+your programs are easier to maintain.
