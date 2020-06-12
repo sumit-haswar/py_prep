@@ -101,7 +101,15 @@ def insert_nth(head, idx, data):
 
 
 # 6. sorted insert
+
 def sorted_insert(head, new_node):
+    """
+    Write a SortedInsert() function which given a list that is sorted in increasing order, and a
+    single node, inserts the node into the correct sorted position in the list. While Push()
+    allocates a new node to add to the list, SortedInsert() takes an existing node, and just
+    rearranges pointers to insert it into the list. There are many possible solutions to this
+    problem.
+    """
     # add at head
     if not head or head.data > new_node.data:
         new_node.next = head
@@ -122,8 +130,13 @@ def sorted_insert(head, new_node):
 
 
 # 7. insert sort
-# Given a list, change it to be in sorted order (using SortedInsert())
 def insert_sort(head):
+    """
+    Write an InsertSort() function which given a list, rearranges its nodes so they are sorted in
+    increasing order. It should use SortedInsert().
+    :param head:
+    :return:
+    """
     pass
 
 

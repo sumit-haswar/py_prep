@@ -1,8 +1,8 @@
 from .node import Node
+from random import random
 
 
 def get_ordered_linked_list():
-
     num_list = [2, 34, 55, 89, 90, 120, 240]
     head = Node(0)
     prev = head
@@ -20,6 +20,17 @@ def get_123_list():
     one = Node(1, two)
 
     return one
+
+
+def get_random_list(count):
+    head = Node(random.randrange(1, 150))
+    prev = head
+    for i in range(0,count):
+        curr = Node(random.randrange(1, 150))
+        prev.next = curr
+        prev = curr
+
+    return head
 
 
 def print_list(head):
