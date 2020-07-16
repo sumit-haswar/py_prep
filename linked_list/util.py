@@ -1,5 +1,5 @@
 from .node import Node
-from random import random
+import random
 
 
 def get_ordered_linked_list():
@@ -14,6 +14,15 @@ def get_ordered_linked_list():
     return head
 
 
+def create_list(arr):
+    head = Node(arr[0])
+    prev = head
+    for elem in arr[1:]:
+        curr = Node(elem)
+        prev.next = curr
+        prev = curr
+    return head
+
 def get_123_list():
     three = Node(3, None)
     two = Node(2,three)
@@ -25,7 +34,7 @@ def get_123_list():
 def get_random_list(count):
     head = Node(random.randrange(1, 150))
     prev = head
-    for i in range(0,count):
+    for i in range(0,count-1):
         curr = Node(random.randrange(1, 150))
         prev.next = curr
         prev = curr
@@ -35,7 +44,7 @@ def get_random_list(count):
 
 def print_list(head):
     if not head:
-        print("empty list")
+        print("-- empty list --")
     curr = head
     list = []
     while curr:
