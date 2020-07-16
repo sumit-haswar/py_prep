@@ -5,6 +5,7 @@ def build_123():
     three = TreeNode(3)
     return TreeNode(2, one, three)
 
+
 def build_1_to_10_bst():
     """
                     5
