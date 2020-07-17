@@ -6,7 +6,6 @@ For details regarding problem and solutions pls refer the original document:
     http://cslibrary.stanford.edu/105/LinkedListProblems.pdf
 """
 
-
 from .node import Node
 from .util import print_list, \
     get_random_list, \
@@ -262,6 +261,7 @@ def alternating_split(source_head):
 
     return even_head, odd_head
 
+
 # 13. shuffle merge
 # Merge the nodes of the two lists into a single list taking a node
 # alternately from each list, and return the new list.
@@ -323,11 +323,6 @@ def sorted_merge(a_head, b_head):
 # easy to write a classic recursive MergeSort(): split the list into two smaller lists,
 # recursively sort those lists, and finally merge the two sorted lists together into a single
 # sorted list. Ironically, this problem is easier than either FrontBackSplit() or
-# SortedMerge().
-def merge_sort_util(head):
-    pass
-
-
 def merge_sort(head):
     # base-case:
     if head is None or head.next is None:
@@ -349,12 +344,12 @@ def get_first_diff(node):
         node = node.next
     return node
 
+
 # 16. sorted intersect
 # Given two lists sorted in increasing order, create and return a new list representing the
 # intersection of the two lists. The new list should be made with its own memory — the
 # original lists should not be changed. Ideally, each list should only be traversed once.
 def sorted_intersect(list_a, list_b):
-
     # assume both list_a and list_b are not null
     curr_a = list_a
     curr_b = list_b
@@ -434,12 +429,13 @@ def reverse(list):
     middle.next = back
     return middle
 
+
 # 18. recursive reverse !
 # Recursively reverses the given linked list by changing its .next
 # pointers and its head pointer in one pass of the list.
 def recursive_reverse(head):
     # base-case
-    if head is None or head.next is None:
+    if head.next is None:
         return head
 
     recur = recursive_reverse(head.next)
@@ -449,11 +445,12 @@ def recursive_reverse(head):
 
     return recur
 
+
 def main():
-    #todo create test lists using create_list
+    # todo create test lists using create_list
     #   for example: source = create_list([0,1,2,3,4,5,6,7,8,9,10,11,12])
     #   invoke required methods to be tested
     #   print result using print_list
 
-    list = create_list([2,3,4,5,8,9,11,33])
+    list = create_list([2, 3, 4, 5, 8, 9, 11, 33])
     print_list(recursive_reverse(list))

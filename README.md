@@ -1,25 +1,24 @@
 
-Reference materials used:
+Reference material used:
 1. Stanford CS Education Library (http://cslibrary.stanford.edu/)
-2. Elements of Programming Interviews in Python
-3. Cracking the Coding Interview
-4. The Algorithm Design Manual
-5. Introductions to Algorithm
+2. Elements of Programming Interviews in Python (https://elementsofprogramminginterviews.com/)
+3. Cracking the Coding Interview (http://www.crackingthecodinginterview.com/)
+4. The Algorithm Design Manual (https://www.amazon.com/Algorithm-Design-Manual-Steven-Skiena/dp/1849967202)
+5. Introduction to Algorithms
 6. Leetcode
 
 #### Stage I:
-Start by reading the following 3 fundamental Computer Science materials provided at http://cslibrary.stanford.edu/. 
-It is a basic online library which collects education CS material from Stanford courses and distributes 
-them for free.
+Start by reading the following 1-4 fundamental Computer Science materials provided at http://cslibrary.stanford.edu/. 
+It is a basic online library which collects education CS material from Stanford courses and distributes them for free.
 1. Linked List Basics 
 2. Linked List Problems
 3. Binary Trees
-4. Big O Notations
-5. The Great Tree List Recursion Problem (optional)
+4. The Great Tree List Recursion Problem (optional)
+5. Big O Notations (ref-material no. 3 or 5)
 
 For people with Computer Science background or even a few years of programming experience this 
 should be a good refresher. Its just to get your hands a little dirty, to get re-introduced... 
-Also for the go-getters I highly recommend no. 4, as stated on the web-page it is one of the neatest 
+Also for the go-getters I highly recommend no. 5, as stated on the web-page it is one of the neatest 
 pointer/recursion problems you will ever see. It is an advanced problem that uses linked lists, 
 binary trees, and recursion.
 
@@ -49,7 +48,6 @@ from the previous section.
 - Recursion
 - Dynamic Programming
 
-
 ---------------------
 
 #### Functional Programming
@@ -57,3 +55,6 @@ It is a style of programming which avoids side-effect, uses immutable data-struc
 code execution using function evaluation.
 Using this style, one can reduce the likelihood of bugs, make code much more readable and also make sure 
 your programs are easier to maintain.
+
+#### Research Papers
+This is something of a personal list, and may/may-not help. Nonetheless
