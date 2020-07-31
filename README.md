@@ -9,7 +9,7 @@ Reference material used:
 
 #### Stage I:
 Start by reading the following 1-4 fundamental Computer Science materials provided at http://cslibrary.stanford.edu/. 
-It is a basic online library which collects education CS material from Stanford courses and distributes them for free.
+It is a basic online library which lists a few undergrad level CS material from Stanford.
 1. Linked List Basics 
 2. Linked List Problems
 3. Binary Trees
