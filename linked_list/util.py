@@ -23,9 +23,10 @@ def create_list(arr):
         prev = curr
     return head
 
+
 def get_123_list():
     three = Node(3, None)
-    two = Node(2,three)
+    two = Node(2, three)
     one = Node(1, two)
 
     return one
@@ -34,7 +35,7 @@ def get_123_list():
 def get_random_list(count):
     head = Node(random.randrange(1, 150))
     prev = head
-    for i in range(0,count-1):
+    for i in range(0, count - 1):
         curr = Node(random.randrange(1, 150))
         prev.next = curr
         prev = curr
@@ -55,7 +56,6 @@ def print_list(head):
 
 
 def length(head):
-
     count = 0
     if not head:
         return count
@@ -73,3 +73,12 @@ def push(head_ref, new_data):
     new_head.next = head_ref
 
     return new_head
+
+
+def get_list_from_linked_list(head):
+    list = []
+    curr = head
+    while curr is not None:
+        list.append(curr.data)
+        curr = curr.next
+    return list
