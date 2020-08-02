@@ -4,6 +4,8 @@
 
 #  --- comparison sorts ---
 # bubble sort
+def bubble_sort(list):
+    pass
 
 # selection sort
 
@@ -15,6 +17,7 @@
 
 # heap sort
 
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 # counting sort
 

@@ -1,6 +1,5 @@
 from linked_list.linked_list_problems import *
 from linked_list.util import create_list, \
-    get_random_list, \
     get_list_from_linked_list
 from random import randint
 
