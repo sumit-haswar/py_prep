@@ -37,8 +37,7 @@ class Heap():
             self.max_heapify(largest)
 
     def build_max_heap(self):
-        """
-        everything from self.size/2 - - - - self.size - 1 is leaf
+        """everything from self.size/2 - - - - self.size - 1 is leaf
         so we iterate from (self.size//2 - 1) to 0
         :param idx:
         :return:
@@ -49,7 +48,6 @@ class Heap():
 
     def heap_sort(self):
         """
-
         :return: sorted list
         """
         # invoke build_max_heap on self, leading to 0th element being Max
