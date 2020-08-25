@@ -1,5 +1,4 @@
-from sort_algos import bubble_sort, \
-    selection_sort, \
+from sort_algos import selection_sort, \
     heap_sort, \
     insertion_sort, \
     quick_sort, \
