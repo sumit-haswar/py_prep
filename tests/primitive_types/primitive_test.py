@@ -1,9 +1,14 @@
 import unittest
+import uuid
+
 from primitive_types import power, \
     clear_lowest, \
     set_lowest, \
     bit_count, \
-    get_parity_use_lowest_set
+    get_parity_use_lowest_set, \
+    get_parity_caching, \
+    get_parity_xor, \
+    swap_bits
 
 
 class PrimitiveTestCase(unittest.TestCase):
@@ -36,11 +41,34 @@ class PrimitiveTestCase(unittest.TestCase):
             expected_parity = 1 if (bin(num).count("1") % 2 == 1) else 0
             self.assertEqual(expected_parity, get_parity_use_lowest_set(num))
 
+    def test_get_parity_caching(self):
+        num = uuid.uuid1().int >> 64
+        expected_parity = 1 if (bin(num).count("1") % 2 == 1) else 0
+        self.assertEqual(expected_parity, get_parity_caching(num))
+
+    def test_get_parity_xor(self):
+        nums = [uuid.uuid1().int >> 64, uuid.uuid1().int >> 64]
+        for num in nums:
+            expected_parity = 1 if (bin(num).count("1") % 2 == 1) else 0
+            self.assertEqual(expected_parity, get_parity_xor(num))
+
+    def test_swap_bits(self):
+        self.assertEqual(52, swap_bits(37, 0, 4))
+        self.assertEqual(53, swap_bits(53, 0, 4))
+        self.assertEqual(60, swap_bits(53, 0, 3))
+
+    def test_reverse_bits(self):
+        pass
+
+    def test_reverse_bits_cached(self):
+        pass
+
     def test_xor(self):
         result = 0
         for _ in range(0, 5):
             result = result ^ 1
             print(result)
+
 
 if __name__ == '__main__':
     unittest.main()
