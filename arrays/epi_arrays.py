@@ -95,22 +95,80 @@ def increment_number(list):
 
     return list
 
+
+#   5.3 multiply two arbitrary precision integer
+def multiply_two_numbers(num1, num2):
+    pass
+
+
 #   5.5 delete duplicates from a sorted array
+def delete_duplicates_o_n(list):
+    result = []
+    look_up = {}
+    for i in range(0, len(list)):
+        curr = list[i]
+        if curr not in look_up:
+            result.append(list[i])
+        look_up[curr] = True
+    return result
+
+
+#   5.5 delete duplicates from a sorted array
+def delete_duplicates(list):
+    write_idx = 1
+    curr_idx = 1
+    while curr_idx < len(list):
+        if list[curr_idx - 1] != list[curr_idx]:
+            list[write_idx] = list[curr_idx]
+            curr_idx += 1
+            write_idx += 1
+        else:
+            curr_idx += 1
+
+    return write_idx
 
 #   5.6 buy and sell a stock once
+def max_profit_buy_sell(list):
+    """"""
+    curr_min = list[0]
+    max_profit = 0
+    for curr in range(1, len(list)):
+        curr_profit = list[curr] - curr_min
+        max_profit = max(curr_profit, max_profit)
+        curr_min = min(list[curr], curr_min)
 
-#   5.9 enumerate all prices to n
+    return max_profit
+
+
+#   5.9 enumerate all primes to n
+def get_primes(num):
+    # create a boolean array of
+    sieve = [False, False] + [True] * (num - 1)
+
+    for i in range(2, len(sieve)):
+        curr = sieve[i]
+        if curr:
+            # mark all multiples as False
+            for j in range(curr + 1, len(sieve)):
+                candidate = sieve[j]
+                if candidate % curr == 0:
+                    sieve[j] = False
+
+    return [idx for idx, elem in enumerate(sieve) if elem]
 
 #   5.12 sample offline data
+def random_sampling(input, k):
+    pass
+
 
 #   5.17 the sudoku checker problem
 
 #   5.18 compute the spiral ordering of a 2-d array
 
-#   5.3 multiply two arbitrary precision integer
+
 #   5.10 permute the elements of an array
 #   5.15 compute a random subset
-#   5.15 compute the next permutation
+#   5.11 compute the next permutation
 
 def _swap(list, idx_a, idx_b):
     temp = list[idx_a]
