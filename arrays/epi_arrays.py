@@ -1,7 +1,13 @@
+import random
+from math import sqrt, floor
+
+from typing import List
+
+
 # reverse a list in-place
-def my_reverse(list):
-    left = 0
-    right = len(list) - 1
+def my_reverse(list, left=0, right=None):
+    if not right:
+        right = len(list) - 1
     while left < right:
         _swap(list, left, right)
         left += 1
@@ -98,7 +104,47 @@ def increment_number(list):
 
 #   5.3 multiply two arbitrary precision integer
 def multiply_two_numbers(num1, num2):
-    pass
+    sign = -1 if ((num1[0] < 0) ^ (num2[0] < 0)) else 1
+
+    if num1[0] < 0:
+        num1[0] = num1[0] * -1
+
+    if num2[0] < 0:
+        num2[0] = num2[0] * -1
+
+    if len(num2) > len(num1):
+        temp = num2
+        num2 = num1
+        num1 = temp
+
+    result = [0] * (len(num1) + len(num2))
+
+    num2_idx = len(num2) - 1
+    for step in range(0, len(num2)):
+
+        result_idx = len(result) - 1 - step
+        for num1_idx in reversed(range(len(num1))):
+            prod = num1[num1_idx] * num2[num2_idx]
+
+            sum = result[result_idx] + prod
+            carry = sum // 10
+
+            result[result_idx] = sum % 10
+            result[result_idx - 1] += carry
+
+            result_idx -= 1
+
+        num2_idx -= 1
+
+    idx = 0
+    while result:
+        if result[idx] != 0:
+            break
+        del result[idx]
+
+    result[0] = result[0] * sign
+
+    return result
 
 
 #   5.5 delete duplicates from a sorted array
@@ -127,6 +173,7 @@ def delete_duplicates(list):
 
     return write_idx
 
+
 #   5.6 buy and sell a stock once
 def max_profit_buy_sell(list):
     """"""
@@ -143,32 +190,118 @@ def max_profit_buy_sell(list):
 #   5.9 enumerate all primes to n
 def get_primes(num):
     # create a boolean array of
+    primes = []
     sieve = [False, False] + [True] * (num - 1)
 
-    for i in range(2, len(sieve)):
-        curr = sieve[i]
-        if curr:
-            # mark all multiples as False
-            for j in range(curr + 1, len(sieve)):
-                candidate = sieve[j]
-                if candidate % curr == 0:
-                    sieve[j] = False
+    for curr in range(2, len(sieve)):
+        if sieve[curr]:
+            primes.append(curr)
+            # mark all multiples of curr as False
+            for multiple in range(curr * 2, num + 1, curr):
+                sieve[multiple] = False
 
-    return [idx for idx, elem in enumerate(sieve) if elem]
+    return primes
+
 
 #   5.12 sample offline data
 def random_sampling(input, k):
-    pass
+    n = len(input)
+
+    for idx in range(k):
+        elem_idx = random.randint(idx, n - 1)
+        _swap(input, idx, elem_idx)
+
+    return input[0:k]
+
+
+#   5.15 compute a random subset
+def get_random_subset(n: int, k: int):
+    look_up = {}
+    for idx in range(k):
+        rand_idx = random.randint(idx, n)
+        if rand_idx in look_up:
+            val = look_up[rand_idx]
+            look_up[idx] = val
+            look_up[rand_idx] = idx
+        else:
+            look_up[rand_idx] = idx
+            look_up[idx] = rand_idx
+
+    return [look_up[i] for i in range(k)]
+
+
+#   5.11 compute the next permutation
+def get_next_permutation(list: List[int]):
+    # find the first dip from right to left
+    curr_idx = len(list) - 1
+
+    while curr_idx > 0:
+        if list[curr_idx] > list[curr_idx - 1]:
+            break
+        curr_idx -= 1
+
+    if curr_idx == 0:
+        return []
+
+    curr_idx -= 1
+
+    # find swap_idx
+    swap_idx = len(list) - 1
+    while swap_idx > 0:
+        if list[swap_idx] > list[curr_idx]:
+            break
+        swap_idx -= 1
+
+    _swap(list, curr_idx, swap_idx)
+
+    # reverse curr_idx -1 to len(list) - 1
+    my_reverse(list, curr_idx + 1)
+
+    return list
 
 
 #   5.17 the sudoku checker problem
+def is_valid_sudoku(grid):
+    # check all rows
+    row_count = len(grid)
+    for row in range(row_count):
+        non_zero_items = [elem for elem in grid[row] if elem != 0]
+        if len(non_zero_items) != len(set(non_zero_items)):
+            return False
 
+    # check all columns
+    col_count = len(grid[0])
+    for col in range(col_count):
+        non_zero_items = []
+        for row in range(row_count):
+            if grid[row][col] != 0:
+                non_zero_items.append(grid[row][col])
+        if len(non_zero_items) != len(set(non_zero_items)):
+            return False
+
+    # check block
+    block_size = floor(sqrt(len(grid)))
+    block_range = [(idx * block_size)
+                   for idx in range(block_size)]
+
+    for block_row in block_range:
+        for block_col in block_range:
+            # get data for this block
+            # row, col: 0,0; 0,3; 0,6 . . .
+            non_zero_items = []
+            for row in range(block_row, block_row + block_size):
+                for col in range(block_col, block_col + block_size):
+                    if grid[row][col] != 0:
+                        non_zero_items.append(grid[row][col])
+            if len(non_zero_items) != len(set(non_zero_items)):
+                return False
+
+    return True
+
+#   TODO:
 #   5.18 compute the spiral ordering of a 2-d array
-
-
 #   5.10 permute the elements of an array
-#   5.15 compute a random subset
-#   5.11 compute the next permutation
+#   5.19 rotate a 2-d array
 
 def _swap(list, idx_a, idx_b):
     temp = list[idx_a]
