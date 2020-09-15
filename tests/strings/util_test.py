@@ -1,5 +1,5 @@
 import unittest
-from strings import find_match
+from my_strings import find_match
 
 
 class StringsTestCase(unittest.TestCase):
