@@ -6,7 +6,11 @@ from my_strings import \
     is_palindromic, \
     is_palindrome, \
     replace_and_remove, \
-    reverse_words
+    reverse_words, \
+    roman_to_int, \
+    rle_encode, \
+    rle_decode, \
+    rabin_karp
 
 
 class StringsTestCase(unittest.TestCase):
@@ -64,6 +68,35 @@ class StringsTestCase(unittest.TestCase):
         self.assertEqual("Clockwork", reverse_words(list("Clockwork")))
         self.assertEqual("John loves Alice", reverse_words(list("Alice loves John")))
         self.assertEqual("be to not or be to", reverse_words(list("to be or not to be")))
+
+    @unittest.skip
+    def test_roman_to_int(self):
+        self.assertEqual(9, roman_to_int("IX"))
+        self.assertEqual(59, roman_to_int("LIX"))
+        self.assertEqual(644, roman_to_int("DCXLIV"))
+
+    @unittest.skip
+    def test_rle_decode(self):
+        self.assertEqual("aafferrrr", rle_decode("2a2f1e4r"))
+        self.assertEqual("xddd", rle_decode("1x3d"))
+        self.assertEqual("ccceeeeeeeeeeee", rle_decode("3c12e"))
+
+    def test_rle_encode(self):
+        self.assertEqual("2a2f1e4r", rle_encode("aafferrrr"))
+        self.assertEqual("5t2x", rle_encode("tttttxx"))
+        self.assertEqual("3e4f2e", rle_encode("eeeffffee"))
+
+    @unittest.skip
+    def test_rabin_karp(self):
+        text = "to be or not to be"
+        pattern = "not"
+        idx = rabin_karp(pattern, text)
+        self.assertEqual(9, idx)
+
+        text = "to be or not to be that is the question"
+        pattern = "question"
+        idx = rabin_karp(pattern, text)
+        self.assertEqual(text.index(pattern), idx)
 
 
 if __name__ == '__main__':
