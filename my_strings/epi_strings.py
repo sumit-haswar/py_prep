@@ -135,12 +135,43 @@ def reverse_words(s: List[str]):
 
     return "".join(s)
 
-#   6.7 look and say problem
 
 #   6.8 convert from roman to decimal
+def roman_to_int(s: str) -> int:
+    pass
 
-#   6.10
 
 #   6.11 implement run length encoding
+def rle_decode(input: str) -> str:
+    curr_count = 0
+    result = []
+    curr_idx = 0
+    # while curr_idx < len(input):
+    #     if not input[curr_idx]
+    #     curr_idx +=1
+
+    return ''.join(result)
+
+
+def rle_encode(input: str) -> str:
+    count = 1
+    result = []
+    curr_idx = 1
+    while curr_idx <= len(input):
+        if curr_idx == len(input) or (input[curr_idx] != input[curr_idx - 1]):
+            result.append(str(count) + input[curr_idx - 1])
+            count = 1
+        else:
+            count += 1
+
+        curr_idx += 1
+
+    return ''.join(result)
+
 
 #   6.12 find first occurrence of a substring
+def rabin_karp(s: str, t: str) -> int:
+    pass
+
+#   6.7 look and say problem
+#   6.10 write a string sinusoidally
