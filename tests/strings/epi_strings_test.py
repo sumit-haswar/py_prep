@@ -69,13 +69,12 @@ class StringsTestCase(unittest.TestCase):
         self.assertEqual("John loves Alice", reverse_words(list("Alice loves John")))
         self.assertEqual("be to not or be to", reverse_words(list("to be or not to be")))
 
-    @unittest.skip
     def test_roman_to_int(self):
         self.assertEqual(9, roman_to_int("IX"))
         self.assertEqual(59, roman_to_int("LIX"))
         self.assertEqual(644, roman_to_int("DCXLIV"))
+        self.assertEqual(432, roman_to_int("CDXXXII"))
 
-    @unittest.skip
     def test_rle_decode(self):
         self.assertEqual("aafferrrr", rle_decode("2a2f1e4r"))
         self.assertEqual("xddd", rle_decode("1x3d"))
@@ -86,7 +85,6 @@ class StringsTestCase(unittest.TestCase):
         self.assertEqual("5t2x", rle_encode("tttttxx"))
         self.assertEqual("3e4f2e", rle_encode("eeeffffee"))
 
-    @unittest.skip
     def test_rabin_karp(self):
         text = "to be or not to be"
         pattern = "not"
@@ -97,6 +95,11 @@ class StringsTestCase(unittest.TestCase):
         pattern = "question"
         idx = rabin_karp(pattern, text)
         self.assertEqual(text.index(pattern), idx)
+
+        text = "to be or not to be that is the question"
+        pattern = "bla"
+        idx = rabin_karp(pattern, text)
+        self.assertEqual(-1, idx)
 
 
 if __name__ == '__main__':

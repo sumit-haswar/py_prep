@@ -138,7 +138,26 @@ def reverse_words(s: List[str]):
 
 #   6.8 convert from roman to decimal
 def roman_to_int(s: str) -> int:
-    pass
+    look_up = {
+        'I': 1,
+        'V': 5,
+        'X': 10,
+        'L': 50,
+        'C': 100,
+        'D': 500,
+        'M': 1000,
+    }
+    sum = look_up[s[-1]]
+    for curr_idx in reversed(range(len(s) - 1)):
+
+        if look_up[s[curr_idx]] >= look_up[s[curr_idx + 1]]:
+            val = look_up[s[curr_idx]]
+        else:
+            val = -look_up[s[curr_idx]]
+
+        sum += val
+
+    return sum
 
 
 #   6.11 implement run length encoding
@@ -146,9 +165,14 @@ def rle_decode(input: str) -> str:
     curr_count = 0
     result = []
     curr_idx = 0
-    # while curr_idx < len(input):
-    #     if not input[curr_idx]
-    #     curr_idx +=1
+    while curr_idx < len(input):
+        if input[curr_idx].isnumeric():
+            curr_count = curr_count * 10 + string.digits.index(input[curr_idx])
+        else:
+            result.append(input[curr_idx] * curr_count)
+            curr_count = 0
+
+        curr_idx += 1
 
     return ''.join(result)
 
@@ -170,8 +194,36 @@ def rle_encode(input: str) -> str:
 
 
 #   6.12 find first occurrence of a substring
-def rabin_karp(s: str, t: str) -> int:
-    pass
+def rabin_karp(pattern: str, text: str) -> int:
+    if len(pattern) > len(text):
+        return -1
+
+    base = 26
+    pattern_hash = reduce(lambda val, char: val * base + ord(char), pattern, 0)
+
+    # create hash of the first len(pattern) characters of the text
+    text_hash = reduce(lambda val, char: val * base + ord(char),
+                       text[:len(pattern)],
+                       0)
+
+    # power is used to REMOVE the leftmost char hash when rolling
+    power_s = pow(base, len(pattern) - 1)
+
+    for pivot in range(len(pattern), len(text)):
+        if pattern_hash == text_hash \
+                and pattern == text[pivot - len(pattern): pivot]:
+            return pivot - len(pattern)
+
+        # remove the left char
+        text_hash = text_hash - (ord(text[pivot - len(pattern)]) * power_s)
+        # add a curr char to text_hash
+        text_hash = text_hash * base + ord(text[pivot])
+
+    # check the last len(pattern) chars from the text
+    if pattern_hash == text_hash and pattern == text[-len(pattern):]:
+        return len(text) - len(pattern)
+
+    return -1
 
 #   6.7 look and say problem
 #   6.10 write a string sinusoidally
