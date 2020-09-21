@@ -308,6 +308,7 @@ def sorted_merge(a_head, b_head):
             break
 
         if candidate.val < curr.next.val:
+            # swap curr.next and candidate
             temp = curr.next
             curr.next = candidate
             curr = candidate
