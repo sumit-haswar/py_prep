@@ -23,6 +23,14 @@ def create_list(arr):
         prev = curr
     return head
 
+def create_list_tail(arr):
+    head = Node(arr[0])
+    prev = head
+    for elem in arr[1:]:
+        curr = Node(elem)
+        prev.next = curr
+        prev = curr
+    return head, prev
 
 def get_123_list():
     three = Node(3, None)
