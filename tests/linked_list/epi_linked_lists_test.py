@@ -142,6 +142,5 @@ class EpiLinkedListsTestCase(unittest.TestCase):
                 create_list([2, 4, 5, 6, 5, 3, 2])))
 
 
-
 if __name__ == '__main__':
     unittest.main()
