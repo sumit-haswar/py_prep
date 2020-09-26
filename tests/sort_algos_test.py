@@ -22,7 +22,7 @@ class SortAlgosTest(unittest.TestCase):
             self.assertListEqual(expected, input)
 
     def test_quick_sort(self):
-        for count in range(1,25):
+        for count in range(1, 25):
             input, expected = self._get_input_expected_list(count)
             quick_sort(input, 0, len(input) - 1)
             self.assertListEqual(expected, input)

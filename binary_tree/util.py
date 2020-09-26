@@ -63,13 +63,13 @@ def build_random_non_bst():
 
 def build_random_tree():
     """
-       5
-      / \
-     4   8
-    /   / \
-   11  13  4
-   / \      \
-  7 2        1
+           5
+          / \
+         4   8
+        /   / \
+       11  13  4
+       / \
+      7 2        1
     """
     _11 = TreeNode(11, TreeNode(7), TreeNode(2))
     _4 = TreeNode(4, None, TreeNode(1))
