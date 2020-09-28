@@ -1,9 +1,10 @@
 from .tree_node import TreeNode
 
+
 def print_node(node):
     node_str = '{0}<-- [{1}] -->{2}'.format(node.left.val if node.left else 'null',
-                                             node.val,
-                                         node.right.val if node.right else 'null')
+                                            node.val,
+                                            node.right.val if node.right else 'null')
     print(node_str)
 
 
@@ -68,8 +69,8 @@ def build_random_tree():
          4   8
         /   / \
        11  13  4
-       / \
-      7 2        1
+       / \\     \
+      7   2      1
     """
     _11 = TreeNode(11, TreeNode(7), TreeNode(2))
     _4 = TreeNode(4, None, TreeNode(1))
