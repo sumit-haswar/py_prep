@@ -35,6 +35,19 @@ def build_1_to_10_bst():
     nine = TreeNode(9, seven, ten)
 
     five = TreeNode(5, three, nine)
+
+    # set parents
+    one.parent = two
+    two.parent = three
+    four.parent = three
+    three.parent = five
+
+    six.parent = seven
+    eight.parent = seven
+    ten.parent = nine
+    seven.parent = nine
+    nine.parent = five
+
     return five
 
 
@@ -76,6 +89,21 @@ def build_random_tree():
     _4 = TreeNode(4, None, TreeNode(1))
     _8 = TreeNode(8, TreeNode(13), _4)
     return TreeNode(5, _4, _8)
+
+
+def build_epi_binary_tree():
+    _28 = TreeNode(28)
+    _0 = TreeNode(0)
+    _17 = TreeNode(17)
+    _3 = TreeNode(3, _17, None)
+    _271 = TreeNode(271, _28, _0)
+    _561 = TreeNode(561, None, _3)
+    _6 = TreeNode(6, _271, _561)
+    _16 = TreeNode(16)
+
+    root = TreeNode(314, _6, _16)
+
+    return root
 
 
 def print_bfs(root):
