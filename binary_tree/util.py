@@ -106,5 +106,23 @@ def build_epi_binary_tree():
     return root
 
 
+def build_symmetric_tree():
+    _14_1 = TreeNode(14)
+    _14_2 = TreeNode(14)
+    _32_1 = TreeNode(32, _14_1, _14_2)
+    _4_1 = TreeNode(4, _32_1)
+    _7_1 = TreeNode(7)
+    _9_1 = TreeNode(9, _7_1, _4_1)
+
+    _14_3 = TreeNode(14)
+    _14_4 = TreeNode(14)
+    _32_2 = TreeNode(32, _14_3, _14_4)
+    _4_2 = TreeNode(4, None, _32_2)
+    _7_2 = TreeNode(7)
+    _9_2 = TreeNode(9, _4_2, _7_2)
+
+    return TreeNode(5, _9_1, _9_2)
+
+
 def print_bfs(root):
     pass
