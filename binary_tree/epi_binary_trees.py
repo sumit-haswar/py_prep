@@ -28,56 +28,47 @@ def is_balanced(root: TreeNode) -> bool:
 
 #   9.2 test if binary tree is symmetric
 def is_symmetric(root: TreeNode) -> bool:
-    pass
+    def _is_symmetric(a: TreeNode, b: TreeNode) -> bool:
+        if a is None and b is None:
+            return True
+        elif a is not None and b is not None:
+            return a.data == b.data \
+                   and _is_symmetric(a.left, b.right) \
+                   and _is_symmetric(a.right, b.left)
+        else:
+            return False
+
+    return _is_symmetric(root.left, root.right)
 
 
 #   9.3 get lca in a binary tree
 def get_lca(root: TreeNode,
             node_a: TreeNode,
             node_b: TreeNode) -> TreeNode:
-    """
-    TODO
-    :param root:
-    :param node_a:
-    :param node_b:
-    :return:
-    """
-
     def _get_lca(node: TreeNode, a: TreeNode, b: TreeNode):
         # base case
         if node is None:
-            return {'found_a': False,
-                    'found_b': False,
-                    'lca': None}
-
-        # node found
-        if node is a or node is b:
-            return {'found_a': node is a,
-                    'found_b': node is b,
+            return {'count': 0,
                     'lca': None}
 
         # look left
         left = _get_lca(node.left, a, b)
 
-        if left['lca']:
-            return left['lca']
+        if left['count'] == 2:
+            return left
 
+        # look right
         right = _get_lca(node.right, a, b)
 
-        if left['lca'] or right['lca']:
-            return left['lca'] if left['lca'] else right['lca']
+        if right['count'] == 2:
+            return right
 
-        if (left['found_a'] or right['found_a']) \
-                and (left['found_b'] or right['found_b']):
-            return {'found_a': True,
-                    'found_b': True,
-                    'lca': node}
+        count = left['count'] + right['count'] + (a, b).count(node)
 
-        return {'found_a': False,
-                'found_b': False,
-                'lca': None}
+        return {'count': count,
+                'lca': node if count == 2 else None}
 
-    return get_lca(root, node_a, node_b)
+    return _get_lca(root, node_a, node_b)['lca']
 
 
 #   9.4 get lca when nodes have parent pointers
@@ -108,11 +99,37 @@ def get_path_sum(root: TreeNode):
 
 
 #   9.6 find root to leaf path with specified sum
-def get_path_with_sum(root: TreeNode):
-    pass
+def get_path_with_sum(root: TreeNode, sum: int):
+    def _get_path_with_sum(node, value, path):
+        if node is None:
+            if value == 0:
+                return True, path
+            else:
+                return False, ''
+        if path:
+            path += ',' + str(node.data)
+        else:
+            path = str(node.data)
+
+        left = _get_path_with_sum(node.left, value - node.data, path)
+        if left[0]:
+            return True, left[1]
+
+        right = _get_path_with_sum(node.right, value - node.data, path)
+        if right[0]:
+            return True, right[1]
+
+        return False, path
+
+    result = _get_path_with_sum(root, sum, '')
+    return result[1] if result[0] else ''
 
 
 #   9.7 inorder traversal without recursion
+
+#   9.8 kth node in an inorder traversal
+
+#   9.9 compute the successor
 
 #   9.10 inorder traversal with constant space
 

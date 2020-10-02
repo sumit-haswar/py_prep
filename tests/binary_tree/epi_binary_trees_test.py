@@ -1,5 +1,6 @@
 import unittest
 from binary_tree import util
+from binary_tree import TreeNode
 from binary_tree.epi_binary_trees import \
     is_symmetric, \
     is_balanced, \
@@ -15,11 +16,16 @@ class EpiBinaryTreesTestCase(unittest.TestCase):
         self.assertEqual(True, is_balanced(util.build_1_to_10_bst()))
         self.assertEqual(False, is_balanced(util.build_epi_binary_tree()))
 
-    @unittest.skip
     def test_is_symmetric(self):
-        self.assertEqual(True, False)
+        tree = util.build_symmetric_tree()
+        self.assertTrue(is_symmetric(tree))
 
-    @unittest.skip
+        tree = util.build_1_to_10_bst()
+        self.assertFalse(is_symmetric(tree))
+
+        tree = util.build_epi_binary_tree()
+        self.assertFalse(is_symmetric(tree))
+
     def test_get_lca(self):
         bst = util.build_1_to_10_bst()
 
@@ -48,9 +54,50 @@ class EpiBinaryTreesTestCase(unittest.TestCase):
     def test_get_path_sum(self):
         self.assertEqual(True, False)
 
-    @unittest.skip
     def test_get_path_with_sum(self):
-        self.assertEqual(True, False)
+        bst = util.build_1_to_10_bst()
+
+        path = get_path_with_sum(bst, 24)
+        self.assertEqual("5,9,10", path)
+
+        path = get_path_with_sum(bst, 11)
+        self.assertEqual("5,3,2,1", path)
+
+        path = get_path_with_sum(bst, 23)
+        self.assertEqual("", path)
+
+        bt = util.build_epi_binary_tree()
+        self.assertEqual("314,6,561,3,17", get_path_with_sum(bt, 901))
+
+    def test_traversal(self):
+        tree = util.build_1_to_10_bst()
+        # self._inorder(tree)
+        print('pre-order:')
+        self._preorder(tree)
+        print('post-order:')
+        self._postorder(tree)
+
+    def _inorder(self, node: TreeNode):
+        if node is None:
+            return
+        self._inorder(node.left)
+        print(node.data)
+        self._inorder(node.right)
+
+    def _preorder(self, node: TreeNode):
+        if node is None:
+            return
+        print(node.data)
+        self._preorder(node.left)
+        self._preorder(node.right)
+
+    def _postorder(self, node: TreeNode):
+        if node is None:
+            return
+        self._postorder(node.left)
+        self._postorder(node.right)
+        print(node.data)
+
 
 
 if __name__ == '__main__':
