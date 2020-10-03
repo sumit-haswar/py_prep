@@ -129,11 +129,11 @@ def get_path_with_sum(root: TreeNode, sum: int):
 
 #   9.8 kth node in an inorder traversal
 
-#   9.9 compute the successor
+#   9.9 compute the successor (node with parents)
 
-#   9.10 inorder traversal with constant space
+#   9.10 inorder traversal with constant space (Morris Traversal)
 
-#   9.11 reconstruct a binary tree with traversal data
+#   9.11 reconstruct a binary tree with traversal data (inorder and pre/postorder)
 
 #   9.12 reconstruct a binary tree from preorder traversal with markers
 
