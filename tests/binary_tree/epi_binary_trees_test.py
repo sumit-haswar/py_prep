@@ -7,7 +7,11 @@ from binary_tree.epi_binary_trees import \
     get_lca, \
     get_parent_pointer_lca, \
     get_path_sum, \
-    get_path_with_sum
+    get_path_with_sum, \
+    get_kth_node, \
+    get_successor, \
+    inorder_traversal, \
+    reconstruct_bt
 
 
 class EpiBinaryTreesTestCase(unittest.TestCase):
@@ -50,9 +54,10 @@ class EpiBinaryTreesTestCase(unittest.TestCase):
         lca = get_parent_pointer_lca(three, one)
         self.assertEqual(lca, three)
 
-    @unittest.skip
     def test_get_path_sum(self):
-        self.assertEqual(True, False)
+        bt = util.build_bit_tree()
+        sum = get_path_sum(bt)
+        self.assertEqual(126, sum)
 
     def test_get_path_with_sum(self):
         bst = util.build_1_to_10_bst()
@@ -69,13 +74,42 @@ class EpiBinaryTreesTestCase(unittest.TestCase):
         bt = util.build_epi_binary_tree()
         self.assertEqual("314,6,561,3,17", get_path_with_sum(bt, 901))
 
-    def test_traversal(self):
-        tree = util.build_1_to_10_bst()
-        # self._inorder(tree)
-        print('pre-order:')
-        self._preorder(tree)
-        print('post-order:')
-        self._postorder(tree)
+    def test_get_kth_node(self):
+        bt = util.build_1_to_10_bst()
+
+        for k in range(1, 11):
+            node = get_kth_node(bt, k)
+            self.assertEqual(k, node.data)
+
+    def test_get_successor(self):
+        root = util.build_1_to_10_bst()
+        _4 = root.left.right
+        succ = get_successor(_4)
+        self.assertEqual(5, succ.data)
+
+        succ = get_successor(root)
+        self.assertEqual(6, succ.data)
+
+        _8 = root.right.left.right
+        succ = get_successor(_8)
+        self.assertEqual(9, succ.data)
+
+        _10 = root.right.right
+        succ = get_successor(_10)
+        self.assertIsNone(succ)
+
+    def test_inorder_traversal(self):
+        pass
+
+    def test_reconstruct_bt(self):
+        inorder_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        preorder_list = [5, 3, 2, 1, 4, 9, 7, 6, 8, 10]
+
+        bt = reconstruct_bt(inorder_list, preorder_list)
+
+        expected = util.build_1_to_10_bst()
+
+        self.assertTrue(util.tree_equal(expected, bt))
 
     def _inorder(self, node: TreeNode):
         if node is None:
@@ -97,7 +131,6 @@ class EpiBinaryTreesTestCase(unittest.TestCase):
         self._postorder(node.left)
         self._postorder(node.right)
         print(node.data)
-
 
 
 if __name__ == '__main__':

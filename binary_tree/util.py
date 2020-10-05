@@ -1,4 +1,5 @@
 from .tree_node import TreeNode
+import typing
 
 
 def print_node(node):
@@ -47,6 +48,13 @@ def build_1_to_10_bst():
     ten.parent = nine
     seven.parent = nine
     nine.parent = five
+
+    # set count
+    two.count = 2
+    three.count = 4
+    seven.count = 3
+    nine.count = 5
+    five.count = 10
 
     return five
 
@@ -126,3 +134,36 @@ def build_symmetric_tree():
 
 def print_bfs(root):
     pass
+
+
+def build_bit_tree() -> TreeNode:
+    m = TreeNode(1)
+    n = TreeNode(0)
+    p = TreeNode(0)
+    l = TreeNode(1, None, m)
+    o = TreeNode(0, None, p)
+    k = TreeNode(0, l, n)
+    j = TreeNode(0, None, k)
+    i = TreeNode(1, j, o)
+
+    d = TreeNode(0)
+    e = TreeNode(1)
+    h = TreeNode(0)
+    g = TreeNode(1, left=h, right=None)
+    c = TreeNode(0, left=d, right=e)
+    f = TreeNode(1, left=None, right=g)
+    b = TreeNode(0, left=c, right=f)
+    a = TreeNode(1, left=b, right=i)
+
+    return a
+
+
+def tree_equal(node_a, node_b):
+    if not node_a and not node_b:
+        return True
+    elif node_a and node_b:
+        return node_a.data == node_b.data \
+               and tree_equal(node_a.left, node_b.left) \
+               and tree_equal(node_a.right, node_b.right)
+    else:
+        return False
