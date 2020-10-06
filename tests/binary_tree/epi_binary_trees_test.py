@@ -11,7 +11,8 @@ from binary_tree.epi_binary_trees import \
     get_kth_node, \
     get_successor, \
     inorder_traversal, \
-    reconstruct_bt
+    reconstruct_bt, \
+    compute_right_sibling_tree
 
 
 class EpiBinaryTreesTestCase(unittest.TestCase):
@@ -99,7 +100,9 @@ class EpiBinaryTreesTestCase(unittest.TestCase):
         self.assertIsNone(succ)
 
     def test_inorder_traversal(self):
-        pass
+        bst = util.build_1_to_10_bst()
+        result = inorder_traversal(bst)
+        self.assertListEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], result)
 
     def test_reconstruct_bt(self):
         inorder_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -110,6 +113,12 @@ class EpiBinaryTreesTestCase(unittest.TestCase):
         expected = util.build_1_to_10_bst()
 
         self.assertTrue(util.tree_equal(expected, bt))
+
+    # todo complete unit-test
+    def test_compute_right_sibling_tree(self):
+        perfect_bt = util.build_perfect_bt()
+        compute_right_sibling_tree(perfect_bt)
+        self.assertIsNotNone(perfect_bt)
 
     def _inorder(self, node: TreeNode):
         if node is None:
