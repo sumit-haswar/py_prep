@@ -63,8 +63,22 @@ def build_non_balanced_bst():
     pass
 
 
-def build_balanced_bst():
-    pass
+def build_perfect_bt():
+    one = TreeNode(1)
+    two = TreeNode(2, one, TreeNode(2.1))
+
+    four = TreeNode(4, TreeNode(4.1), TreeNode(4.2))
+    three = TreeNode(3, two, four)
+
+    six = TreeNode(6)
+    eight = TreeNode(8)
+    seven = TreeNode(7, six, eight)
+    ten = TreeNode(10, TreeNode(10.1), TreeNode(10.2))
+    nine = TreeNode(9, seven, ten)
+
+    five = TreeNode(5, three, nine)
+
+    return five
 
 
 def build_random_non_bst():

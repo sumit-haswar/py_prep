@@ -11,6 +11,7 @@ class TreeNode:
         self.right = right
         self.parent = parent
         self.count = 1
+        self.next = None
 
     def __str__(self):
         return '{} <-- {} --> {}'.format(self.left.data if self.left else 'None',

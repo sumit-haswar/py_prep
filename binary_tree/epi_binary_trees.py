@@ -170,13 +170,39 @@ def get_successor(node: TreeNode) -> TreeNode:
 
     return None
 
-#   9.10 inorder traversal with constant space (Morris Traversal)
-def inorder_traversal(root: TreeNode) -> List[int]:
-    pass
+
+#   (9.10) inorder traversal with constant space
+def inorder_traversal(tree: TreeNode) -> List[int]:
+    result = []
+    curr = tree
+    prev = None
+    while curr:
+        # we are coming downhill from curr to left
+        if prev is curr.parent:
+            if curr.left:
+                next = curr.left
+            else:
+                result.append(curr.data)
+                if curr.right:
+                    next = curr.right
+                else:
+                    next = curr.parent
+        # we came up from prev to curr(which is prev's parent)
+        elif curr.left is prev:
+            result.append(curr.data)
+            if curr.right:
+                next = curr.right
+            else:
+                next = curr.parent
+        else:   # done with left, root and right, so go up
+            next = curr.parent
+
+        prev, curr = curr, next
+
+    return result
 
 
-#   9.11 reconstruct a binary tree with traversal data
-#   (inorder and pre/postorder)
+#   9.11 reconstruct a bt with traversal data (inorder and pre/postorder)
 def reconstruct_bt(inorder: List[int], preorder: List[int]) -> TreeNode:
     # generate inorder-map
     inorder_map = {}
@@ -221,8 +247,22 @@ def reconstruct_bt(inorder: List[int], preorder: List[int]) -> TreeNode:
     #   (9.15) compute the right sibling tree
 
 
-def compute_right_sibling_tree():
-    pass
+#   (9.15) compute right sibling tree for a perfect bt
+def compute_right_sibling_tree(node: TreeNode):
+    def _compute_right_sibling_tree(curr: TreeNode):
+        while curr and curr.left:
+            # set curr.left to curr.right
+            curr.left.next = curr.right
+
+            # set curr.right to curr's next's left
+            curr.right.next = curr.next.left if curr.next else None
+
+            # move to next
+            curr = curr.next
+
+    while node:
+        _compute_right_sibling_tree(node)
+        node = node.left
 
 
 # todo  9.7 inorder traversal without recursion
