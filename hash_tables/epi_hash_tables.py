@@ -1,5 +1,5 @@
 import typing
-from typing import List
+from typing import List, Set, Dict
 import collections
 from binary_tree import TreeNode
 from linked_list import Node
@@ -142,16 +142,94 @@ def get_lca(node_a: TreeNode, node_b: TreeNode) -> TreeNode:
 
 #   12.5 find the nearest repeated entries in an array
 def get_nearest_repeated_entries(text: str):
-    pass
+    result = {"start": -1, "end": -1}
+    diff = float('inf')
+    word_last_idx_map = {}
+    for idx, word in enumerate(text.split(" ")):
+        if word in word_last_idx_map:
+            last_idx = word_last_idx_map[word]
+            curr_diff = abs(last_idx - idx)
+            if curr_diff < diff:
+                diff = curr_diff
+                result['start'] = last_idx
+                result['end'] = idx
+
+        word_last_idx_map[word] = idx
+
+    return result
 
 
 #   12.6 find the smallest subarray covering all values
-def get_smallest_subarray_cover(text: str, keywords: set):
-    pass
+def get_smallest_subarray_cover(input: str, keywords: Set[str]):
+    text = input.split(' ')
+
+    keyword_set = collections.Counter(keywords)
+    remaining_keywords = len(keyword_set)
+    left = 0
+
+    start = -1
+    end = -1
+
+    for right, curr in enumerate(text):
+        if curr in keyword_set:
+            keyword_set[curr] -= 1
+            if keyword_set[curr] >= 0:
+                remaining_keywords -= 1
+
+        while remaining_keywords == 0:
+            if (start == end == -1) or (abs(left - right) < abs(start - end)):
+                start = left
+                end = right
+            candidate = text[left]
+            if candidate in keyword_set:
+                keyword_set[candidate] += 1
+                if keyword_set[candidate] > 0:
+                    remaining_keywords += 1
+            left += 1
+
+    return (start, end)
+
+
+#   (12.8) find the longest subarray with distinct entries
+def get_longest_subarray_with_distinct_values(A: List[int]):
+    lookup: Dict[int, int] = {}
+    result = 0
+    longest_distinct_subarray_start_idx = 0
+
+    for idx, elem in enumerate(A):
+        if elem in lookup:
+            elem_last_idx = lookup[elem]
+            if elem_last_idx >= longest_distinct_subarray_start_idx:
+                result = max(result, idx - longest_distinct_subarray_start_idx)
+                longest_distinct_subarray_start_idx = elem_last_idx + 1
+
+        lookup[elem] = idx
+
+    return max(result, len(A) - longest_distinct_subarray_start_idx)
 
 #   12.9 find the length of a longest contained interval
+def get_longest_contained_interval(array: List[int]):
+    lookup = set(array)
+    result = 0
+    for elem in array:
+        if elem in lookup:
 
+            lower_bound = elem - 1
+            while lower_bound in lookup:
+                lookup.remove(lower_bound)
+                lower_bound -= 1
+
+            upper_bound = elem + 1
+            while upper_bound in lookup:
+                lookup.remove(upper_bound)
+                upper_bound += 1
+
+            result = max(result, upper_bound - lower_bound - 1)
+
+    return result
+
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# todo
 #   (12.7) find smallest subarray sequentially covering all values
-#   (12.8) find the longest subarray with distinct entries
 #   (12.10) compute all string decompositions
 #   (12.11) test the collatz conjecture
