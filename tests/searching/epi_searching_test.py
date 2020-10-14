@@ -1,9 +1,15 @@
 import unittest
+from util import generate_random_list, \
+    generate_distinct_random_list
 from searching.epi_searching import \
     find_first_occurrence, \
     search_entry_equal_to_its_index, \
     search_smallest, \
-    get_square_root
+    get_square_root, \
+    matrix_search, \
+    find_min_max_stream, \
+    find_kth_largest, \
+    find_duplicate_missing
 
 
 class EpiSearchingTestCase(unittest.TestCase):
@@ -59,6 +65,54 @@ class EpiSearchingTestCase(unittest.TestCase):
         self.assertEqual(818, get_square_root(670634))
         self.assertEqual(602, get_square_root(363371))
         self.assertEqual(29446, get_square_root(867079849))
+
+    def test_matrix_search(self):
+        matrix = [[-1, 2, 4, 4, 6],
+                  [1, 5, 5, 9, 21],
+                  [3, 6, 6, 9, 22],
+                  [3, 6, 8, 10, 24],
+                  [6, 8, 9, 12, 25],
+                  [7, 10, 12, 12, 25]]
+
+        row, col = matrix_search(matrix, 7)
+        self.assertEqual(5, row)
+        self.assertEqual(0, col)
+
+        row, col = matrix_search(matrix, 13)
+        self.assertEqual(-1, row)
+        self.assertEqual(-1, col)
+
+        row, col = matrix_search(matrix, 24)
+        self.assertEqual(3, row)
+        self.assertEqual(4, col)
+
+    def test_find_min_max_stream(self):
+        list = generate_distinct_random_list(5)
+        list_min, list_max = find_min_max_stream(list)
+        self.assertEqual(min(list), list_min)
+        self.assertEqual(max(list), list_max)
+
+    def test_find_kth_largest(self):
+        list = generate_distinct_random_list(10)
+        sorted_list = sorted(list)
+        k = 4
+        self.assertEqual(sorted_list[-4], find_kth_largest(list, k))
+
+        list = generate_distinct_random_list(20)
+        sorted_list = sorted(list)
+        k = 9
+        self.assertEqual(sorted_list[-k], find_kth_largest(list, k))
+
+    def test_find_duplicate_missing(self):
+        list = [5, 3, 0, 3, 1, 2]
+        missing, duplicate = find_duplicate_missing(list)
+        self.assertEqual(4, missing)
+        self.assertEqual(3, duplicate)
+
+        list = [1, 0, 2, 3, 8, 5, 6, 7, 4, 8]
+        missing, duplicate = find_duplicate_missing(list)
+        self.assertEqual(9, missing)
+        self.assertEqual(8, duplicate)
 
 
 if __name__ == '__main__':
