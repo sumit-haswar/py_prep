@@ -7,7 +7,7 @@ from random import randint
 
 import unittest
 
-
+@unittest.skip
 class SortAlgosTest(unittest.TestCase):
 
     def test_insertion_sort(self):

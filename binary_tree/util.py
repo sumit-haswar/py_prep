@@ -59,6 +59,41 @@ def build_1_to_10_bst():
     return five
 
 
+def build_epi_bst():
+    _19 = TreeNode(19)
+    _7 = TreeNode(7)
+    _3 = TreeNode(3)
+    _11 = TreeNode(11)
+    _2 = TreeNode(2)
+    _5 = TreeNode(5)
+    _17 = TreeNode(17, TreeNode(13))
+    _43 = TreeNode(43)
+    _23 = TreeNode(23)
+    _47 = TreeNode(47)
+    _37 = TreeNode(37)
+    _53 = TreeNode(53)
+    _29 = TreeNode(29)
+    _41 = TreeNode(41)
+    _31 = TreeNode(31)
+
+    _19.left = _7
+    _19.right = _43
+    _7.left = _3
+    _7.right = _11
+    _3.left = _2
+    _3.right = _5
+    _11.right = _17
+
+    _43.left = _23
+    _43.right = _47
+    _23.right = _37
+    _47.right = _53
+    _37.left = _29
+    _37.right = _41
+    _29.right = _31
+
+    return _19
+
 def build_non_balanced_bst():
     pass
 
