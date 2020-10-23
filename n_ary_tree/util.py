@@ -31,6 +31,7 @@ def print_n_ary_bfs(root):
             curr_queue = next_queue
             next_queue = temp
 
+
 def build_random_n_ary_tree():
     """
              5
@@ -59,6 +60,7 @@ def build_random_n_ary_tree():
     root = TreeNode(5, [_44, _8, _12])
 
     return root
+
 
 if __name__ == '__main__':
     root = build_random_n_ary_tree()
