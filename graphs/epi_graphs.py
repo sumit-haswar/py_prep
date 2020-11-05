@@ -1,5 +1,6 @@
 import collections
-from typing import Tuple, List
+import string
+from typing import Tuple, List, Set
 
 WHITE = 0
 BLACK = 1
@@ -30,9 +31,13 @@ class Coordinate():
 class GraphVertex():
     WHITE, GRAY, BLACK = range(3)
 
-    def __init__(self):
+    def __init__(self, val=0):
+        self.val = val
         self.color = GraphVertex.WHITE
         self.edges: List['GraphVertex'] = []
+
+    def __str__(self):
+        return "{} -> {} edges".format(str(self.val), len(self.edges))
 
 
 #   can team a beat team b
@@ -179,17 +184,88 @@ def is_deadlocked(graph: List[GraphVertex]) -> bool:
 
 
 #   18.5 clone a graph
-def clone_graph(node: GraphVertex) -> GraphVertex:
-    pass
+def clone_graph(root: GraphVertex) -> GraphVertex:
+    hash_map = {root: GraphVertex(root.val)}
+    q = collections.deque()
+    q.append(root)
+
+    while q:
+        curr = q.popleft()
+        curr_clone = hash_map[curr]
+        for edge in curr.edges:
+            if edge not in hash_map:
+                edge_clone = GraphVertex(edge.val)
+                hash_map[edge] = edge_clone
+                q.append(edge)
+            else:
+                edge_clone = hash_map[edge]
+
+            curr_clone.edges.append(edge_clone)
+
+    return hash_map[root]
 
 
-#   18.6 making wired connections
+def clone_graph_dfs(root: GraphVertex) -> GraphVertex:
+    def _clone_graph(curr: GraphVertex):
+
+        curr_clone = hash_map[curr]
+        for edge in curr.edges:
+            # all edges of curr should be appended to curr's clone
+            if edge in hash_map:
+                edge_clone = hash_map[edge]
+            else:
+                edge_clone = GraphVertex(edge.val)
+                hash_map[edge] = edge_clone
+                _clone_graph(edge)
+
+            curr_clone.edges.append(edge_clone)
+
+    hash_map = {root: GraphVertex(root.val)}
+    _clone_graph(root)
+    return hash_map[root]
+
 
 #   18.7 transform one string to another
+def transform_string(dictionary: Set[str], start: str, end: str):
+    q = collections.deque()
+    q.append((start, 0))
+    dictionary.remove(start)
 
+    while q:
+        word, d = q.popleft()
+        if word == end:
+            return d
+
+        for idx in range(len(word)):
+            for c in string.ascii_lowercase:
+                candidate = word[:idx] + c + word[idx + 1:]
+                if candidate in dictionary:
+                    dictionary.remove(candidate)
+                    q.append((candidate, d + 1))
+
+    return -1
+
+
+# todo
+#   18.6 making wired connections
 #   ---- advanced graph algorithms ----
-
 #   18.8 Team Photo Day - 2
+
+def get_dfs_traversal(node: GraphVertex):
+    def _dfs(curr: GraphVertex, curr_path: List[int]):
+        if not curr.edges:
+            path.append('->'.join([str(x) for x in curr_path]))
+            return
+
+        for edge in curr.edges:
+            curr_path.append(edge.val)
+            _dfs(edge, curr_path)
+            del curr_path[-1]
+
+    path = []
+    _dfs(node, [node.val])
+    return path
+
 
 def _get_adjacent_cells(x, y):
     return [

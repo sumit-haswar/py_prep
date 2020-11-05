@@ -156,7 +156,71 @@ class EpiGraphsTestCase(unittest.TestCase):
         self.assertTrue(is_deadlocked(graph))
 
     def test_clone_graph(self):
-        pass
+        a = self._create_simple_graph()
+
+        clone = clone_graph(a)
+
+        paths = get_dfs_traversal(a)
+
+        clone_paths = get_dfs_traversal(clone)
+
+        for idx, clone_path in enumerate(clone_paths):
+            self.assertEqual(paths[idx], clone_path)
+
+    def test_clone_graph_dfs(self):
+        a = self._create_simple_graph()
+
+        clone = clone_graph_dfs(a)
+
+        paths = get_dfs_traversal(a)
+
+        clone_paths = get_dfs_traversal(clone)
+
+        for idx, clone_path in enumerate(clone_paths):
+            self.assertEqual(paths[idx], clone_path)
+
+    def test_transform_string(self):
+        dictionary = self._get_dictionary()
+        path_len = transform_string(dictionary, 'bat', 'dag')
+        self.assertEqual(2, path_len)
+
+        dictionary = self._get_dictionary()
+        path_len = transform_string(dictionary, 'dot', 'bag')
+        self.assertEqual(3, path_len)
+
+    def _create_simple_graph(self):
+        a = GraphVertex(1)
+        b = GraphVertex(2)
+        c = GraphVertex(3)
+        d = GraphVertex(4)
+        e = GraphVertex(5)
+        f = GraphVertex(6)
+        g = GraphVertex(7)
+        x = GraphVertex(8)
+        y = GraphVertex(9)
+        l = GraphVertex(10)
+        a.edges.append(b)
+        a.edges.append(l)
+        b.edges.extend([c, x])
+        c.edges.append(d)
+        d.edges.extend([e, f, g])
+        x.edges.append(y)
+        # avoid cycles for now
+        # e.edges.append(b)
+        return a
+
+    def _get_dictionary(self):
+        dictionary = set()
+        dictionary.add('cat')
+        dictionary.add('dog')
+        dictionary.add('dat')
+        dictionary.add('bat')
+        dictionary.add('cot')
+        dictionary.add('dot')
+        dictionary.add('dag')
+        dictionary.add('bag')
+        return dictionary
+
 
 if __name__ == '__main__':
     unittest.main()
