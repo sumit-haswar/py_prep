@@ -15,8 +15,6 @@ PHONE_MAP = [
 ]
 
 
-#   todo 15.1 the tower of hanoi problem
-
 #   15.2 compute all mnemonics for a phone number
 def get_phone_mnemonic(phone_number: str):
     def _get_phone_mnemonic(curr_idx, mnemonic_list, result):
@@ -36,8 +34,6 @@ def get_phone_mnemonic(phone_number: str):
     _get_phone_mnemonic(0, mnemonic_list, result)
     return result
 
-
-#   todo 15.3 generate all non-attacking placements of n-queens
 
 #   15.4 generate permutations
 def generate_permutation(A: List[int]) -> List[List[int]]:
@@ -82,7 +78,8 @@ def generate_power_set(input_set: List[int]) -> List[List[int]]:
 
 
 # todo
-
+#   15.1 the tower of hanoi problem
+#   15.3 generate all non-attacking placements of n-queens
 #   15.6 generate all subsets of size k
 #   15.8 generate palindromic decompositions
 #   15.9 generate binary trees
