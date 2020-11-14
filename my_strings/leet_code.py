@@ -1,5 +1,6 @@
 from typing import List
 import math
+import collections
 
 # Input:
 # words = ["This", "is", "an", "example", "of", "text", "justification."]
@@ -72,6 +73,49 @@ def _format_line(buffer, word_count, max_width):
 
     return ''.join(write_stream)
 
+def minWindow(s: str, t: str) -> str:
+    # Input: s = "ADOBECODEBANC", t = "ABC"
+    # Output: "BANC"
+    counter = collections.Counter(t)
+    count = len(t)
+    curr_count = 0
+    left = 0
+    right = 0
+    best_result = None
+
+    while right < len(s):
+        if curr_count == count:
+            # left -> right contains t, so keep incrementing left
+            result = s[left: right]
+            while left < len(s):
+                curr = s[left]
+                if curr not in counter:
+                    left += 1
+                    result = s[left: right]
+                else:
+                    counter[curr] += 1
+                    if counter[curr] == 1:
+                        curr_count -= 1
+                        break
+                    else:
+                        left += 1
+                        result = s[left: right]
+            if best_result:
+                best_result = result if len(result) < len(best_result) else best_result
+            else:
+                best_result = result
+
+        # keep incrementing right
+        if s[right] in counter:
+            if counter[s[right]] == 1:
+                curr_count += 1
+            counter[s[right]] -= 1
+
+        right += 1
+
+
 if __name__ == '__main__':
-    line = fullJustify(None, ["This", "is", "an", "example", "of", "text", "justification."], 16)
-    print(line)
+    # line = fullJustify(None, ["This", "is", "an", "example", "of", "text", "justification."], 16)
+    result = minWindow(s = "ADOBECODEBANC", t = "ABC")
+
+    print(result)
