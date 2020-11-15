@@ -72,6 +72,8 @@ def generate_power_set(input_set: List[int]) -> List[List[int]]:
 
 #   15.7 generate strings of matched parens
 
+#   15.8 generate palindromic decompositions
+
 #   15.10 implement a sudoku solver
 
 #   15.11 compute a gray code
@@ -81,5 +83,4 @@ def generate_power_set(input_set: List[int]) -> List[List[int]]:
 #   15.1 the tower of hanoi problem
 #   15.3 generate all non-attacking placements of n-queens
 #   15.6 generate all subsets of size k
-#   15.8 generate palindromic decompositions
 #   15.9 generate binary trees
