@@ -85,7 +85,8 @@ def swap_bits(num, i, j):
 
 # 4.3   reverse bits
 def reverse_bits(num):
-    """Iterate through the 32 least significant bits and swap with corresponding 32 most significant bits"""
+    """Iterate through the 32 least significant bits and
+    swap with corresponding 32 most significant bits"""
     diff = 63
     for idx in range(0, 32):
         swap_idx = diff + idx

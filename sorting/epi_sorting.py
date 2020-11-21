@@ -67,8 +67,12 @@ def intersect_two_sorted_lists(arr_a: List[int], arr_b: List[int]) -> List[int]:
 
 
 #   13.2 merge two sorted arrays
-def merge_sorted_arrays(a: List[int], a_count, b: List[int], b_count) -> List[int]:
+def merge_sorted_arrays(a: List[int], a_count,
+                        b: List[int], b_count) -> List[int]:
+    # write from the right
     write_idx = a_count + b_count - 1
+
+    # read from the right
     read_idx_b = b_count - 1
     read_idx_a = a_count - 1
 
@@ -190,8 +194,8 @@ class Interval():
 
 
 #   13.7 merging intervals
-def add_interval(intervals: List[Interval], new_interval: Interval) \
-        -> List[Interval]:
+def add_interval(intervals: List[Interval],
+                 new_interval: Interval) -> List[Interval]:
     if not intervals:
         return [new_interval]
 
@@ -270,12 +274,11 @@ def group_by_age(names: List[Tuple]):
         curr = next(iter(age_to_indices))
         indices = age_to_indices[curr]
 
-        if not indices:
-            continue
-
         curr_idx = next(iter(indices))
         if i == curr_idx:
             indices.remove(curr_idx)
+            if not indices:
+                del age_to_indices[curr]
             continue
 
         indices.remove(curr_idx)
@@ -293,6 +296,27 @@ def group_by_age(names: List[Tuple]):
 
         if not indices:
             del age_to_indices[curr]
+
+
+class Team():
+
+    def __init__(self, players: List[int]):
+        self.players = players
+
+
+#   13.10 Team Photo Day - 1
+def valid_team_placement_exists(team_a: Team, team_b: Team) -> bool:
+    team_a.players.sort()
+    team_b.players.sort()
+
+    # check in lock-steps
+    for idx in range(len(team_a.players)):
+        player_a = team_a.players[idx]
+        player_b = team_b.players[idx]
+        if player_a < player_b:
+            return False
+
+    return True
 
 
 #   13.11 implement a fast sorting algorithm for lists
@@ -315,4 +339,3 @@ def stable_sort_linked_list(head: Node):
 
 # todo
 #   13.5 smallest non-constructible value
-#   13.10 Team Photo Day - 1
