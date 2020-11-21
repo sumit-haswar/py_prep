@@ -199,6 +199,15 @@ class EpiSortingTestCase(unittest.TestCase):
                     interval.right]
             self.assertListEqual([expected[idx][0], expected[idx][1]], curr)
 
+    def test_valid_team_placement_exists(self):
+        team_a = Team([180, 124, 150, 155, 130])
+        team_b = Team([180, 124, 150, 155, 130])
+
+        self.assertTrue(valid_team_placement_exists(team_a, team_b))
+
+        team_b = Team([181, 124, 150, 155, 130])
+        self.assertFalse(valid_team_placement_exists(team_a, team_b))
+
     def test_stable_sort_linked_list(self):
         head = Node(14)
         curr = head

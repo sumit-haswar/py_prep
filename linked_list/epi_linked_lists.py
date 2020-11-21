@@ -24,7 +24,7 @@ def merge_sorted_list(head_a: Node, head_b: Node) -> Node:
         if curr.next.data > candidate.data:
             next = curr.next
             curr.next = candidate
-            # curr = candidate
+            curr = candidate
             candidate = next
         else:
             curr = curr.next
