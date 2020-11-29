@@ -195,16 +195,21 @@ def get_longest_subarray_with_distinct_values(A: List[int]):
     lookup: Dict[int, int] = {}
     result = 0
     longest_distinct_subarray_start_idx = 0
-
+    result_idx = (-1, -1)
     for idx, elem in enumerate(A):
         if elem in lookup:
             elem_last_idx = lookup[elem]
+            # find if curr element's last-idx is within longest_start_index and curr idx
             if elem_last_idx >= longest_distinct_subarray_start_idx:
-                result = max(result, idx - longest_distinct_subarray_start_idx)
+                curr_result = idx - longest_distinct_subarray_start_idx
+                if result is None or curr_result > result:
+                    result = curr_result
+                    result_idx = (longest_distinct_subarray_start_idx, idx - 1)
                 longest_distinct_subarray_start_idx = elem_last_idx + 1
 
         lookup[elem] = idx
 
+    # we again perform max wherein longest_distinct_subarray_start_idx till the last idx was unique
     return max(result, len(A) - longest_distinct_subarray_start_idx)
 
 #   12.9 find the length of a longest contained interval

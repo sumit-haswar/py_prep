@@ -68,7 +68,7 @@ def dutch_national_flag(list, pivot_idx):
         elif list[right] == pivot:
             end -= 1
             _swap(list, right, end)
-        else:
+        else:   # list[right] > pivot
             right += 1
 
     # all greater than are from left + 1 to end - 1
