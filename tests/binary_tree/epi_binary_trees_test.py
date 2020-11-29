@@ -12,7 +12,10 @@ from binary_tree.epi_binary_trees import \
     get_successor, \
     inorder_traversal, \
     reconstruct_bt, \
-    compute_right_sibling_tree
+    compute_right_sibling_tree, \
+    create_list_of_leaves, \
+    compute_right_sibling_tree_recur, \
+    exterior_binary_tree
 
 
 class EpiBinaryTreesTestCase(unittest.TestCase):
@@ -114,10 +117,26 @@ class EpiBinaryTreesTestCase(unittest.TestCase):
 
         self.assertTrue(util.tree_equal(expected, bt))
 
+    def test_create_list_of_leaves(self):
+        tree = util.build_1_to_10_bst()
+        list = create_list_of_leaves(tree)
+        self.assertListEqual([1, 4, 6, 8, 10], list)
+
+    def test_exterior_binary_tree(self):
+        tree = util.build_1_to_10_bst()
+        list = exterior_binary_tree(tree)
+        self.assertListEqual([5,3,2,1,4,6,8,10,9], list)
+
     # todo complete unit-test
     def test_compute_right_sibling_tree(self):
         perfect_bt = util.build_perfect_bt()
         compute_right_sibling_tree(perfect_bt)
+        self.assertIsNotNone(perfect_bt)
+
+    # todo complete unit-test
+    def test_compute_right_sibling_tree_recur(self):
+        perfect_bt = util.build_perfect_bt()
+        perfect_bt = compute_right_sibling_tree_recur(perfect_bt)
         self.assertIsNotNone(perfect_bt)
 
     def _inorder(self, node: TreeNode):

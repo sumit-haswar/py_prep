@@ -1,5 +1,5 @@
 import typing
-from typing import List
+from typing import List, Iterable
 from .tree_node import TreeNode
 
 
@@ -101,7 +101,10 @@ def get_path_sum(root: TreeNode):
         if node is None:
             return 0
 
+        # preorder processing
         node_sum = (path_sum << 1) + node.data
+
+        # if leaf return
         if not node.left and not node.right:
             return node_sum
 
@@ -143,11 +146,14 @@ def get_kth_node(root: TreeNode, k: int) -> TreeNode:
     while curr:
         left_count = curr.left.count if curr.left else 0
         if left_count + 1 == k:
-            # this is the node
+            # this is the kth node
             return curr
         elif left_count >= k:
+            # k is to the left of current
             curr = curr.left
         else:
+            # kth is to the right of current
+            # - 1 is for current node
             curr = curr.right
             k = k - left_count - 1
 
@@ -194,12 +200,34 @@ def inorder_traversal(tree: TreeNode) -> List[int]:
                 next = curr.right
             else:
                 next = curr.parent
-        else:   # done with left, root and right, so go up
+        else:  # done with left, root and right, so go up
             next = curr.parent
 
         prev, curr = curr, next
 
     return result
+
+
+#   9.12 reconstruct a binary tree from preorder traversal with markers
+def reconstruct_bt_preorder(preorder: List[int]) -> TreeNode:
+    """
+                     5
+                 3        9
+               2  4     7   10
+              1        6 8
+    preorder: 5, 3, 2, 1, None, None, None, 4, None, None \
+        9, 7, 6, None, None, 8, None, None, 10 None, None
+    """
+
+    def _reconstruct_bt_preorder(seq: Iterable[int]) -> TreeNode:
+        curr = next(seq, None)
+        if curr is None:
+            return None
+        left = _reconstruct_bt_preorder(seq)
+        right = _reconstruct_bt_preorder(seq)
+        return TreeNode(curr, left, right)
+
+    return _reconstruct_bt_preorder(iter(preorder))
 
 
 #   9.11 reconstruct a bt with traversal data (inorder and pre/postorder)
@@ -244,7 +272,23 @@ def reconstruct_bt(inorder: List[int], preorder: List[int]) -> TreeNode:
 
     return _reconstruct_bt(0, len(inorder) - 1, 0, len(preorder) - 1)
 
-    #   (9.15) compute the right sibling tree
+
+#   9.13 form a linked-list from the leaves of a binary tree
+def create_list_of_leaves(root: TreeNode) -> List[TreeNode]:
+    def _get_leaf_list(node: TreeNode, seq: List[int]):
+        if node.left is None and node.right is None:
+            seq.append(node.data)
+            return
+
+        if node.left:
+            _get_leaf_list(node.left, seq)
+
+        if node.right:
+            _get_leaf_list(node.right, seq)
+
+    list = []
+    _get_leaf_list(root, list)
+    return list
 
 
 #   (9.15) compute right sibling tree for a perfect bt
@@ -265,8 +309,21 @@ def compute_right_sibling_tree(node: TreeNode):
         node = node.left
 
 
-# todo  9.7 inorder traversal without recursion
-# todo  9.12 reconstruct a binary tree from preorder traversal with markers
+def compute_right_sibling_tree_recur(root: TreeNode):
+    def _compute_right_sibling_tree_recur(node: TreeNode):
+        if node is None:
+            return
+        if node.left:
+            node.left.next = node.right
+
+        if node.right:
+            node.right.next = node.next.left if node.next else None
+
+        _compute_right_sibling_tree_recur(node.left)
+        _compute_right_sibling_tree_recur(node.right)
+
+    _compute_right_sibling_tree_recur(root)
+    return root
 
 
 def _get_height(node: TreeNode):
@@ -276,3 +333,53 @@ def _get_height(node: TreeNode):
         height += 1
         curr = curr.parent
     return height
+
+
+# 9.14 compute the exterior of a binary tree
+def exterior_binary_tree(root: TreeNode) -> List[int]:
+    def _traverse_left(node: TreeNode):
+        if node is None or (node.left is None and node.right is None):
+            return
+        # pre-order processing
+        exterior.append(node.data)
+
+        if node.left:
+            _traverse_left(node.left)
+        else:
+            _traverse_left(node.right)
+
+    def _traverse_right(node: TreeNode):
+        if node is None or (node.left is None and node.right is None):
+            return
+        if node.right:
+            _traverse_right(node.right)
+        else:
+            _traverse_right(node.left)
+        # post-order processing
+        exterior.append(node.data)
+
+    def _traverse_leaves(node: TreeNode):
+        if node.left is None and node.right is None:
+            exterior.append(node.data)
+            return
+
+        if node.left:
+            _traverse_leaves(node.left)
+
+        if node.right:
+            _traverse_leaves(node.right)
+
+    exterior = [root.data]
+
+    # traverse left branch
+    _traverse_left(root.left)
+    # traverse leaves of root.left
+    _traverse_leaves(root.left)
+    # traverse leaves of root.right
+    _traverse_leaves(root.right)
+    # traverse right branch
+    _traverse_right(root.right)
+
+    return exterior
+
+# todo  9.7 inorder traversal without recursion
