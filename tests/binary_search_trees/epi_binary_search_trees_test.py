@@ -1,6 +1,5 @@
 import unittest
 from binary_tree import util
-from binary_tree import TreeNode
 from binary_search_trees import *
 from binary_tree.epi_binary_trees import is_balanced
 
@@ -41,6 +40,15 @@ class EpiBinarySearchTreesTestCase(unittest.TestCase):
         epi_bst = util.build_epi_bst()
         self.assertEqual(43, get_lca(epi_bst, 53, 29).data)
 
+    def test_get_lca_iter(self):
+        bst = util.build_1_to_10_bst()
+        self.assertEqual(5, get_lca_iter(bst, 4, 7).data)
+        self.assertEqual(9, get_lca_iter(bst, 10, 7).data)
+        self.assertEqual(3, get_lca_iter(bst, 4, 1).data)
+
+        epi_bst = util.build_epi_bst()
+        self.assertEqual(43, get_lca_iter(epi_bst, 53, 29).data)
+
     def test_build_bst(self):
         bst = build_bst_from_preorder([43, 23, 37, 29, 31, 41, 47, 53])
         expected = util.build_epi_bst().right
@@ -63,7 +71,6 @@ class EpiBinarySearchTreesTestCase(unittest.TestCase):
                  [8, 16, 24]]
         actual = find_closest_elements_in_sorted_array(input)
         self.assertEqual(0, actual)
-
 
     def test_create_bst(self):
         list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -98,7 +105,7 @@ class EpiBinarySearchTreesTestCase(unittest.TestCase):
         result = get_range_in_bst(bst, 0, 1)
         self.assertListEqual([], result)
 
-        self.assertListEqual([7,11,13], get_range_in_bst(bst, 7, 15))
+        self.assertListEqual([7, 11, 13], get_range_in_bst(bst, 7, 15))
 
     def test_clients_credits_info(self):
         cci = ClientsCreditsInfo()

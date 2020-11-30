@@ -63,7 +63,7 @@ def find_greater_than_k(root: TreeNode, k: int) -> TreeNode:
 
 #   14.3 find kth largest elements in a bst
 def find_k_largest(root: TreeNode, k: int):
-    def _find_k_largest(node: TreeNode, seq):
+    def _find_k_largest(node: TreeNode, seq: List[int]):
         # reverse in-order traversal
         if node is None or len(seq) >= k:
             return
@@ -93,6 +93,23 @@ def get_lca(root: TreeNode, a: int, b: int):
         a, b = b, a
 
     return _get_lca(root, a, b)
+
+
+def get_lca_iter(root: TreeNode, node_a: int, node_b: int):
+    # wlog assume node_a < node_b
+    if node_a > node_b:
+        node_a, node_b = node_b, node_a
+
+    curr = root
+    while curr:
+        if node_a < curr.data < node_b:
+            return curr
+        elif node_a < curr.data and node_b < curr.data:
+            curr = curr.left
+        else:
+            curr = curr.right
+
+    return None
 
 
 #   14.5 reconstruct a bst from traversal data
@@ -172,8 +189,6 @@ def find_closest_elements_in_sorted_array(list_of_list: List[List[int]]):
             bst.add(Node(next_node, min_node.iterator))
 
 
-#   todo (14.7) enumerate extended integers
-
 #   14.8 build a min height bst from a sorted array
 def create_bst(seq: List[int]):
     def _create_bst(left: int, right: int):
@@ -197,7 +212,7 @@ def pair_includes_ancestor_and_descendant_of_m(candidate_0, candidate_1, node):
     ancestor = None
     while curr_0 or curr_1:
         if (curr_0 and curr_0.data == node.data) or (curr_1 and curr_1.data == node.data):
-            #todo assign ancestor
+            # todo assign ancestor
             ancestor = candidate_0 if curr_0 and curr_0.data == node.data else candidate_1
             break
         else:
@@ -223,6 +238,7 @@ def pair_includes_ancestor_and_descendant_of_m(candidate_0, candidate_1, node):
 
     return False
 
+
 #   (14.10) the range lookup problem
 def get_range_in_bst(root: TreeNode, lower: int, upper: int) -> List[int]:
     def _get_range_in_bst(node, seq):
@@ -245,7 +261,6 @@ def get_range_in_bst(root: TreeNode, lower: int, upper: int) -> List[int]:
 
 
 #   ____________________  augmented BSTs ____________________
-
 #   (14.11) add credits
 class ClientsCreditsInfo:
 
@@ -253,7 +268,6 @@ class ClientsCreditsInfo:
         self.hash_map = {}
         self.bst = SortedDict()
         self.CREDIT = 0
-
 
     def insert(self, client_id, credit):
         self.remove(client_id)
@@ -291,3 +305,5 @@ class ClientsCreditsInfo:
 
     def get_max(self):
         return self.bst.peekitem()[1]
+
+#   todo (14.7) enumerate extended integers
