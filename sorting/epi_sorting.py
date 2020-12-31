@@ -165,6 +165,7 @@ def find_max_simultaneous_events(events: List[Event]) -> int:
         endpoints.append(start)
         endpoints.append(end)
 
+    # sort endpoints by val
     endpoints.sort()
 
     max_events = 0
@@ -210,6 +211,7 @@ def add_interval(intervals: List[Interval],
         result.append(curr)
         idx += 1
 
+    # combine curr and new_interval
     new_interval = Interval(min(curr.left, new_interval.left),
                             max(curr.right, new_interval.right))
     # keep combining till current is to right of new_interval

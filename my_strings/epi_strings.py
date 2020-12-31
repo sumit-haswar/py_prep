@@ -150,6 +150,7 @@ def roman_to_int(s: str) -> int:
     sum = look_up[s[-1]]
     for curr_idx in reversed(range(len(s) - 1)):
 
+        # if curr >= elem to the right, if not then subtract current
         if look_up[s[curr_idx]] >= look_up[s[curr_idx + 1]]:
             val = look_up[s[curr_idx]]
         else:
@@ -158,6 +159,11 @@ def roman_to_int(s: str) -> int:
         sum += val
 
     return sum
+
+
+#   6.9 compute all valid IP addresses
+def get_valid_ip_address(ip: str):
+    pass
 
 
 #   6.11 implement run length encoding
