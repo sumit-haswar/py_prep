@@ -68,7 +68,7 @@ def dutch_national_flag(list, pivot_idx):
         elif list[right] == pivot:
             end -= 1
             _swap(list, right, end)
-        else:   # list[right] > pivot
+        else:  # list[right] > pivot
             right += 1
 
     # all greater than are from left + 1 to end - 1
@@ -120,9 +120,14 @@ def multiply_two_numbers(num1, num2):
     result = [0] * (len(num1) + len(num2))
 
     num2_idx = len(num2) - 1
+
+    # iterate on steps which is the digits in multiplier
+    # dec num2_idx by 1 after each multiplication
     for step in range(0, len(num2)):
 
         result_idx = len(result) - 1 - step
+
+        #iterate on num1 from right to left
         for num1_idx in reversed(range(len(num1))):
             prod = num1[num1_idx] * num2[num2_idx]
 
@@ -298,9 +303,14 @@ def is_valid_sudoku(grid):
 
     return True
 
-#   TODO:
-#   5.18 compute the spiral ordering of a 2-d array
+
 #   5.10 permute the elements of an array
+def apply_permutation():
+    pass
+
+
+# todo
+#   5.18 compute the spiral ordering of a 2-d array
 #   5.19 rotate a 2-d array
 
 def _swap(list, idx_a, idx_b):
