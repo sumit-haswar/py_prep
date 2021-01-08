@@ -1,5 +1,5 @@
 import collections
-
+from collections import defaultdict
 
 # Given an 2-d array of integers, find the size of the largest contiguous block
 # (horizontally/vertically connected only) of numbers with the same value.
@@ -81,6 +81,58 @@ def _get_adjacent_cells(row, col):
     left = (row, col - 1)
 
     return [top, right, bottom, left]
+
+
+def get_min_score(products_nodes, products_from, products_to):
+    # create graph map
+    from_idx, to_idx = 0, 0
+    graph_map = defaultdict(set)
+    while from_idx < len(products_from):
+        source = products_from[from_idx]
+        sink = products_to[to_idx]
+
+        graph_map[source].add(sink)
+        graph_map[sink].add(source)
+
+        from_idx += 1
+        to_idx += 1
+
+    tri_cycles = {}
+
+    for node in products_nodes:
+        start = [node]
+        get_tri_cycle(node, node, 0, start, graph_map, tri_cycles)
+
+    min_trio_product = None
+    # iter through trios and get minimum
+    for trio, trio_nodes in tri_cycles.items():
+        trio_product = 0
+        for curr in trio_nodes:
+            # get edges of curr
+            for edge in graph_map[curr]:
+                if edge not in trio_nodes:
+                    trio_product += 1
+
+        min_trio_product = trio_product if min_trio_product is None else min(min_trio_product, trio_product)
+
+    return min_trio_product if min_trio_product else -1
+
+
+def get_tri_cycle(curr_node, source_node, level, seq, graph_map, tri_cycles):
+    if level > 3:
+        return
+
+    if curr_node == source_node and level == 3:
+        curr_seq = set(sorted(seq))
+        trio_signature = '-'.join([str(e) for e in curr_seq])
+        if trio_signature not in tri_cycles:
+            tri_cycles[trio_signature] = curr_seq
+        return
+
+    for edge in graph_map[curr_node]:
+        seq.append(edge)
+        get_tri_cycle(edge, source_node, level + 1, seq, graph_map, tri_cycles)
+        del seq[-1]
 
 
 # 3 3 3 3 3 1

@@ -86,6 +86,31 @@ class MyTestCase(unittest.TestCase):
             self.assertEqual(expected[idx][1], traffic_elem.volume)
             idx += 1
 
+    def test_calculate_trapping_water(self):
+        heights = [1, 2, 1, 2, 3, 5, 4, 4, 5, 2, 3, 0, 4]
+        capacity = calculate_trapping_water(heights)
+        self.assertEqual(10, capacity)
+
+        heights = [10, 2, 1, 2, 3, 5, 4, 4, 5, 2, 3, 0, 4]
+        capacity = calculate_trapping_water(heights)
+        self.assertEqual(21, capacity)
+
+    def test_find_longest_increasing_subarray(self):
+        pass
+
+    def test_compute_skyline(self):
+        buildings = [
+            Building(0, 2, 1),
+            Building(1, 4, 2),
+            Building(2, 3, 3),
+            Building(3, 6, 1),
+        ]
+        skyline = compute_skyline(buildings)
+        print(skyline)
+
+    def test_is_match(self):
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

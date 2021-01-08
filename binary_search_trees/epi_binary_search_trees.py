@@ -265,7 +265,9 @@ def get_range_in_bst(root: TreeNode, lower: int, upper: int) -> List[int]:
 class ClientsCreditsInfo:
 
     def __init__(self):
+        # key is client-id
         self.hash_map = {}
+        # key is credit, value is set
         self.bst = SortedDict()
         self.CREDIT = 0
 
