@@ -234,6 +234,7 @@ def transform_string(dictionary: Set[str], start: str, end: str):
     while q:
         word, d = q.popleft()
         if word == end:
+            # return depth
             return d
 
         for idx in range(len(word)):

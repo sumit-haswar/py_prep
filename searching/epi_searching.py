@@ -78,6 +78,7 @@ def matrix_search(matrix, num):
     rows = len(matrix)
     cols = len(matrix[0])
 
+    # start with top right
     curr_row = 0
     curr_col = cols - 1
     while curr_row < rows and curr_col < cols:

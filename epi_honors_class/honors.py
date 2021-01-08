@@ -3,6 +3,60 @@ from linked_list import Node
 import collections
 
 
+class TrafficElement:
+    def __init__(self, time, volume):
+        self.time = time
+        self.volume = volume
+
+    def __lt__(self, other):
+        return self.volume < other.volume
+
+    def __eq__(self, other):
+        return self.time == other.time and self.volume == other.volume
+
+
+class QueueWithMax:
+    def __init__(self):
+        self.queue = collections.deque()
+        self.max_dq = collections.deque()
+
+    def get_head(self):
+        return self.queue[0]
+
+    def enqueue(self, elem):
+        self.queue.append(elem)
+        # pop all less than curr from tail
+        while self.max_dq and self.max_dq[-1] < elem:
+            self.max_dq.pop()
+        self.max_dq.append(elem)
+
+    def dequeue(self):
+        # deque and pop from max, if max is curr
+        elem = self.queue.popleft()
+        if self.max_dq[0] == elem:
+            self.max_dq.popleft()
+        return elem
+
+    def get_max(self):
+        return self.max_dq[0]
+
+
+class Building:
+    def __init__(self, left, right, height):
+        self.left = left
+        self.right = right
+        self.height = height
+
+    def __lt__(self, other):
+        if self.left != other.left:
+            return self.left < other.left
+        else:
+            return self.right < other.right
+
+    def __str__(self):
+        return "{}-{}, {}".format(self.left, self.right, self.height)
+
+
 #   24.01 gcd
 def gcd_mod(x: int, y: int) -> int:
     if x > y:
@@ -129,44 +183,6 @@ def _reverse_ll(head: Node):
     return prev
 
 
-class TrafficElement:
-    def __init__(self, time, volume):
-        self.time = time
-        self.volume = volume
-
-    def __lt__(self, other):
-        return self.volume < other.volume
-
-    def __eq__(self, other):
-        return self.time == other.time and self.volume == other.volume
-
-
-class QueueWithMax:
-    def __init__(self):
-        self.queue = collections.deque()
-        self.max_dq = collections.deque()
-
-    def get_head(self):
-        return self.queue[0]
-
-    def enqueue(self, elem):
-        self.queue.append(elem)
-        # pop all less than curr from tail
-        while self.max_dq and self.max_dq[-1] < elem:
-            self.max_dq.pop()
-        self.max_dq.append(elem)
-
-    def dequeue(self):
-        # deque and pop from max
-        elem = self.queue.popleft()
-        if self.max_dq[0] == elem:
-            self.max_dq.popleft()
-        return elem
-
-    def get_max(self):
-        return self.max_dq[0]
-
-
 #   24.12 compute max of a sliding window
 def calculate_traffic_volumes(arr: List[TrafficElement], width: int):
     result = []
@@ -184,20 +200,61 @@ def calculate_traffic_volumes(arr: List[TrafficElement], width: int):
 
     return result
 
+
 #   24.18 find line through most points
 
 #   24.19 convert a sorted doubly linked list to a bst
 
 #   24.22 implement regular expression matching
+def is_match(regex: str, s: str) -> bool:
+    pass
+
 
 #   24.29 find the maximum 2D subarray
 
-# --------------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 
 #   24.05 longest contiguous increasing subarray
+def find_longest_increasing_subarray(arr: List[int]):
+    pass
+
 
 #   24.25 draw the skyline
+def compute_skyline(buildings: List[Building]):
+    # buildings = sorted(buildings)
+    skyline_seq = [0] * (buildings[-1].right - buildings[0].left + 1)
+
+    for building in buildings:
+        for point in range(building.left, building.right + 1):
+            skyline_seq[point] = max(skyline_seq[point], building.height)
+
+    return skyline_seq
+
 
 #   24.31 trapping water
+def calculate_trapping_water(heights: List[int]) -> int:
+    # find idx of max in heights
+    max_idx = 0
+    max_height = heights[0]
+    for idx, height in enumerate(heights):
+        if height > max_height:
+            max_idx = idx
+            max_height = height
+
+    def _get_capacity(seq):
+        capacity = 0
+        max_height = float('-inf')
+        for height in seq:
+            if height >= max_height:
+                max_height = height
+            else:
+                capacity += (max_height - height)
+
+        return capacity
+
+    capacity_left = _get_capacity(heights[:max_idx])
+    capacity_right = _get_capacity(reversed(heights[max_idx + 1:]))
+
+    return capacity_left + capacity_right
 
 #   24.34 road network
