@@ -28,6 +28,22 @@ from collections import defaultdict
 # 1 1 1 1 1
 # Answer: 24 (of 1s)
 
+class Edge:
+    def __init__(self, weight):
+        self.weight = weight
+
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.edges = {}
+
+    def add_neighbor(self, node, weight):
+        self.edges[node] = weight
+
+class Graph:
+    def __init__(self):
+        pass
+
 def find_max_contiguous_block(input) -> int:
     rows = len(input)  # 4
     cols = len(input[0])  # 5
@@ -134,6 +150,13 @@ def get_tri_cycle(curr_node, source_node, level, seq, graph_map, tri_cycles):
         get_tri_cycle(edge, source_node, level + 1, seq, graph_map, tri_cycles)
         del seq[-1]
 
+
+def create_mst_prims(graph: {}, start_node: Node):
+    in_tree = set()
+
+
+def create_mst_kruskal():
+    pass
 
 # 3 3 3 3 3 1
 # 3 4 4 4 3 4

@@ -92,6 +92,26 @@ def gcd(x: int, y: int) -> int:
         return gcd(x, y >> 1)
 
 
+#
+def find_first_missing_positive(arr: List[int]) -> int:
+    # one approach: sort arr, look for 0
+    # and move right till missing entry found
+
+    # another approach is to use hashtable A --> S and
+    # iter from 1 to len(arr)
+
+    # set A[k-1] to k
+
+    for idx, elem in enumerate(arr):
+        if elem > 0:
+            pass
+
+
+#   24.05
+def find_longest_increasing_subarray(arr: List[int]):
+    pass
+
+
 #   24.06 rotate an array
 def rotate_array(arr: List[int], offset: int):
     offset = offset % len(arr)
@@ -108,11 +128,9 @@ def rotate_array(arr: List[int], offset: int):
     return arr
 
 
-def _reverse(arr, left, right):
-    while left < right:
-        arr[left], arr[right] = arr[right], arr[left]
-        left += 1
-        right -= 1
+#   24.07 rook attach
+def rook_attack(matrix: List[List[int]]):
+    pass
 
 
 #   24.08 justify text
@@ -201,22 +219,59 @@ def calculate_traffic_volumes(arr: List[TrafficElement], width: int):
     return result
 
 
+#   24.13 compute fair bonuses
+def calculate_bonus(productivity: List[int]):
+    pass
+
+
+#   24.14
+def binary_search_unknown_length(seq: List[int], k: int):
+    pass
+
+
 #   24.18 find line through most points
 
-#   24.19 convert a sorted doubly linked list to a bst
+#   24.20 convert a bst to sorted doubly linked list
 
 #   24.22 implement regular expression matching
 def is_match(regex: str, s: str) -> bool:
-    pass
+    def _is_match(regex: str, s: str) -> bool:
+        # blank regex matches anything
+        if not regex:
+            return True
+
+        if regex == '$':
+            # string should now be empty
+            return not s
+
+        # if regex is <<something>>*
+        if len(regex) >= 2 and regex[1] == "*":
+            # check for <<something>>*
+            # start with second-char of string and compare previous
+            string_pivot = 1
+            while string_pivot <= len(s) and regex[0] in ('.', s[string_pivot - 1]):
+                if _is_match(regex[2:], s[string_pivot:]):
+                    return True
+                string_pivot += 1
+
+            return _is_match(regex[2:], s)
+
+        # lock-step comparison for direct match and .,
+        # recur for rest
+        return (s and regex[0] in ('.', s[0])) \
+               and _is_match(regex[1:], s[1:])
+
+    if regex[0] == "^":
+        return _is_match(regex[1:], s)
+
+    return any([_is_match(regex, s[pivot:]) for pivot in range(len(s) + 1)])
 
 
 #   24.29 find the maximum 2D subarray
 
-# ---------------------------------------------------------------------------
+#   24.23 synthesize an expression
 
-#   24.05 longest contiguous increasing subarray
-def find_longest_increasing_subarray(arr: List[int]):
-    pass
+# ---------------------------------------------------------------------------
 
 
 #   24.25 draw the skyline
@@ -257,4 +312,14 @@ def calculate_trapping_water(heights: List[int]) -> int:
 
     return capacity_left + capacity_right
 
-#   24.34 road network
+
+#   24.35 test if arbitrage is possible
+def is_arbitrage_exist():
+    pass
+
+
+def _reverse(arr, left, right):
+    while left < right:
+        arr[left], arr[right] = arr[right], arr[left]
+        left += 1
+        right -= 1
