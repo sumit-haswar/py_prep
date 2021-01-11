@@ -95,9 +95,6 @@ class MyTestCase(unittest.TestCase):
         capacity = calculate_trapping_water(heights)
         self.assertEqual(21, capacity)
 
-    def test_find_longest_increasing_subarray(self):
-        pass
-
     def test_compute_skyline(self):
         buildings = [
             Building(0, 2, 1),
@@ -109,6 +106,21 @@ class MyTestCase(unittest.TestCase):
         print(skyline)
 
     def test_is_match(self):
+        pass
+
+    def test_find_longest_increasing_subarray(self):
+        pass
+
+    def test_find_first_missing_positive(self):
+        pass
+
+    def test_rook_attack(self):
+        pass
+
+    def test_calculate_bonus(self):
+        pass
+
+    def test_binary_search_unknown_length(self):
         pass
 
 
