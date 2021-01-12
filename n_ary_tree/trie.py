@@ -45,6 +45,7 @@ class Trie():
     def _get_trie_node(self, word: str) -> Optional[TrieNode]:
         curr = self.root
 
+        # iter word for each character
         for idx, ch in enumerate(word):
             if ch in curr.children:
                 curr = curr.children[ch]
@@ -57,6 +58,7 @@ class Trie():
         if not subtree_node:
             return
         if not subtree_node.children:
+            # add leaf node to list
             word_list.append(subtree_node.word)
             return
         for child in subtree_node.children.values():

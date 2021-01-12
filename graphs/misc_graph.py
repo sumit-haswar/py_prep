@@ -1,6 +1,7 @@
 import collections
 from collections import defaultdict
 
+
 # Given an 2-d array of integers, find the size of the largest contiguous block
 # (horizontally/vertically connected only) of numbers with the same value.
 
@@ -32,17 +33,18 @@ class Edge:
     def __init__(self, weight):
         self.weight = weight
 
+
 class Node:
     def __init__(self, val):
         self.val = val
         self.edges = {}
 
-    def add_neighbor(self, node, weight):
-        self.edges[node] = weight
+    def add_neighbor(self, node_val, weight):
+        self.edges[node_val] = weight
 
-class Graph:
-    def __init__(self):
-        pass
+    def __str__(self):
+        return "Val: {}".format(self.val)
+
 
 def find_max_contiguous_block(input) -> int:
     rows = len(input)  # 4
@@ -154,9 +156,40 @@ def get_tri_cycle(curr_node, source_node, level, seq, graph_map, tri_cycles):
 def create_mst_prims(graph: {}, start_node: Node):
     in_tree = set()
 
+    curr_node = start_node
+
+    distance = {}
+    parent = {}
+    for key in graph.keys():
+        distance[key] = float('inf')
+
+    distance[start_node.val] = 0
+
+    while curr_node.val not in in_tree:
+        # mark current node as visited and in tree
+        in_tree.add(curr_node.val)
+
+        # iter all the edges of current node and update distances and parent
+        for adj_node_val, weight in curr_node.edges.items():
+
+            if distance[adj_node_val] > weight and adj_node_val not in in_tree:
+                distance[adj_node_val] = weight
+                parent[adj_node_val] = curr_node.val
+
+        # iter all vertices of graph and set curr_node to min of unvisited
+        min_dist = float('inf')
+        for node_val in graph.keys():
+            node = graph[node_val]
+            if node.val not in in_tree and min_dist > distance[node.val]:
+                min_dist = distance[node.val]
+                curr_node = node
+
+    return parent
+
 
 def create_mst_kruskal():
     pass
+
 
 # 3 3 3 3 3 1
 # 3 4 4 4 3 4
