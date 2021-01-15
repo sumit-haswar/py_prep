@@ -231,5 +231,29 @@ def rabin_karp(pattern: str, text: str) -> int:
 
     return -1
 
+# Former Coding Interview Question: Compression and Decompression
+# 3[abc]4[ab]c  --> abcabcabcababababc
+# 2[3[a]b]      --> aaabaaab
+# 2[a3[b]c]      --> abbbcabbbc
+def decompress(text: str) -> str:
+    num_stack = []
+    str_stack = []
+    idx = 1
+    curr_seq = [text[0]]
+    while idx < len(text):
+        curr = text[idx]
+
+        if curr == '[':
+            # curr_seq must be a number push to stack and clear
+            count = int(''.join(curr_seq))
+            num_stack.append(count)
+        elif curr == ']':
+            # termination of bracket, so process
+            pass
+        else:
+            curr_seq.append(curr)
+
+        idx += 1
+
 #   6.7 look and say problem
 #   6.10 write a string sinusoidally

@@ -1,5 +1,6 @@
 import collections
 from collections import defaultdict
+from typing import List
 
 
 # Given an 2-d array of integers, find the size of the largest contiguous block
@@ -153,17 +154,22 @@ def get_tri_cycle(curr_node, source_node, level, seq, graph_map, tri_cycles):
         del seq[-1]
 
 
-def create_mst_prims(graph: {}, start_node: Node):
+# -- -- -- -- -- -- weighted graph algorithms -- -- -- -- -- --
+
+def create_mst_prims(graph, start_node: Node):
+    # set to determine if a node is in the mst we are constructing
     in_tree = set()
 
     curr_node = start_node
 
+    # node and distance map
     distance = {}
-    parent = {}
     for key in graph.keys():
         distance[key] = float('inf')
-
     distance[start_node.val] = 0
+
+    # parent-of map
+    parent = {}
 
     while curr_node.val not in in_tree:
         # mark current node as visited and in tree
@@ -176,7 +182,7 @@ def create_mst_prims(graph: {}, start_node: Node):
                 distance[adj_node_val] = weight
                 parent[adj_node_val] = curr_node.val
 
-        # iter all vertices of graph and set curr_node to min of unvisited
+        # iter over all vertices of graph and set curr_node to min of unvisited
         min_dist = float('inf')
         for node_val in graph.keys():
             node = graph[node_val]
@@ -187,9 +193,79 @@ def create_mst_prims(graph: {}, start_node: Node):
     return parent
 
 
+#   todo mst kruskal and union-sets
 def create_mst_kruskal():
     pass
 
+
+# dijkstra
+def dijkstra(graph, start_node: Node):
+    visited = set()
+
+    # create distance map for each node, init start to 0
+    distance = {}
+    for node_val in graph.keys():
+        distance[node_val] = float('inf')
+    distance[start_node.val] = 0
+
+    # node - parent lookup
+    parent_of = {}
+
+    curr_node = start_node
+    while curr_node.val not in visited:
+
+        visited.add(curr_node.val)
+
+        for adj_node, weight in curr_node.edges.items():
+            if distance[adj_node] > (distance[curr_node.val] + weight):  ##
+                distance[adj_node] = distance[curr_node.val] + weight  ##
+                parent_of[adj_node] = curr_node.val  ##
+
+        dist = float('inf')
+        # get the min non-visited of all nodes in graph
+        for node_val, node in graph.items():
+            if node_val not in visited and distance[node_val] < dist:
+                dist = distance[node_val]
+                curr_node = node
+
+    return distance, parent_of
+
+
+# floyd warshall
+def floyd_warshall(graph):
+    # convert graph to adj-matrix
+    node_val_to_idx = {}
+    curr_idx = 0
+    for node_val in graph.keys():
+        node_val_to_idx[node_val] = curr_idx
+        curr_idx += 1
+
+    adj_matrix = []
+    for node_val in range(len(graph)):
+        curr_row = []
+        for node_val in range(len(graph)):
+            curr_row.append(float('inf'))
+        adj_matrix.append(curr_row)
+
+    for node_val, node in graph.items():
+        source_idx = node_val_to_idx[node_val]
+        for neighbor, weight in node.edges.items():
+            sink_idx = node_val_to_idx[neighbor]
+            adj_matrix[source_idx][sink_idx] = weight
+
+    for k in range(len(graph)):
+        for i in range(len(graph)):
+            for j in range(len(graph)):
+                cost_through_k = adj_matrix[i][k] + adj_matrix[k][j]
+                if cost_through_k < adj_matrix[i][j]:
+                    adj_matrix[i][j] = cost_through_k
+
+    return adj_matrix, node_val_to_idx
+
+# todo read about transitive closure
+# todo netflow and bipartite matching
+
+# bellman ford
 
 # 3 3 3 3 3 1
 # 3 4 4 4 3 4

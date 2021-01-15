@@ -1,5 +1,5 @@
 import unittest
-from graphs.misc_graph import Node, create_mst_prims
+from graphs.misc_graph import Node, create_mst_prims, dijkstra
 
 
 class MiscGraphTestCase(unittest.TestCase):
@@ -11,6 +11,21 @@ class MiscGraphTestCase(unittest.TestCase):
         weight_total = self._get_edge_weight_total(graph, parent_map)
         self.assertEqual(23, weight_total)
 
+    def test_dijkstra(self):
+        graph = self._create_graph()
+        distance_map, parent_map = dijkstra(graph, graph['a'])
+
+        expected_distance = {
+            'a': 0,
+            'b': 5,
+            'g': 7,
+            'f': 11,
+            'c': 11,
+            'e': 10,
+            'd': 12
+        }
+        self.assertDictEqual(expected_distance, distance_map)
+
     def _get_edge_weight_total(self, graph, parent_map):
         weight_total = 0
         for src, sink in parent_map.items():
@@ -18,6 +33,7 @@ class MiscGraphTestCase(unittest.TestCase):
             weight_total += src_node.edges[sink]
 
         return weight_total
+
 
     def _create_graph(self):
         a = Node('a')
