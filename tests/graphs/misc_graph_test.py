@@ -1,5 +1,5 @@
 import unittest
-from graphs.misc_graph import Node, create_mst_prims, dijkstra
+from graphs.misc_graph import Node, create_mst_prims, dijkstra, create_mst_kruskal
 
 
 class MiscGraphTestCase(unittest.TestCase):
@@ -26,6 +26,20 @@ class MiscGraphTestCase(unittest.TestCase):
         }
         self.assertDictEqual(expected_distance, distance_map)
 
+    def test_create_mst_kruskal(self):
+        graph = self._create_graph()
+        edge_list = create_mst_kruskal(graph)
+
+        mst_weight = 0
+        node_set = set()
+        for edge in edge_list:
+            node_set.add(edge.source)
+            node_set.add(edge.sink)
+            mst_weight += edge.weight
+
+        self.assertSetEqual(set('abcdefg'), node_set)
+        self.assertEqual(23, mst_weight)
+
     def _get_edge_weight_total(self, graph, parent_map):
         weight_total = 0
         for src, sink in parent_map.items():
@@ -33,7 +47,6 @@ class MiscGraphTestCase(unittest.TestCase):
             weight_total += src_node.edges[sink]
 
         return weight_total
-
 
     def _create_graph(self):
         a = Node('a')
@@ -86,7 +99,6 @@ class MiscGraphTestCase(unittest.TestCase):
         }
 
         return graph
-
 
 if __name__ == '__main__':
     unittest.main()
