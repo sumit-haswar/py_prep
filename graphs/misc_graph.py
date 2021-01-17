@@ -1,6 +1,7 @@
 import collections
 from collections import defaultdict
 from typing import List
+from .set_union import SetUnion
 
 
 # Given an 2-d array of integers, find the size of the largest contiguous block
@@ -31,8 +32,17 @@ from typing import List
 # Answer: 24 (of 1s)
 
 class Edge:
-    def __init__(self, weight):
+    def __init__(self, source, sink, weight):
+        self.source = source
+        self.sink = sink
         self.weight = weight
+
+    def __lt__(self, other):
+        return self.weight < other.weight \
+            if self.weight != other.weight else self.sink < other.sink
+
+    def __str__(self):
+        return "{} <--{}--> {}".format(self.source, self.weight, self.sink)
 
 
 class Node:
@@ -193,9 +203,30 @@ def create_mst_prims(graph, start_node: Node):
     return parent
 
 
-#   todo mst kruskal and union-sets
-def create_mst_kruskal():
-    pass
+def create_mst_kruskal(graph) -> List[Edge]:
+    # create edge list from graph
+    edges = []
+    edge_set = set()
+    for node_val, node in graph.items():
+        for sink, weight in node.edges.items():
+            edge_key = ''.join(sorted((node_val, sink)))
+            if edge_key not in edge_set:
+                edge_set.add(edge_key)
+                edges.append(Edge(node_val, sink, weight))
+
+    edges.sort()
+
+    set_union = SetUnion(graph)
+
+    result_edges = []
+
+    while edges:
+        curr_edge = edges.pop(0)
+        if not set_union.same_component(curr_edge.source, curr_edge.sink):
+            result_edges.append(Edge(curr_edge.source, curr_edge.sink, curr_edge.weight))
+            set_union.union_set(curr_edge.sink, curr_edge.source)
+
+    return result_edges
 
 
 # dijkstra
@@ -231,7 +262,7 @@ def dijkstra(graph, start_node: Node):
     return distance, parent_of
 
 
-# floyd warshall
+# floyd warshall (all-pairs shortest path)
 def floyd_warshall(graph):
     # convert graph to adj-matrix
     node_val_to_idx = {}
@@ -262,10 +293,9 @@ def floyd_warshall(graph):
 
     return adj_matrix, node_val_to_idx
 
-# todo read about transitive closure
-# todo netflow and bipartite matching
 
-# bellman ford
+# todo netflow and bipartite matching
+# todo bellman ford
 
 # 3 3 3 3 3 1
 # 3 4 4 4 3 4
