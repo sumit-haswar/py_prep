@@ -93,3 +93,39 @@ class Permutation(Backtrack):
                 candidates.append(i)
 
         return len(candidates)
+
+
+class AllPaths(Backtrack):
+
+    def __init__(self, graph):
+        super().__init__()
+        self.graph = graph
+
+    def process_solution(self, a, k, input_data):
+        solution = []
+        for i in range(1, k + 1):
+            solution.append("{}".format(a[i]))
+        self.result.append(','.join(solution))
+
+    def is_a_solution(self, a, k, input_data):
+        return a[k] == input_data['dest']
+
+    def construct_candidates(self, a, k, input_data, candidates):
+        visited = set()
+
+        # mark all nodes from 1 to k as visited
+        for i in range(1, k):
+            visited.add(a[i])
+
+        if k == 1:  # in first execution the only candidate is the source
+            candidates.append(input_data['source'])
+            return 1
+        else:
+            # get the last node of current recursion tree
+            # iter through its neighbors and add them as candidates
+            last_node_val = a[k - 1]
+            last_node = self.graph[last_node_val]
+            for node_val in last_node.edges.keys():
+                if node_val not in visited:
+                    candidates.append(node_val)
+            return len(candidates)

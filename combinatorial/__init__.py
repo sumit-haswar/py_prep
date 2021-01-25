@@ -1,1 +1,1 @@
-from .backtrack import Subsets, Backtrack, Permutation
+from .backtrack import Subsets, Backtrack, Permutation, AllPaths
