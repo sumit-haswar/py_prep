@@ -50,7 +50,7 @@ class Node:
         self.val = val
         self.edges = {}
 
-    def add_neighbor(self, node_val, weight):
+    def add_neighbor(self, node_val, weight=0):
         self.edges[node_val] = weight
 
     def __str__(self):

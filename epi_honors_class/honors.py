@@ -143,6 +143,7 @@ def justify_text(text: str, limit: int) -> List[str]:
 
     for word in text_list:
         if curr_line_len + len(word) + len(curr_line) > limit:
+
             for i in range(limit - curr_line_len):
                 curr_line[i % max(len(curr_line) - 1, 1)] += ' '
             result.append(''.join(curr_line))
@@ -152,6 +153,7 @@ def justify_text(text: str, limit: int) -> List[str]:
         curr_line_len += len(word)
 
     last_line = ' '.join(curr_line)
+    # pad spaces to the right of the last line
     last_line = last_line + ' ' * (limit - len(last_line))
     return result + [last_line]
 
