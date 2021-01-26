@@ -212,6 +212,7 @@ def get_longest_subarray_with_distinct_values(A: List[int]):
     # we again perform max wherein longest_distinct_subarray_start_idx till the last idx was unique
     return max(result, len(A) - longest_distinct_subarray_start_idx)
 
+
 #   12.9 find the length of a longest contained interval
 def get_longest_contained_interval(array: List[int]):
     lookup = set(array)
