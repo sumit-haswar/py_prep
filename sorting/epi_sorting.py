@@ -171,10 +171,11 @@ def find_max_simultaneous_events(events: List[Event]) -> int:
     max_events = 0
     curr = 0
     for endpoint in endpoints:
+        # increment if EP is start
         if endpoint.is_start:
             curr += 1
             max_events = max(max_events, curr)
-        else:
+        else:   # decrement if EP is end
             curr -= 1
 
     return max_events

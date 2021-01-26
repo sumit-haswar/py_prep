@@ -12,9 +12,9 @@ def find_first_occurrence(list: List[int], k: int) -> int:
         if list[mid] == k:
             result = mid
             right = mid - 1
-        elif list[mid] > k:
+        elif list[mid] > k: # look left
             right = mid - 1
-        else:  # k > list[mid]
+        else:  # k > list[mid], look right
             left = mid + 1
 
     return result
@@ -30,9 +30,9 @@ def search_entry_equal_to_its_index(list: List[int]):
         diff = list[mid] - mid
         if diff == 0:
             return mid
-        elif diff > 0:  # look left
+        elif diff > 0:  # diff is positive, look left
             right = mid - 1
-        else:  # look right
+        else:  # look right, diff is negative, look right
             left = mid + 1
 
     return -1
@@ -99,12 +99,14 @@ def find_min_max_stream(A: List[int]):
 
     list_min, list_max = _get_min_max(A[0], A[1])
 
+    # move from 2 to second-last in lock-steps of 2
     for idx in range(2, len(A) - 1, 2):
         curr_min, curr_max = _get_min_max(A[idx], A[idx + 1])
 
         list_min = min(list_min, curr_min)
         list_max = max(list_max, curr_max)
 
+    # if input list is odd, one comparison with last elem
     if len(A) % 2 == 1:
         list_min = min(list_min, A[-1])
         list_max = max(list_max, A[-1])
