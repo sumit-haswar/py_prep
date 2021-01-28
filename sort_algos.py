@@ -62,6 +62,29 @@ def _partition(list, left, right):
     return left_idx + 1
 
 
+def _partition_2(seq, left, right):
+    pivot_idx = left + (right - left) // 2
+    pivot_val = seq[pivot_idx]
+
+    # move pivot_val to right
+    seq[right], seq[pivot_idx] = seq[pivot_idx], seq[right]
+
+    curr_right = right - 1
+    curr_left = left
+    while curr_left <= curr_right:
+        if seq[curr_left] < pivot_val:
+            curr_left += 1
+        else:
+            # swap, curr_right and curr_left
+            seq[curr_left], seq[curr_right] = seq[curr_right], seq[curr_left]
+            curr_right -= 1
+
+    # swap seq[curr_left] with correct place of pivot_val
+    seq[right], seq[curr_left] = seq[curr_left], seq[right]
+
+    return curr_left
+
+
 # merge sort
 def merge_sort(list, left, right):
     if left >= right:
@@ -81,14 +104,22 @@ def _merge(list, left, mid, right):
 
     left_list = []
     right_list = []
-    # copy list elements to left and right
+    # copy list elements range left:mid mid+1:right to left and right
     for i in range(0, left_size):
         left_list.append(list[left + i])
 
     for j in range(0, right_size):
         right_list.append(list[mid + 1 + j])
 
-    # perform merge onto list in lock-steps
+    # left_seq = []
+    # right_seq = []
+    # for i in range(left, mid + 1):
+    #     left_seq.append(list[i])
+    #
+    # for i in range(mid + 1, right + 1):
+    #     right_seq.append(list[i])
+
+    # perform merge onto list itself in lock-steps
     left_idx = 0
     right_idx = 0
     idx = left
