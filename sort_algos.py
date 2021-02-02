@@ -98,6 +98,34 @@ def merge_sort(list, left, right):
     _merge(list, left, mid, right)
 
 
+def _merge_2(arr, left, mid, right):
+    aux = []
+    left_idx = left
+    right_idx = mid + 1
+
+    while left_idx <= mid and right_idx <= right:
+
+        if arr[left_idx] < arr[right_idx]:
+            aux.append(arr[left_idx])
+            left_idx += 1
+        else:
+            aux.append(arr[right_idx])
+            right_idx += 1
+
+    while left_idx <= mid:
+        aux.append(arr[left_idx])
+        left_idx += 1
+
+    while right_idx <= right:
+        aux.append(arr[right_idx])
+        right_idx += 1
+
+    # copy aux to arr
+    curr = left
+    for i in aux:
+        arr[curr] = i
+        curr += 1
+
 def _merge(list, left, mid, right):
     left_size = mid - left + 1
     right_size = right - mid

@@ -47,6 +47,36 @@ def minWindow(s: str, t: str) -> str:
     return best_result
 
 
+def get_max_rectangle_area_origin(matrix):
+    rows = len(matrix)
+    cols = len(matrix[0])
+    min_length = cols
+    max_area = None
+
+    for curr_row in range(0, rows):
+        curr_length = 0
+
+        if matrix[curr_row][0] == 0:
+            break
+        curr_col = 0
+        while curr_col < min_length:
+            curr_cell = matrix[curr_row][curr_col]
+            if curr_cell == 1:
+                curr_length += 1
+            else:
+                break
+            curr_col += 1
+
+        curr_area = (curr_row + 1) * curr_length
+        min_length = curr_col
+        if max_area is None:
+            max_area = curr_area
+        elif curr_area > max_area:
+            max_area = curr_area
+
+    return max_area
+
+
 if __name__ == "__main__":
     min_cover = minWindow('ADOBECODEBANC', 'ABC')
     print(min_cover)
