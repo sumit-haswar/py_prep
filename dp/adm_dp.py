@@ -38,6 +38,7 @@ def binomial_coefficients(n, k):
 
     N = n + 1
 
+    # create pascal's triangle with col:1 and diagonal:1
     for row in range(N):
         curr_row = [1]
         for col in range(1, row + 1):

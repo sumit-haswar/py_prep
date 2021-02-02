@@ -1,3 +1,6 @@
+import string
+
+
 def bit_count(num):
     count = 0
     while num:
@@ -177,3 +180,76 @@ def intersecting_rectangle(rectangle_1: Rectangle, rectangle_2: Rectangle):
              - max(rectangle_1.y, rectangle_2.y)
 
     return Rectangle(x, y, width, height)
+
+
+def _is_digit(char) -> bool:
+    try:
+        string.digits.index(char)
+        return True
+    except:
+        return False
+
+
+def digits_to_int(digits) -> int:
+    if not digits:
+        return 0
+    curr_idx = len(digits) - 1
+    curr_val = 0
+    multiplier = 1
+    while curr_idx >= 0:
+        curr_val = curr_val + (digits[curr_idx] * multiplier)
+        multiplier = multiplier * 10
+        curr_idx -= 1
+
+    return curr_val
+
+
+def my_a_to_i(s: str) -> int:
+    digits = []
+    curr_idx = 0
+    sign_set = False
+    factor = 1
+    while curr_idx < len(s):
+        curr_char = s[curr_idx]
+        if curr_char == ' ':
+            curr_idx += 1
+            continue
+        elif curr_char in ['+', '-']:
+            if sign_set:
+                break
+            sign_set = True
+            if curr_char == '-':
+                factor = -1
+        elif _is_digit(curr_char):
+            digits.append(string.digits.index(curr_char))
+        else:
+            break
+        curr_idx += 1
+
+    # convert digits to number
+    number = digits_to_int(digits)
+    return number * factor
+
+
+def my_separator(text):
+    "a, a, a, a, b,b,b,c, c"
+    buffer = []
+    result = []
+    for ch in text:
+        # !?',;.
+        if ch in [' ',',','.','?','!',';']:
+            if buffer:
+                result.append("".join(buffer))
+                buffer = []
+        else:
+            buffer.append(ch)
+    if buffer:
+        result.append("".join(buffer))
+    return result
+
+
+if __name__ == '__main__':
+    print(my_separator("words and 987"))
+    print(my_separator("4193.   with, words"))
+    print(my_separator("     -42"))
+
