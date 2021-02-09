@@ -1,5 +1,5 @@
 import unittest
-from dp import binomial_coefficients, fibonacci, fibonacci_memoized, fibonacci_iter
+from dp import binomial_coefficients, binomial_coefficients_recur, fibonacci, fibonacci_memoized, fibonacci_iter
 
 
 class AdmDPTestCase(unittest.TestCase):
@@ -9,6 +9,12 @@ class AdmDPTestCase(unittest.TestCase):
         self.assertEqual(n_choose_k, 792)
         n_choose_k = binomial_coefficients(12, 9)
         self.assertEqual(n_choose_k, 220)
+
+    def test_binomial_coefficients_recur(self):
+        n_choose_k = binomial_coefficients_recur(5, 3)
+        self.assertEqual(n_choose_k, 10)
+        n_choose_k = binomial_coefficients_recur(9, 3)
+        self.assertEqual(n_choose_k, 84)
 
     def test_fibonacci(self):
         self.assertEqual(1597, fibonacci(17))
