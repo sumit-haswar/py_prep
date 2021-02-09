@@ -29,7 +29,17 @@ def fibonacci_iter(n):
         curr_minus_2 = curr_minus_1
         curr_minus_1 = curr
 
-    return curr
+    return curr_minus_1
+
+
+def binomial_coefficients_recur(n, k):
+    def _binomial_coefficients_recur(n, k):
+        if n <= 1 or k == 0 or n == k:
+            return 1
+        return _binomial_coefficients_recur(n - 1, k) \
+               + _binomial_coefficients_recur(n - 1, k - 1)
+
+    return _binomial_coefficients_recur(n, k)
 
 
 def binomial_coefficients(n, k):
@@ -50,7 +60,3 @@ def binomial_coefficients(n, k):
             matrix[row][col] = matrix[row - 1][col] + matrix[row - 1][col - 1]
 
     return matrix[n][k]
-
-
-if __name__ == '__main__':
-    binomial_coefficients(12, 7)

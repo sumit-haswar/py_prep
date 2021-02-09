@@ -12,6 +12,7 @@ from primitive_types import power, \
     reverse_bits, \
     reverse_digits, \
     reverse_bits_cached
+from primitive_types import Base64Converter
 
 
 class PrimitiveTestCase(unittest.TestCase):
@@ -91,6 +92,11 @@ class PrimitiveTestCase(unittest.TestCase):
             result = result ^ 1
             print(result)
 
+    def test_base64_converter(self):
+        converter = Base64Converter()
+        self.assertEqual("1A",converter.encode(100))
+        self.assertEqual("1Z", converter.encode(125))
+        self.assertEqual("4PBO", converter.encode(1259890))
 
 if __name__ == '__main__':
     unittest.main()
