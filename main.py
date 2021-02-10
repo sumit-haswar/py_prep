@@ -32,57 +32,6 @@ def rolling_hash(pattern, limit):
         print("{}:{}".format(curr, curr_hash))
 
 
-def _is_letter(ch):
-    return True
-
-
-# a12b3 --> ["a12b3","A12b3","a12B3","A12B3"]
-def letter_case_permutation(input: str) -> List:
-    def _letter_case_permutation(input: str, curr_idx: int, slate: List, result: List):
-        if curr_idx >= len(input):
-            # todo add o/p(slate) to result
-            return
-
-        curr_char = input[curr_idx]
-        if _is_letter(curr_char):
-            slate[curr_idx] = curr_char.lower()
-            _letter_case_permutation(input, curr_idx + 1, slate, result)
-            # todo .upper recursive call
-        else:
-            slate[curr_idx] = curr_char
-            _letter_case_permutation(input, curr_idx + 1, slate, result)
-
-    result = []
-    curr_idx = 0
-    slate = []
-    _letter_case_permutation(input, curr_idx, slate, result)
-
-    return result
-
-
-def all_subsets(input: str) -> List:
-    def _all_subset(input, curr_idx, slate, result):
-        if curr_idx >= len(input):
-            # print(slate)
-            result.append("".join(slate))
-            return
-
-        curr_char = input[curr_idx]
-        for i in [curr_char, '']:
-            slate.append(i)
-            # for duplicate entries in input skip over the duplicates, just taking the current one
-            # curr_idx + k, where k is the count of total occurrence of
-            _all_subset(input, curr_idx + 1, slate, result)
-            del slate[-1]
-
-    char_map = set()
-    result = []
-    curr_idx = 0
-    slate = []
-    _all_subset(input, curr_idx, slate, result)
-    return result
-
-
 def all_permutations(input: str):
     def _all_perm(slate, num_placed, result):
         if num_placed >= len(slate):
