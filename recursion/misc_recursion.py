@@ -66,5 +66,106 @@ def binary_strings(digits: int) -> List:
     return result
 
 
+def perform_op(expr_list, op):
+    result = []
+    idx = 0
+    while idx < len(expr_list):
+
+        elem = expr_list[idx]
+
+        if elem == op:
+            left_num = int(result[-1])
+            right_num = int(expr_list[idx + 1])
+
+            if op == '*':
+                r = left_num * right_num
+            elif op == '+':
+                r = left_num + right_num
+            else:
+                raise Exception("invalid operation")
+
+            del result[-1]
+
+            result.append(r)
+
+            idx += 2
+        else:
+            result.append(elem)
+            idx += 1
+    return result
+
+
+def eval_expr(expr):
+    expr_list = []
+    buffer = []
+    for ch in expr:
+        if ch in ['*', '+']:
+            expr_list.append("".join(buffer))
+            expr_list.append(ch)
+            buffer = []
+        else:
+            buffer.append(ch)
+    if buffer:
+        expr_list.append("".join(buffer))
+
+    # pass 1 for calculating all *
+    result = perform_op(expr_list, '*')
+    # pass 2 for calculating all +
+    result = perform_op(result, '+')
+
+    return result[0]
+
+
+def generate_all_expressions(s, target):
+    def _generate_all_expressions(curr_idx, partial_exp):
+        if curr_idx >= len(s):
+            print(partial_exp)
+            val = int(eval_expr(partial_exp))
+            if val == target:
+                result.append(partial_exp)
+            return
+
+        for op in ['', '*', '+']:
+            if not op:
+                _generate_all_expressions(curr_idx + 1, partial_exp + s[curr_idx])
+            else:
+                _generate_all_expressions(curr_idx + 1, partial_exp + op + s[curr_idx])
+
+    result = []
+    partial_exp = s[0]
+    _generate_all_expressions(1, partial_exp)
+    return result
+
+
+def check_if_sum_possible(arr, k):
+    def _check_sum_possible(arr, slate, curr_idx):
+
+        if curr_idx >= len(arr):
+            s = 0
+            sum_seq = [x for x in slate if x != float('inf')]
+            for e in sum_seq:
+                s += e
+            if sum_seq and s == k:
+                result.append(True)
+            return
+
+        curr_num = arr[curr_idx]
+        for i in [curr_num, float('inf')]:
+            slate.append(i)
+            _check_sum_possible(arr, slate, curr_idx + 1)
+            del slate[-1]
+
+    result = []
+    slate = []
+    _check_sum_possible(arr, slate, 0)
+    if result:
+        return True
+    else:
+        return False
+
+
+
 if __name__ == "__main__":
-    print(all_subsets("123"))
+    # generate_all_expressions("12", 12)
+    # eval_expr('012+2*3*45+90')
+    print(generate_all_expressions("123", 3))
