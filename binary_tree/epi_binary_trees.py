@@ -1,5 +1,5 @@
 import typing
-from typing import List, Iterable
+from typing import List, Iterable, Optional
 from .tree_node import TreeNode
 
 
@@ -45,7 +45,7 @@ def is_symmetric(root: TreeNode) -> bool:
 #   9.3 get lca in a binary tree
 def get_lca(root: TreeNode,
             node_a: TreeNode,
-            node_b: TreeNode) -> TreeNode:
+            node_b: TreeNode) -> Optional[int]:
     def _get_lca(node: TreeNode, a: TreeNode, b: TreeNode):
         # base case
         if node is None:

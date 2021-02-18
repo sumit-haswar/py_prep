@@ -1,9 +1,10 @@
 from typing import List
 from util import is_char
+from binary_tree import TreeNode
 
 
 def all_subsets(input: str) -> List:
-    def _all_subset(input, curr_idx, slate, result):
+    def _all_subset(input, curr_idx, slate):
         if curr_idx >= len(input):
             result.append("".join(slate))
             return
@@ -13,13 +14,13 @@ def all_subsets(input: str) -> List:
             slate.append(i)
             # for duplicate entries in input skip over the duplicates, just taking the current one
             # curr_idx + k, where k is the count of total occurrence of
-            _all_subset(input, curr_idx + 1, slate, result)
+            _all_subset(input, curr_idx + 1, slate)
             del slate[-1]
 
     result = []
     curr_idx = 0
     slate = []
-    _all_subset(input, curr_idx, slate, result)
+    _all_subset(input, curr_idx, slate)
     return result
 
 
@@ -164,8 +165,22 @@ def check_if_sum_possible(arr, k):
         return False
 
 
+def count_binary_trees(node_count):
+    if node_count <= 1:
+        return 1
+    sum = 0
+    for left_node_count in range(0, node_count):
+        right_node_count = node_count - left_node_count - 1
+
+        left = count_binary_trees(left_node_count)
+        right = count_binary_trees(right_node_count)
+
+        sum = sum + left * right
+
+    return sum
+
 
 if __name__ == "__main__":
     # generate_all_expressions("12", 12)
     # eval_expr('012+2*3*45+90')
-    print(generate_all_expressions("123", 3))
+    print(count_binary_trees(3))

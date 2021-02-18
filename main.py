@@ -69,5 +69,47 @@ def subset_sum(input, target):
     return result
 
 
+def all_dec_0(n):
+    def _all_dec(n, slate, curr_idx):
+        if curr_idx >= n:
+            print("".join(slate))
+            return
+
+        for i in range(10):
+            slate.append(str(i))
+            _all_dec(n, slate, curr_idx + 1)
+            del slate[-1]
+
+    result = []
+    slate = []
+    _all_dec(n, slate, 0)
+    return result
+
+
+def all_perm_non_repeating(n):
+    def _all_dec(slate, seq):
+        if len(seq) == 0:
+            print("".join(slate))
+            return
+
+        for i in range(len(seq)):
+            slate.append(str(seq[i]))
+            _all_dec(slate, seq[:i] + seq[i + 1:])
+            del slate[-1]
+
+    result = []
+    slate = []
+    _all_dec(slate, n)
+    return result
+
+
 if __name__ == '__main__':
-    pass
+    # all_dec(3)
+    # all_perm_non_repeating('abcd')
+
+    print([(l,r) for l in range(0,3) for r in range(0,3)])
+    print('----')
+    for l in range(0,3):
+        for r in range(0,3):
+            print((l,r))
+
