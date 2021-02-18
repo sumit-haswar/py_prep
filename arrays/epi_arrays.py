@@ -50,6 +50,26 @@ def dutch_national_flag_n_space(list, pivot_idx):
     # merge all the lists and return
     return less_than + equal + greater_than
 
+def dutch_flag_sort(balls):
+    red_idx = 0
+    blue_idx = len(balls) - 1
+
+    curr_idx = 0
+    while curr_idx <= blue_idx:
+
+        curr_ball = balls[curr_idx]
+
+        if curr_ball == 'R':
+            _swap(balls, curr_idx, red_idx)
+            red_idx += 1
+            curr_idx += 1
+        elif curr_ball == 'B':
+            _swap(balls, curr_idx, blue_idx)
+            blue_idx -= 1
+        else:
+            curr_idx += 1
+
+    return balls
 
 def dutch_national_flag(list, pivot_idx):
     pivot = list[pivot_idx]
