@@ -171,7 +171,8 @@ def intersecting_rectangle(rectangle_1: Rectangle, rectangle_2: Rectangle):
     if not _is_intersecting(rectangle_1, rectangle_2):
         return Rectangle(-1, -1, 0, 0)
 
-    x, y = max(rectangle_1.x, rectangle_2.x), max(rectangle_1.y, rectangle_2.y)
+    x = max(rectangle_1.x, rectangle_2.x)
+    y = max(rectangle_1.y, rectangle_2.y)
 
     width = min(rectangle_1.x + rectangle_1.width, rectangle_2.x + rectangle_2.width) \
             - max(rectangle_1.x, rectangle_2.x)

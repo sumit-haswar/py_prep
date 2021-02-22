@@ -130,6 +130,31 @@ class EpiGraphsTestCase(unittest.TestCase):
 
         self.assertFalse(is_deadlocked(graph))
 
+    def test_topological_sort(self):
+        _0 = GraphVertex(0)
+        _1 = GraphVertex(1)
+        _2 = GraphVertex(2)
+        _3 = GraphVertex(3)
+        _4 = GraphVertex(4)
+        _5 = GraphVertex(5)
+        _6 = GraphVertex(6)
+        _7 = GraphVertex(7)
+        _8 = GraphVertex(8)
+
+        _0.edges.append(_1)
+        _1.edges.extend([_7, _3])
+        _2.edges.append(_3)
+        _3.edges.extend([_4, _5, _6])
+        _7.edges.append(_8)
+
+        graph = [
+            _0,_1,_2,_3,_4,_5,_6,_7,_8
+        ]
+        expected = [8, 7, 4, 5, 6, 3, 1, 0, 2]
+
+        top_sort = topological_sort(graph)
+        self.assertListEqual(expected, top_sort)
+
     def test_is_deadlocked_has_cycle(self):
         # create graph
         a = GraphVertex()
