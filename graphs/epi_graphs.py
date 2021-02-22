@@ -268,6 +268,37 @@ def get_dfs_traversal(node: GraphVertex):
     return path
 
 
+def topological_sort(graph: List[GraphVertex]) -> List[int]:
+    def _top_sort(node):
+        if node.color == GraphVertex.GRAY:
+            return True
+        node.color = GraphVertex.GRAY
+        for neighbor in node.edges:
+            if neighbor.color != GraphVertex.BLACK:
+                is_neighbor_cyclic = _top_sort(neighbor)
+                if is_neighbor_cyclic:
+                    return True
+                # we can start appending nodes to result as recursion unfolds
+                result.append(neighbor.val)
+
+        # to generate result in reverse append here and
+        # remove other result.append
+        # result.append(node.val)
+        node.color = GraphVertex.BLACK
+        return False
+
+    result = []
+    for node in graph:
+        if node.color == GraphVertex.WHITE:
+            is_cyclic = _top_sort(node)
+            # for nodes which aren't anybody's dependency
+            # we have to append them to result here
+            result.append(node.val)
+            if is_cyclic:
+                return []
+    return result
+
+
 def _get_adjacent_cells(x, y):
     return [
         (x + 1, y),
