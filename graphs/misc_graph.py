@@ -164,6 +164,74 @@ def get_tri_cycle(curr_node, source_node, level, seq, graph_map, tri_cycles):
         del seq[-1]
 
 
+class GraphNode:
+    def __init__(self, val):
+        self.val = val
+        self.edges = []
+        self.color = 'white'
+
+
+def top_sort(graph):
+    def _top_sort(node):
+        node.color = 'gray'
+        for neighbor in node.edges:
+            if neighbor.color != 'black':
+                _top_sort(neighbor)
+
+        result.append(node.val)
+        node.color = 'black'
+
+    result = []
+    for val, node in graph.items():
+        if node.color == 'white':
+            _top_sort(node)
+
+    return result
+
+
+def find_order(words):
+    curr_idx = 0
+
+    graph = {}
+
+    while True:
+
+        if curr_idx == (len(words) - 1):
+            break
+
+        curr_word = words[curr_idx]
+        next_word = words[curr_idx + 1]
+
+        end_idx = min(len(curr_word), len(next_word))
+
+        for pivot_idx in range(end_idx):
+
+            curr_char = curr_word[pivot_idx]
+            next_char = next_word[pivot_idx]
+
+            if curr_char != next_char:
+
+                if curr_char in graph:
+                    curr_node = graph[curr_char]
+                else:
+                    curr_node = GraphNode(curr_char)
+                    graph[curr_char] = curr_node
+
+                if next_char in graph:
+                    next_node = graph[next_char]
+                else:
+                    next_node = GraphNode(next_char)
+                    graph[next_char] = next_node
+
+                # next-char is before curr-char
+                next_node.edges.append(curr_node)
+                break
+
+        curr_idx += 1
+
+    return top_sort(graph)
+
+
 # -- -- -- -- -- -- weighted graph algorithms -- -- -- -- -- --
 
 def create_mst_prims(graph, start_node: Node):
