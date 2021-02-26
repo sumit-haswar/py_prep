@@ -1,6 +1,7 @@
 import unittest
 from epi_honors_class import *
 from linked_list.util import create_list, get_list_from_linked_list
+from binary_tree.util import build_epi_bst, build_1_to_10_bst
 
 
 class MyTestCase(unittest.TestCase):
@@ -122,6 +123,20 @@ class MyTestCase(unittest.TestCase):
 
     def test_binary_search_unknown_length(self):
         pass
+
+    def test_bst_to_doubly_linked_list(self):
+        bst = build_1_to_10_bst()
+        dll_head = bst_to_doubly_linked_list(bst)
+
+        # assert
+        dll_seq = []
+        curr = dll_head
+        while curr is not None:
+            dll_seq.append(curr.val)
+            curr = curr.right
+        self.assertListEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], dll_seq)
+
+        print(dll_seq)
 
 
 if __name__ == '__main__':

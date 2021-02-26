@@ -1,5 +1,6 @@
 from typing import List
 from linked_list import Node
+from binary_tree import TreeNode
 import collections
 
 
@@ -56,6 +57,10 @@ class Building:
     def __str__(self):
         return "{}-{}, {}".format(self.left, self.right, self.height)
 
+class HeadAndTail:
+    def __init__(self,head, tail):
+        self.head = head
+        self.tail = tail
 
 #   24.01 gcd
 def gcd_mod(x: int, y: int) -> int:
@@ -233,7 +238,33 @@ def binary_search_unknown_length(seq: List[int], k: int):
 
 #   24.18 find line through most points
 
+#   24.19 convert a sorted doubly linked list into a BST
+
 #   24.20 convert a bst to sorted doubly linked list
+def bst_to_doubly_linked_list(root: TreeNode) -> TreeNode:
+    def _bst_to_doubly_linked_list(treenode: TreeNode):
+        if treenode is None:
+            return HeadAndTail(head=None, tail=None)
+
+        left = _bst_to_doubly_linked_list(treenode.left)
+        right = _bst_to_doubly_linked_list(treenode.right)
+
+        # check if left has tail, then point left.tail --> curr-node
+        if left.tail:
+            left.tail.right = treenode
+        treenode.left = left.tail
+
+        # merge right to current node
+        if right.head:
+            right.head.left = treenode
+        treenode.right = right.head
+
+        # now, curr head and tail is: left (if present) and right (if present)
+        return HeadAndTail(left.head or treenode, right.tail or treenode)
+
+
+    return _bst_to_doubly_linked_list(root).head
+
 
 #   24.22 implement regular expression matching
 def is_match(regex: str, s: str) -> bool:
