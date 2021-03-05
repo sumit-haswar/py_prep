@@ -33,6 +33,7 @@ def fibonacci_iter(n):
 
 
 def binomial_coefficients_recur(n, k):
+    """get n choose k using simple recursion (exponential time!)"""
     def _binomial_coefficients_recur(n, k):
         if n <= 1 or k == 0 or n == k:
             return 1
@@ -49,9 +50,12 @@ def binomial_coefficients(n, k):
     N = n + 1
 
     # create pascal's triangle with col:1 and diagonal:1
+    # matrix is N rows and k + 1 columns
     for row in range(N):
+        # first column values are always 1: C(n,0) == 1
         curr_row = [1]
         for col in range(1, row + 1):
+            # diagonal values are also 1: C(n,n) == 1
             curr_row.append(1 if row == col else 0)
         matrix.append(curr_row)
 
