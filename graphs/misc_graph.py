@@ -2,7 +2,8 @@ import collections
 from collections import defaultdict
 from typing import List
 from .set_union import SetUnion
-
+from graphs import GraphNode
+from bfs import Bfs
 
 # Given an 2-d array of integers, find the size of the largest contiguous block
 # (horizontally/vertically connected only) of numbers with the same value.
@@ -164,13 +165,6 @@ def get_tri_cycle(curr_node, source_node, level, seq, graph_map, tri_cycles):
         del seq[-1]
 
 
-class GraphNode:
-    def __init__(self, val):
-        self.val = val
-        self.edges = []
-        self.color = 'white'
-
-
 def top_sort(graph):
     def _top_sort(node):
         node.color = 'gray'
@@ -230,6 +224,52 @@ def find_order(words):
         curr_idx += 1
 
     return top_sort(graph)
+
+
+def count_connected_components(graph: List[GraphNode]):
+    """Gets count of different connected components in graph
+    If the entire graph is connected, will return 1"""
+    connected_components = 0
+    bfs = Bfs()
+
+    for node in graph:
+        if node.state == 'undiscovered':
+            bfs.bfs(node)
+            connected_components += 1
+
+    return connected_components
+
+
+# graph is bipartite
+def two_color_graph(graph: List[GraphNode]):
+    class TwoColorBfs(Bfs):
+        def _complement_color(self, color):
+            if color == 'white':
+                return 'black'
+            elif color == 'black':
+                return 'white'
+            else:
+                return 'uncolored'
+
+        def process_edge(self, source: GraphNode, sink: GraphNode):
+            if color_map[source.val] == color_map[sink.val]:
+                raise Exception('Graph is not bipartite')
+            color_map[sink.val] = self._complement_color(source.color)
+
+    color_map = {}
+    for node in graph:
+        color_map[node.val] = 'uncolored'
+
+    bipartite = True
+
+    two_color_bfs = TwoColorBfs()
+
+    for node in graph:
+        if node.state == 'undiscovered':
+            color_map[node.val] = 'white'
+            two_color_bfs.bfs(node)
+
+    return bipartite
 
 
 # -- -- -- -- -- -- weighted graph algorithms -- -- -- -- -- --

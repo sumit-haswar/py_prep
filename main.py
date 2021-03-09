@@ -103,13 +103,66 @@ def all_perm_non_repeating(n):
     return result
 
 
+def equalSubSetSumPartition(s):
+    # Write your code here
+    def _subset_partition(slate, curr_idx, curr_total, slate_ids):
+        if curr_total in dp_lookup:
+            return dp_lookup[curr_total]
+
+        # base-case
+        if curr_total == 0:
+            # found a subset, so generate result and return True
+            # slate[] is all the result
+            if soln_found[0] is False and slate_ids and sum(slate) == total:
+                for i in slate_ids:
+                    result[i] = True
+                soln_found[0] = True
+                return True
+
+        if curr_idx >= len(s):
+            return False
+
+        # include curr_idx
+        slate.append(s[curr_idx])
+        slate_ids.append(curr_idx)
+        with_curr = _subset_partition(slate, curr_idx + 1, curr_total - s[curr_idx], slate_ids)
+        del slate[-1]
+        del slate_ids[-1]
+
+        without_curr = _subset_partition(slate, curr_idx + 1, curr_total, slate_ids)
+
+        dp_lookup[curr_total] = with_curr or without_curr
+
+        return dp_lookup[curr_total]
+
+    total = sum(s)
+    if total % 2 == 1:
+        return []
+    total = total // 2
+
+    soln_found = [False]
+    result = [False] * len(s)
+
+    dp_lookup = {}
+
+    _subset_partition([], 0, total, [])
+    print(result)
+    if soln_found[0]:
+        return result
+    else:
+        return []
+
+
 if __name__ == '__main__':
     # all_dec(3)
     # all_perm_non_repeating('abcd')
 
-    print([(l,r) for l in range(0,3) for r in range(0,3)])
-    print('----')
-    for l in range(0,3):
-        for r in range(0,3):
-            print((l,r))
+    x = [100,-100,99,-99,22,-22]
+    equalSubSetSumPartition(x)
+
+    # print([(l,r) for l in range(0,3) for r in range(0,3)])
+    # print('----')
+    # for l in range(0,3):
+    #     for r in range(0,3):
+    #         print((l,r))
 
