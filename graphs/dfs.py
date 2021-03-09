@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from graphs import GraphNode
+from .util import GraphNode
 
 
 class Dfs(ABC):

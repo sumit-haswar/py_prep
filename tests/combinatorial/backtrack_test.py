@@ -1,6 +1,6 @@
 import unittest
 from combinatorial import Subsets, Permutation, AllPaths
-from graphs.misc_graph import Node
+from graphs.util import Node
 
 
 class BacktrackTestCase(unittest.TestCase):
