@@ -2,8 +2,8 @@ import collections
 from collections import defaultdict
 from typing import List
 from .set_union import SetUnion
-from graphs import GraphNode
-from bfs import Bfs
+from .util import GraphNode, Node, Edge
+from .bfs import Bfs
 
 # Given an 2-d array of integers, find the size of the largest contiguous block
 # (horizontally/vertically connected only) of numbers with the same value.
@@ -31,31 +31,6 @@ from bfs import Bfs
 # 1 1 1 1 1
 # 1 1 1 1 1
 # Answer: 24 (of 1s)
-
-class Edge:
-    def __init__(self, source, sink, weight):
-        self.source = source
-        self.sink = sink
-        self.weight = weight
-
-    def __lt__(self, other):
-        return self.weight < other.weight \
-            if self.weight != other.weight else self.sink < other.sink
-
-    def __str__(self):
-        return "{} <--{}--> {}".format(self.source, self.weight, self.sink)
-
-
-class Node:
-    def __init__(self, val):
-        self.val = val
-        self.edges = {}
-
-    def add_neighbor(self, node_val, weight=0):
-        self.edges[node_val] = weight
-
-    def __str__(self):
-        return "Val: {}".format(self.val)
 
 
 def find_max_contiguous_block(input) -> int:
