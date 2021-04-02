@@ -1,9 +1,12 @@
 import collections
 from collections import defaultdict
 from typing import List
-from .set_union import SetUnion
-from .util import GraphNode, Node, Edge
-from .bfs import Bfs
+# from .set_union import SetUnion
+from graphs.set_union import SetUnion
+from graphs.graph_node import GraphNode, Node, Edge
+# from .bfs import Bfs
+from graphs.dfs import Dfs
+
 
 # Given an 2-d array of integers, find the size of the largest contiguous block
 # (horizontally/vertically connected only) of numbers with the same value.
@@ -140,6 +143,41 @@ def get_tri_cycle(curr_node, source_node, level, seq, graph_map, tri_cycles):
         del seq[-1]
 
 
+class Cell:
+    def __init__(self, r, c, rows, cols):
+        self.r = r
+        self.c = c
+        self.visited = []
+        for _ in range(rows):
+            curr_row = []
+            for _ in range(cols):
+                curr_row.append(False)
+            self.visited.append(curr_row)
+
+
+# A N D
+# T D Z
+# X Y Q
+def _iter_bfs(matrix, origin_cell, word_lookup, result):
+    pass
+
+def _dfs(matrix, origin_cell, word_lookup, result):
+    pass
+
+def find_words_in_matrix(matrix, word_lookup):
+    rows = len(matrix)
+    cols = len(matrix[0])
+
+    result = set()
+
+    for r in range(rows):
+        for c in range(cols):
+            _iter_bfs(matrix, r, c, result)
+
+    print(result)
+    return result
+
+
 def top_sort(graph):
     def _top_sort(node):
         node.color = 'gray'
@@ -246,6 +284,16 @@ def two_color_graph(graph: List[GraphNode]):
 
     return bipartite
 
+
+# dfs based algorithms
+
+# finding cycles
+
+# articulation vertices
+
+# topological sorting
+
+# strongly connected components
 
 # -- -- -- -- -- -- weighted graph algorithms -- -- -- -- -- --
 
@@ -390,4 +438,18 @@ input = [[3, 3, 3, 3, 3, 1],
          [2, 4, 4, 4, 4, 4]]
 
 if __name__ == '__main__':
-    print("The max is", find_max_contiguous_block(input))
+    matrix = [
+        ['a', 'n', 'g'],
+        ['t', 'd', 'a'],
+        ['l', 'a', 'r'],
+    ]
+    lookup = set()
+    lookup.add('and')
+    lookup.add('a')
+    lookup.add('ant')
+    lookup.add('atlas')
+    lookup.add('anger')
+    lookup.add('at')
+    lookup.add('ragna')
+    find_words_in_matrix(matrix, lookup)
+

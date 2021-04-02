@@ -5,6 +5,16 @@ class GraphNode:
         self.edges = []
         self.color = 'white'
         self.state = 'undiscovered'
+        self.processed = False
+        self.discovered = False
+
+    def add_neighbors(self, neighbors):
+        for neighbor in neighbors:
+            self.edges.append(neighbor)
+
+    def __str__(self):
+        return str(self.val)
+
 
 class Node:
     def __init__(self, val):
@@ -16,6 +26,7 @@ class Node:
 
     def __str__(self):
         return "Val: {}".format(self.val)
+
 
 class Edge:
     def __init__(self, source, sink, weight):

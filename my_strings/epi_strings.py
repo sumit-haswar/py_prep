@@ -148,6 +148,7 @@ def roman_to_int(s: str) -> int:
         'M': 1000,
     }
     sum = look_up[s[-1]]
+    # start with the second last char
     for curr_idx in reversed(range(len(s) - 1)):
 
         # if curr >= elem to the right, if not then subtract current

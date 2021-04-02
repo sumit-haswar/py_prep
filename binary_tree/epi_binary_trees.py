@@ -64,6 +64,7 @@ def get_lca(root: TreeNode,
         if right['count'] == 2:
             return right
 
+        # post-order processing
         count = left['count'] + right['count'] + (a, b).count(node)
 
         return {'count': count,
