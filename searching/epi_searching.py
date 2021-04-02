@@ -117,13 +117,14 @@ def find_min_max_stream(A: List[int]):
 #   11.8 find the kth largest element
 def find_kth_largest(list: List[int], k: int) -> int:
     def _get_pivot_idx(left, right, idx) -> int:
-        # swap idx with right
+        # move idx to right
         idx_val = list[idx]
         list[idx] = list[right]
         list[right] = idx_val
 
         pivot_idx = left
         while left < right:
+            # if elem at left is less than pivot-elem, continue
             if list[left] < idx_val:
                 left += 1
             elif list[left] > idx_val:
@@ -131,17 +132,22 @@ def find_kth_largest(list: List[int], k: int) -> int:
                 curr = list[left]
                 list[left] = list[pivot_idx]
                 list[pivot_idx] = curr
+
                 pivot_idx += 1
                 left += 1
-
+        # re-swap with right
         list[right] = list[pivot_idx]
         list[pivot_idx] = idx_val
 
         return pivot_idx
 
     def _find_kth_largest(left, right) -> int:
+        # get a random index
         idx = randint(left, right)  # right is inclusive
+
+        # find if the elem at pivot_idx is the kth element
         pivot_idx = _get_pivot_idx(left, right, idx)
+
         if pivot_idx == k - 1:
             return list[pivot_idx]
         elif pivot_idx < k - 1:

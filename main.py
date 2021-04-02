@@ -1,6 +1,7 @@
 from linked_list import linked_list_problems
 from binary_tree import binary_tree_problems
 from typing import List
+from random import randint
 
 x = 0
 factor = 17
@@ -152,17 +153,149 @@ def equalSubSetSumPartition(s):
     else:
         return []
 
+def _swap(a, b, seq):
+    temp = seq[a]
+    seq[a] = seq[b]
+    seq[b] = temp
+
+def find_kth_largest(list, k):
+
+    def _get_pivot_idx(left, right, idx):
+
+        # move elem at idx to end
+        idx_elem = list[idx]
+        list[idx] = list[right]
+        list[right] = idx_elem
+
+        pivot_idx = left
+
+        while left < right:
+            if list[left] < idx_elem:
+                left += 1
+            elif list[left] > idx_elem:
+                _swap(left, pivot_idx, list)
+                left += 1
+                pivot_idx += 1
+
+        _swap(right, pivot_idx, list)
+        return pivot_idx
+
+    # def _get_pivot_idx(left, right, idx) -> int:
+    #     # move idx to right
+    #     idx_val = list[idx]
+    #     list[idx] = list[right]
+    #     list[right] = idx_val
+    #
+    #     pivot_idx = left
+    #     while left < right:
+    #         if list[left] < idx_val:
+    #             left += 1
+    #         elif list[left] > idx_val:
+    #             # swap list[left] with list[pivot_idx]
+    #             curr = list[left]
+    #             list[left] = list[pivot_idx]
+    #             list[pivot_idx] = curr
+    #
+    #             pivot_idx += 1
+    #             left += 1
+    #     # re-swap with right
+    #     list[right] = list[pivot_idx]
+    #     list[pivot_idx] = idx_val
+    #
+    #     return pivot_idx
+
+    def _find_kth_largest(left, right):
+
+        idx = randint(left, right)
+
+        pivot_idx = _get_pivot_idx(left, right, idx)
+
+        if pivot_idx == (k - 1):
+            return list[pivot_idx]
+        elif pivot_idx > (k - 1):
+            # look left
+            return _find_kth_largest(left, pivot_idx - 1)
+        else:
+            return _find_kth_largest(pivot_idx + 1, right)
+
+    return _find_kth_largest(0, len(list) - 1)
+
+
+class Solution:
+    def alienOrder(self, words: List[str]) -> str:
+
+        if not words:
+            return ""
+
+        root_nodes = set()
+        child_nodes = set()
+
+        # first create graph
+        graph = {}
+        node_color = {}
+
+        # graph[root] = []
+        # node_color[root] = 'white'
+
+        curr_word_idx = 1
+
+        while curr_word_idx < len(words):
+
+            prev_word = words[curr_word_idx - 1]
+            curr_word = words[curr_word_idx]
+
+            # move in lock steps
+            prev_idx = 0
+            curr_idx = 0
+            while prev_idx < len(prev_word) and curr_idx < len(curr_word):
+                if prev_word[prev_idx] != curr_word[curr_idx]:
+                    source = prev_word[prev_idx]
+                    sink = curr_word[curr_idx]
+
+                    root_nodes.add(source)
+                    if sink in root_nodes:
+                        root_nodes.remove(sink)
+
+                    node_color[source] = 'white'
+                    node_color[sink] = 'white'
+
+                    if source not in graph:
+                        graph[source] = []
+
+                    graph[source].append(sink)
+                    break
+
+                prev_idx += 1
+                curr_idx += 1
+
+            curr_word_idx += 1
+
+        def _dfs(curr_node):
+            if node_color[curr_node] == 'gray':
+                raise Exception('cycle detected')
+            node_color[curr_node] = 'gray'
+
+            if curr_node in graph:
+                for neighbor in graph[curr_node]:
+                    if node_color[curr_node] != 'black':
+                        _dfs(neighbor)
+            top_sort.append(curr_node)
+            node_color[curr_node] = 'black'
+
+        top_sort = []
+        try:
+            # _dfs(root)
+            # perform dfs on graph starting with any char from rootset
+            for root in root_nodes:
+                if node_color[root] == 'white':
+                    _dfs(root)
+        except Exception as ex:
+            return ""
+
+        return ''.join([str(n) for n in reversed(top_sort)])
+
 
 if __name__ == '__main__':
-    # all_dec(3)
-    # all_perm_non_repeating('abcd')
-
-    x = [100,-100,99,-99,22,-22]
-    equalSubSetSumPartition(x)
-
-    # print([(l,r) for l in range(0,3) for r in range(0,3)])
-    # print('----')
-    # for l in range(0,3):
-    #     for r in range(0,3):
-    #         print((l,r))
-
+    soln = Solution()
+    result = soln.alienOrder(["wrt","wrf","er","ett","rftt"])
+    print(result)

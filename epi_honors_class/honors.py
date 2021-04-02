@@ -34,7 +34,7 @@ class QueueWithMax:
     def dequeue(self):
         # deque and pop from max, if max is curr
         elem = self.queue.popleft()
-        if self.max_dq[0] == elem:
+        if self.get_max() == elem:
             self.max_dq.popleft()
         return elem
 

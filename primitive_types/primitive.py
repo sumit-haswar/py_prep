@@ -238,7 +238,7 @@ def my_separator(text):
     result = []
     for ch in text:
         # !?',;.
-        if ch in [' ',',','.','?','!',';']:
+        if ch in [' ', ',', '.', '?', '!', ';']:
             if buffer:
                 result.append("".join(buffer))
                 buffer = []
@@ -253,4 +253,3 @@ if __name__ == '__main__':
     print(my_separator("words and 987"))
     print(my_separator("4193.   with, words"))
     print(my_separator("     -42"))
-

@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from .util import GraphNode
+from .graph_node import GraphNode
 import collections
 
 
@@ -30,12 +30,13 @@ class Bfs(ABC):
             curr.state = 'processed'
 
             for neighbor in curr.edges:
-                if neighbor.color != 'processed':  # or graph.is_directed
+                if neighbor.color != 'processed':  # or graph.is_directed is True
                     self.process_edge(curr, neighbor)
                 if neighbor.color != 'discovered':
                     queue.append(neighbor)
                     neighbor.state = 'discovered'
                     parent_of[neighbor.val] = curr.val
+                # we do nothing if node is processed or discovered
 
             self.post_process_node(curr)
 
