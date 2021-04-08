@@ -308,4 +308,56 @@ class ClientsCreditsInfo:
     def get_max(self):
         return self.bst.peekitem()[1]
 
+
 #   todo (14.7) enumerate extended integers
+
+# -- -- -- -- -- -- -- -- Misc. BST problems -- -- -- ---- -- -- --
+def delete_node(root: TreeNode, key: int) -> TreeNode:
+    def _delete_node(node: TreeNode, key, parent: [TreeNode], is_left: bool):
+        if node is None:
+            return None
+
+        if key == node.val:  # found the node
+            if node.is_leaf():  # no children case
+                if parent is None:  # it is a root node
+                    return None
+                if is_left:
+                    parent.left = None
+                else:
+                    parent.right = None
+            elif node.right and node.left:  # has both left and right children
+                # find inorder successor(leftmost child of right) with parent
+                succ_parent = node
+                succ = node.right
+                while succ.left is not None:
+                    succ_parent = succ
+                    succ = succ.left
+
+                # copy succ-value to current node
+                node.val = succ.val
+                # if successor parent is this node,
+                if succ_parent is node:
+                    node.right = succ.right
+                else:
+                    succ_parent.left = succ.right
+
+            else:  # has only one child
+                successor = node.left if node.left else node.right
+                if parent is None:
+                    return successor
+
+                if is_left:
+                    parent.left = successor
+                else:
+                    parent.right = successor
+        elif key < node.val:  # look left
+            _delete_node(node.left, key, node, True)
+        else:
+            _delete_node(node.right, key, node, False)
+
+        return node
+
+    if not root:
+        return root
+    root = _delete_node(root, key, None, False)
+    return root

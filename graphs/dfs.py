@@ -55,11 +55,15 @@ class FindingCycles(Dfs):
         for node in node_list:
             self.parent_of[node] = -1
 
-
     def process_edge(self, parent: GraphNode, child: GraphNode):
         print('process edge: {} --> {}'.format(parent.val, child.val))
         if child.discovered and self.parent_of[parent.val] != child.val:
             print("!!!! cycle detected !!!!")
+
+
+class ArticulateNode(Dfs):
+    def __init__(self):
+        super().__init__()
 
 
 if __name__ == "__main__":
@@ -81,6 +85,6 @@ if __name__ == "__main__":
 
     six.edges.append(one)
 
-    finding_cycles = FindingCycles([1,2,3,6])
+    finding_cycles = FindingCycles([1, 2, 3, 6])
     finding_cycles.dfs(one)
     print('dfs complete')
