@@ -99,6 +99,10 @@ def build_non_balanced_bst():
     pass
 
 
+def build_balanced_bst():
+    pass
+
+
 def build_perfect_bt():
     one = TreeNode(1)
     two = TreeNode(2, one, TreeNode(2.1))
