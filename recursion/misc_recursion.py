@@ -24,6 +24,89 @@ def all_subsets(input: str) -> List:
     return result
 
 
+def all_permutations(nums: List[int]):
+    def _perm(curr_idx, slate):
+        if curr_idx == len(nums):
+            result.append(slate.copy())
+            return
+
+        for idx in range(curr_idx, len(nums)):
+            slate[idx], slate[curr_idx] = slate[curr_idx], slate[idx]
+            _perm(curr_idx + 1, slate)
+            slate[idx], slate[curr_idx] = slate[curr_idx], slate[idx]
+
+    result = []
+    slate = []
+    _perm(0, slate)
+    return result
+
+
+def all_permutations_unique(nums: List[int]):
+    def _perm(curr_idx):
+        if curr_idx == len(nums):
+            result.append(nums.copy())
+            return
+
+        lookup = set()
+        for idx in range(curr_idx, len(nums)):
+            if nums[idx] not in lookup:
+                # swap idx and curr_idx
+                nums[idx], nums[curr_idx] = nums[curr_idx], nums[idx]
+                _perm(curr_idx + 1)
+                nums[idx], nums[curr_idx] = nums[curr_idx], nums[idx]
+                lookup.add(nums[idx])
+
+    result = []
+    _perm(0)
+    return result
+
+
+def remove_invalid_parentheses(expression: str) -> List[str]:
+
+    def _bracket_violation(left, right):
+        return left < 0 or right < 0 or left < right
+
+    def _exp_valid(exp):
+        stack = []
+        for ch in exp:
+            if ch == '(':
+                stack.append(ch)
+            elif ch == ')':
+                if not stack:
+                    return False
+                stack.pop()
+
+        return len(stack) == 0
+
+    def _remove_invalid_parentheses(curr_idx, curr_expression):
+        # base case, exhausted parsing all the characters
+        if curr_idx >= len(expression):
+            # verify if expression is valid
+            exp_len = len(expression) - len(curr_expression)
+            if _exp_valid(curr_expression) and exp_len <= min_exp_len[0]:
+                if exp_len < min_exp_len[0]:
+                    min_exp_len[0] = exp_len
+                    result.clear()
+
+                result.append(curr_expression)
+
+            return
+
+        curr_char = expression[curr_idx]
+        if curr_char in ('(', ')'):
+            _remove_invalid_parentheses(curr_idx + 1, curr_expression)
+            _remove_invalid_parentheses(curr_idx + 1, curr_expression + curr_char)
+        else:
+            _remove_invalid_parentheses(curr_idx + 1, curr_expression + curr_char)
+
+    result = []
+    min_exp_len = [0]
+
+    _remove_invalid_parentheses(0, '')
+
+    return result
+
+
 # a12b3 --> ["a12b3","a12B3","A12b3","A12B3"]
 def letter_case_permutation(input: str) -> List:
     def _letter_case_perm(input, curr_idx, slate):
@@ -181,6 +264,7 @@ def count_binary_trees(node_count):
 
 
 if __name__ == "__main__":
+    print(generate_all_expressions("123", 6))
     # generate_all_expressions("12", 12)
     # eval_expr('012+2*3*45+90')
-    print(count_binary_trees(3))
+    # print(count_binary_trees(3))
