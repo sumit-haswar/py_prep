@@ -291,8 +291,7 @@ def is_match(regex: str, s: str) -> bool:
 
         # lock-step comparison for direct match and .,
         # recur for rest
-        return (s and regex[0] in ('.', s[0])) \
-               and _is_match(regex[1:], s[1:])
+        return (s and regex[0] in ('.', s[0])) and _is_match(regex[1:], s[1:])
 
     if regex[0] == "^":
         return _is_match(regex[1:], s)

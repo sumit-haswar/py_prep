@@ -1,6 +1,8 @@
 import typing
 from typing import List, Iterable, Optional
-from .tree_node import TreeNode
+from binary_tree import TreeNode
+from binary_tree import *
+import heapq
 
 
 #   9.1 test if tree is height balanced
@@ -383,4 +385,77 @@ def exterior_binary_tree(root: TreeNode) -> List[int]:
 
     return exterior
 
+
+# findLeaves
+# Collect all the leaf nodes.
+# Remove all the leaf nodes.
+# Repeat until the tree is empty.
+def find_leaves(root: TreeNode) -> List[List[int]]:
+    def _is_leaf(node):
+        return node.left is None and node.right is None
+
+    def _find_leaves(node, parent, is_left, curr_result):
+        if node is None:
+            return
+
+        if _is_leaf(node):
+            curr_result.append(node.val)
+            if is_left:
+                parent.left = None
+            else:
+                parent.right = None
+            return
+
+        _find_leaves(node.left, node, True, curr_result)
+
+        _find_leaves(node.right, node, False, curr_result)
+
+    result = []
+
+    curr_root = root
+
+    while curr_root:
+        if _is_leaf(curr_root):
+            result.append([curr_root.val])
+            break
+        curr_result = []
+        _find_leaves(curr_root, None, False, curr_result)
+        result.append(curr_result)
+
+    return result
+
+
+def find_second_min_value(root: TreeNode) -> int:
+    def _inorder(node: TreeNode):
+        if node is None:
+            return
+
+        _inorder(node.left)
+        min_heap.append(node.val)
+        # heapq.heappush(min_heap, node.val)
+        _inorder(node.right)
+
+    if root is None:
+        return -1
+
+    min_heap = []
+
+    _inorder(root)
+
+    heapq.heapify(min_heap)
+
+    min_val = heapq.heappop(min_heap)
+    if min_heap:
+        second_min_val = heapq.heappop(min_heap)
+        if min_val != second_min_val:
+            return second_min_val
+
+    return -1
+
+
 # todo  9.7 inorder traversal without recursion
+
+if __name__ == "__main__":
+    bst = build_1_to_10_bst()
+    result = find_second_min_value(bst)
+    print(result)

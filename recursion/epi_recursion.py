@@ -40,8 +40,9 @@ def compute_tower_hanoi(num_rings):
 #   15.2 compute all mnemonics for a phone number
 def get_phone_mnemonic(phone_number: str):
     def _get_phone_mnemonic(curr_idx, mnemonic_list, result):
+
+        # base-case we have reached the end of current "slate"
         if curr_idx == len(phone_number):
-            # base-case
             number = ''.join(mnemonic_list)
             result.append(number)
             return
@@ -286,7 +287,8 @@ def generate_all_binary_trees(node_count: int):
 
 if __name__ == "__main__":
     # _placement_violated(col, row, col_placements):
-    find_all_queen_arrangements(4)
+    # find_all_queen_arrangements(4)
+    print(well_formed_brackets(4))
     # prefix = [1,3,0,0]
     # for i in range(4):
     #     prefix[3] = i

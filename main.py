@@ -33,23 +33,6 @@ def rolling_hash(pattern, limit):
         print("{}:{}".format(curr, curr_hash))
 
 
-def all_permutations(input: str):
-    def _all_perm(slate, num_placed, result):
-        if num_placed >= len(slate):
-            result.append(''.join(slate))
-            return
-
-        for curr_idx in range(num_placed, len(slate)):
-            # swap
-            # recur
-            # swap back
-            pass
-
-    result = []
-    _all_perm()
-    return result
-
-
 def subset_sum(input, target):
     def _subset_sum(input, curr_idx, slate, curr_sum):
         if curr_sum > target:
@@ -73,7 +56,8 @@ def subset_sum(input, target):
 def all_dec_0(n):
     def _all_dec(n, slate, curr_idx):
         if curr_idx >= n:
-            print("".join(slate))
+            # print("".join(slate))
+            result.append("".join(slate))
             return
 
         for i in range(10):
@@ -296,6 +280,10 @@ class Solution:
 
 
 if __name__ == '__main__':
-    soln = Solution()
-    result = soln.alienOrder(["wrt","wrf","er","ett","rftt"])
-    print(result)
+    res = all_dec_0(3)
+    print(len(res))
+    # print(res)
+
+    # soln = Solution()
+    # result = soln.alienOrder(["wrt","wrf","er","ett","rftt"])
+    # print(result)
