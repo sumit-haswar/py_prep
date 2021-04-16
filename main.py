@@ -4,14 +4,16 @@ from typing import List
 from random import randint
 
 x = 0
-factor = 17
+factor = 47
 
 
-def hash(key, mod):
+def hash(key, mod=None):
     hash = 0
     for ch in key:
-        hash = (hash * factor + ord(ch))  # % mod
-
+        if not mod:
+            hash = (hash * factor + ord(ch))
+        else:
+            hash = (hash * factor + ord(ch)) % mod
     return hash
 
 
@@ -50,24 +52,6 @@ def subset_sum(input, target):
 
     result = []
     _subset_sum(input, 0, [], 0)
-    return result
-
-
-def all_dec_0(n):
-    def _all_dec(n, slate, curr_idx):
-        if curr_idx >= n:
-            # print("".join(slate))
-            result.append("".join(slate))
-            return
-
-        for i in range(10):
-            slate.append(str(i))
-            _all_dec(n, slate, curr_idx + 1)
-            del slate[-1]
-
-    result = []
-    slate = []
-    _all_dec(n, slate, 0)
     return result
 
 
@@ -280,10 +264,6 @@ class Solution:
 
 
 if __name__ == '__main__':
-    res = all_dec_0(3)
-    print(len(res))
-    # print(res)
-
-    # soln = Solution()
-    # result = soln.alienOrder(["wrt","wrf","er","ett","rftt"])
-    # print(result)
+    print(hash('www.sumithaswar.com', 1000000))
+    print(hash('www.google.com', 1000000))
+    # print(hash('2a89f374ba8df3e5eefe475bdf61d176', 1000000000))
