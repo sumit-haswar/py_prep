@@ -245,7 +245,8 @@ def palindrome_decompositions(input: str):
 def all_decompositions(word: str):
     def _all_decompositions(partial_res, offset):
         if offset >= len(word):
-            print(partial_res)
+            # print(partial_res)
+            result.append(partial_res)
             return
         for idx in range(offset + 1, len(word) + 1):
             # at each node, fan out into multiple prefix in steps of 1
@@ -288,7 +289,8 @@ def generate_all_binary_trees(node_count: int):
 if __name__ == "__main__":
     # _placement_violated(col, row, col_placements):
     # find_all_queen_arrangements(4)
-    print(well_formed_brackets(4))
+    # print(palindrome_decompositions("abaxaba"))
+    print(all_decompositions("abcd"))
     # prefix = [1,3,0,0]
     # for i in range(4):
     #     prefix[3] = i

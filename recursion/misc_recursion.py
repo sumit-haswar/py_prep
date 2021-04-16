@@ -62,7 +62,6 @@ def all_permutations_unique(nums: List[int]):
 
 
 def remove_invalid_parentheses(expression: str) -> List[str]:
-
     def _bracket_violation(left, right):
         return left < 0 or right < 0 or left < right
 
@@ -150,6 +149,22 @@ def binary_strings(digits: int) -> List:
     return result
 
 
+def all_decimal_numbers(total_digits: int):
+    def _all_decimal_numbers(curr: int, curr_num):
+        if curr == total_digits:
+            result.append(''.join([str(x) for x in curr_num]))
+            return
+
+        for digit in range(10):
+            curr_num.append(digit)
+            _all_decimal_numbers(curr + 1, curr_num)
+            del curr_num[-1]
+
+    result = []
+    _all_decimal_numbers(0, [])
+    return result
+
+
 def perform_op(expr_list, op):
     result = []
     idx = 0
@@ -180,6 +195,11 @@ def perform_op(expr_list, op):
 
 
 def eval_expr(expr):
+    """
+    Args:
+        expr:
+    :return:
+    """
     expr_list = []
     buffer = []
     for ch in expr:
@@ -211,8 +231,11 @@ def generate_all_expressions(s, target):
 
         for op in ['', '*', '+']:
             if not op:
+                # simply add curr digit to expression, 1 --> 12
                 _generate_all_expressions(curr_idx + 1, partial_exp + s[curr_idx])
             else:
+                # add an operator between curr expression and curr digit:
+                #   1 --> 1 + 2, 1 --> 1 * 2
                 _generate_all_expressions(curr_idx + 1, partial_exp + op + s[curr_idx])
 
     result = []
@@ -264,7 +287,9 @@ def count_binary_trees(node_count):
 
 
 if __name__ == "__main__":
-    print(generate_all_expressions("123", 6))
+    # print(generate_all_expressions("123", 6))
+    eval_expr("1+2*3+10")
+    print(all_decimal_numbers(2))
     # generate_all_expressions("12", 12)
     # eval_expr('012+2*3*45+90')
     # print(count_binary_trees(3))
