@@ -23,3 +23,26 @@ class TreeNode:
             return True
 
         return False
+
+
+class BinaryTreeIterator:
+
+    def _stack_nodes(self, node):
+        while node:
+            self.stack.append(node)
+            node = node.left
+
+    def __init__(self, root):
+        self.stack = []
+        self._stack_nodes(root)
+
+    def next(self):
+        curr_node = self.stack.pop()
+        self._stack_nodes(curr_node.right)
+        return curr_node.val
+
+    def has_next(self):
+        if self.stack:
+            return True
+        else:
+            return False

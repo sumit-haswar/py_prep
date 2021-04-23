@@ -8,6 +8,7 @@ class Base64Converter():
         self.base = 64
 
     def encode(self, value):
+        """convert a decimal value to base-64 value """
         key = []
         curr_val = value
         while curr_val >= 64:
@@ -19,4 +20,13 @@ class Base64Converter():
         return "".join(reversed(key))
 
     def decode(self, key):
-        pass
+        """convert a base 64 number to base-10 number"""
+        result = 0
+        pow = 1
+        for idx in range(len(key) - 1, -1, -1):
+            ch = key[idx]
+            lookup_idx = self.lookup.index(ch)
+            result += lookup_idx * pow
+            pow = pow * 64
+
+        return result

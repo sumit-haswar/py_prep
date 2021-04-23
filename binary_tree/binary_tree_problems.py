@@ -233,6 +233,66 @@ def is_bst_bfs(root):
 
 # todo tree-list recursion problem !!
 
+class NodeInfo:
+    def __init__(self, min_val, max_val, is_bst=False, size=0, max_size=0):
+        self.min_val = min_val
+        self.max_val = max_val
+        self.is_bst = is_bst
+        self.size = size
+        self.max_size = max_size
+
+
+def find_largest_bst_count(root):
+    def _is_leaf(node):
+        return node.left_ptr is None and node.right_ptr is None
+
+    def _is_bst(node):
+
+        # base-cases
+        if node is None:
+            return True, 0
+
+        if _is_leaf(node):
+            return NodeInfo(node.val, node.val, True, 1, 1)
+
+        # no left child
+        if node.left_ptr is None:
+            right_info = _is_bst(node.right_ptr)
+            if right_info.is_bst and root.val <= right_info.min_val:
+                curr_size = 1 + right_info.size
+                max_size = max(curr_size, right_info.max_size)
+                return NodeInfo(node.val, right_info.max_val, True, curr_size, max_size)
+            else:
+                return NodeInfo(None, None, False, 1, right_info.max_size)
+
+        # no right child
+        if node.right_ptr is None:
+            left_info = _is_bst(node.left_ptr)
+            if left_info.is_bst and root.val >= left_info.max_val:
+                curr_size = left_info.size + 1
+                max_size = max(curr_size, left_info.max_size)
+                return NodeInfo(left_info.min_val, node.val, True, curr_size, max_size)
+            else:
+                return NodeInfo(None, None, False, 1, left_info.max_size)
+
+        left_info = _is_bst(node.left_ptr)
+        right_info = _is_bst(node.right_ptr)
+
+        # check if this node is-bst valid
+        if left_info.is_bst and right_info.is_bst and left_info.max_val <= node.val <= right_info.min_val:
+            curr_size = 1 + left_info.size + right_info.size
+            max_size = max(curr_size, max(left_info.size, right_info.size))
+            return NodeInfo(left_info.min_val, right_info.max_val, True, curr_size, max_size)
+        else:
+            return NodeInfo(None, None, False, 1, max(left_info.max_size, right_info.max_size))
+
+    if root is None:
+        return 0
+
+    root_info = _is_bst(root)
+
+    return root_info.max_size
+
 def main():
     # todo create binary trees util build methods
     #   for example: root = build_1_to_10_bst()

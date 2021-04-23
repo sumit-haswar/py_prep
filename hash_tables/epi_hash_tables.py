@@ -201,10 +201,12 @@ def get_longest_subarray_with_distinct_values(A: List[int]):
             elem_last_idx = lookup[elem]
             # find if curr element's last-idx is within longest_start_index and curr idx
             if elem_last_idx >= longest_distinct_subarray_start_idx:
+                # curr non-distinct range
                 curr_result = idx - longest_distinct_subarray_start_idx
                 if result is None or curr_result > result:
                     result = curr_result
                     result_idx = (longest_distinct_subarray_start_idx, idx - 1)
+                # subarray now becomes last distinct + 1, shift idx to right
                 longest_distinct_subarray_start_idx = elem_last_idx + 1
 
         lookup[elem] = idx

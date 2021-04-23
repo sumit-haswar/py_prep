@@ -50,6 +50,7 @@ def dutch_national_flag_n_space(list, pivot_idx):
     # merge all the lists and return
     return less_than + equal + greater_than
 
+
 def dutch_flag_sort(balls):
     red_idx = 0
     blue_idx = len(balls) - 1
@@ -71,6 +72,7 @@ def dutch_flag_sort(balls):
 
     return balls
 
+
 def dutch_national_flag(list, pivot_idx):
     pivot = list[pivot_idx]
 
@@ -78,6 +80,7 @@ def dutch_national_flag(list, pivot_idx):
     _swap(list, pivot_idx, len(list) - 1)
     end = len(list) - 1
 
+    # use two indices: left and right
     left = -1
     right = 0
     while right < end:
@@ -147,7 +150,7 @@ def multiply_two_numbers(num1, num2):
 
         result_idx = len(result) - 1 - step
 
-        #iterate on num1 from right to left
+        # iterate on num1 from right to left
         for num1_idx in reversed(range(len(num1))):
             prod = num1[num1_idx] * num2[num2_idx]
 
@@ -270,7 +273,7 @@ def get_next_permutation(list: List[int]):
 
     curr_idx -= 1
 
-    # find swap_idx
+    # find swap_idx, traversing right to left
     swap_idx = len(list) - 1
     while swap_idx > 0:
         if list[swap_idx] > list[curr_idx]:
@@ -337,3 +340,6 @@ def _swap(list, idx_a, idx_b):
     temp = list[idx_a]
     list[idx_a] = list[idx_b]
     list[idx_b] = temp
+
+if __name__ == '__main__':
+    print(get_next_permutation([2,5,4,3]))

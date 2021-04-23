@@ -69,6 +69,11 @@ def binomial_coefficients(n, k):
 
     return matrix[n][k]
 
+
+def longest_increasing_subsequence():
+    pass
+
+
 def get_partitions_diff(partitions_str):
     partitions = partitions_str.split('|')
     min_val = float('inf')
@@ -81,6 +86,7 @@ def get_partitions_diff(partitions_str):
 
     return max_val - min_val
 
+
 def partition(books: List[int], k: int):
     def _partition(books, curr_partition, total_books, curr_idx):
         # base-case
@@ -90,12 +96,14 @@ def partition(books: List[int], k: int):
                 print(partitions_str)
                 diff = get_partitions_diff(partitions_str)
                 if global_min[0] is None:
-                    result.clear()
-                    result.append(partitions_str)
+                    # result.clear()
+                    # result.append(partitions_str.split('|'))
+                    result['partition'] = partitions_str.split('|')
                     global_min[0] = diff
                 elif diff < global_min[0]:
-                    result.clear()
-                    result.append(partitions_str)
+                    # result.clear()
+                    # result.append(partitions_str.split('|'))
+                    result['partition'] = partitions_str.split('|')
                     global_min[0] = min(diff, global_min[0])
             return
 
@@ -109,36 +117,59 @@ def partition(books: List[int], k: int):
                        total_books,
                        curr_idx + 1)
 
-    result = []
+    result = {}
     total_books = len(books)
     global_min = [None]
     _partition(books, '', total_books, 1)
-    return global_min, result
+    return global_min[0], result['partition']
 
-def partition_dp(books: List[int], k: int):
+
+def partition_dp(seq: List[int], k: int):
     # dp table for values
-    n = len(books)
+    n = len(seq)
 
-    m = []
+    prefix_sum = []
+    curr_idx = 0
+    while curr_idx < n:
+        val = 0
+        if prefix_sum:
+            val = prefix_sum[-1]
+
+        val += seq[curr_idx]
+
+        prefix_sum.append(val)
+
+        curr_idx += 1
+
+    m = [[seq[0] for _ in range(k)]]
+    # init value for m
+    for i in range(1, n):
+        curr_row = [prefix_sum[i]]
+        for j in range(1, k):
+            curr_row.append(float('-inf'))
+        m.append(curr_row)
 
     # dp table for dividers
-    d =[]
+    d = []
 
-    # prefix sum array
-    p = []
+    print(m)
 
-    cost = 0
+    for elems in range(1, n):
+        for partitions in range(1, k):
+            for x in range(0, elems):
 
-    p.append(0)
-    for i in range(1, n):
-        p.append(p[i-1] + books[i])
+                cost = max(m[x][partitions - 1], prefix_sum[elems] - prefix_sum[x])
 
-    print(p)
+                if m[elems][partitions] == float('-inf') or m[elems][partitions] > cost:
+                    m[elems][partitions] = cost
+
+    print(m)
 
 
 if __name__ == "__main__":
-    books = [float('inf'), 100, 200, 300, 400, 500, 600, 700, 800, 900]
-    # books = [1,2,3,4,5,6,7,8,9]
-    # books = [100, 200, 300, 400, 500]
+    # books = [100, 200, 300, 400, 500, 600, 700, 800, 900]
+    books = list(range(1, 10))
+    partition_dp(books, 3)
     # print(partition(books, 3))
-    partition_dp(books,3)
+    # partition_dp(books, 3)
+    # seq = [2,4,3,5,1,7,6,9,8]

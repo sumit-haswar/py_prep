@@ -1,6 +1,7 @@
 from .node import Node
 from .util import create_list, length
-import typing
+from typing import List
+import heapq
 
 
 #   7.1 merge two sorted lists
@@ -180,6 +181,36 @@ def is_palindromic(head):
 
     return True
 
+
+class HeapItem:
+
+    def __init__(self, val, list_node):
+        self.val = val
+        self.list_node = list_node
+
+    def __lt__(self, other):
+        return self.val < other.val
+
+def merge_k_sorted_linked_list(lists: List[Node]):
+    min_heap = []
+
+    for head in lists:
+        if head is not None:
+            heapq.heappush(min_heap, HeapItem(head.val, head))
+
+    head = Node()
+    tail = head
+
+    while min_heap:
+        curr_item = heapq.heappop(min_heap)
+
+        if curr_item.list_node.next:
+            heapq.heappush(min_heap, HeapItem(curr_item.list_node.next.val, curr_item.list_node.next))
+
+        tail.next = curr_item.list_node
+        tail = curr_item.list_node
+
+    return head.next
 
 def _reverse(list):
     if list is None or list.next is None:

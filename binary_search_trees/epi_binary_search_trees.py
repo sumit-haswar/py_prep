@@ -52,9 +52,11 @@ def find_greater_than_k(root: TreeNode, k: int) -> TreeNode:
     curr = root
     candidate = None
     while curr:
+        # anytime we go left, curr can be the successor, so we save it
         if curr.data > k:  # go left
             candidate = curr
             curr = curr.left
+        # if we go right, we just go right, curr can never be the successor
         else:  # go right
             curr = curr.right
 
@@ -67,6 +69,7 @@ def find_k_largest(root: TreeNode, k: int):
         # reverse in-order traversal
         if node is None or len(seq) >= k:
             return
+        # keep going right till we hit rightmost and then start appending nodes
         _find_k_largest(node.right, seq)
         if len(seq) < k:
             seq.append(node.data)
@@ -88,7 +91,7 @@ def get_lca(root: TreeNode, a: int, b: int):
         else:
             # go right
             return _get_lca(node.right, a, b)
-
+    #wlog assume a < b
     if b < a:
         a, b = b, a
 
@@ -115,10 +118,13 @@ def get_lca_iter(root: TreeNode, node_a: int, node_b: int):
 #   14.5 reconstruct a bst from traversal data
 def build_bst_from_preorder(seq: List[int]):
     def _build_bst_from_preorder(left: int, right: int) -> Optional[TreeNode]:
+        # base-case
         if left > right or left > len(seq) or right > len(seq):
             return None
 
+        # the root is at the left idx
         idx = left + 1
+        # idx++ till we find elem greater than root
         while idx < len(seq) and seq[idx] < seq[left]:
             idx += 1
         # idx now points to root element of right tree
@@ -168,7 +174,7 @@ def find_closest_elements_in_sorted_array(list_of_list: List[List[int]]):
     bst = SortedList()
 
     for idx, list in enumerate(list_of_list):
-        # add following data to bst: iter of the list, its first val and
+        # add following data to bst: iterator of the list, its first(minimum) val
         iterator = iter(list)
         min_val = next(iterator, None)
         if min_val:
@@ -176,9 +182,11 @@ def find_closest_elements_in_sorted_array(list_of_list: List[List[int]]):
 
     min_distance_so_far = float('inf')
     while True:
+        # curr-distance is diff of left-most and right-most element of the bst
         curr_distance = abs(bst[0].val - bst[-1].val)
         min_distance_so_far = min(curr_distance, min_distance_so_far)
 
+        # pop the leftmost node
         min_node = bst.pop(0)
         next_node = next(min_node.iterator, None)
         if next_node is None:
@@ -326,7 +334,7 @@ def delete_node(root: TreeNode, key: int) -> TreeNode:
                 else:
                     parent.right = None
             elif node.right and node.left:  # has both left and right children
-                # find inorder successor(leftmost child of right) with parent
+                # find inorder successor(leftmost child of right-node) with parent
                 succ_parent = node
                 succ = node.right
                 while succ.left is not None:
