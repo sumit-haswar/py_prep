@@ -1,5 +1,6 @@
 import unittest
-from dp import binomial_coefficients, binomial_coefficients_recur, fibonacci, fibonacci_memoized, fibonacci_iter
+from dp import binomial_coefficients, binomial_coefficients_recur, fibonacci, fibonacci_memoized, fibonacci_iter, \
+    partition, longest_increasing_subsequence
 
 
 class AdmDPTestCase(unittest.TestCase):
@@ -20,6 +21,13 @@ class AdmDPTestCase(unittest.TestCase):
         self.assertEqual(1597, fibonacci(17))
         self.assertEqual(44945570212853, fibonacci_memoized(67))
         self.assertEqual(308061521170129, fibonacci_iter(71))
+
+    def test_partition(self):
+        books = [100, 200, 300, 400, 500, 600, 700, 800, 900]
+        min_diff, partitioned_books = partition(books, 3)
+        self.assertEqual(min_diff, 400)
+        expected_partition = ['100,200,300,400,500', '600,700', '800,900']
+        self.assertListEqual(expected_partition, partitioned_books)
 
 
 if __name__ == '__main__':

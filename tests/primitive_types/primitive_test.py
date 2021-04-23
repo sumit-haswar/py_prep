@@ -97,6 +97,9 @@ class PrimitiveTestCase(unittest.TestCase):
         self.assertEqual("1A",converter.encode(100))
         self.assertEqual("1Z", converter.encode(125))
         self.assertEqual("4PBO", converter.encode(1259890))
+        print(converter.encode(1000000000)) # XCIE0
+
+        self.assertEqual(1259890, converter.decode("4PBO"))
 
 if __name__ == '__main__':
     unittest.main()

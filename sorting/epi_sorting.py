@@ -32,6 +32,7 @@ def intersect_two_sorted_lists_binary_search(arr1: List[int], arr2: List[int]) -
             return True
         return False
 
+    #wlog arr1 is longer than arr2
     if len(arr2) > len(arr1):
         arr1, arr2 = arr2, arr1
     result = []

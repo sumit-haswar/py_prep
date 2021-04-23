@@ -20,6 +20,7 @@ def is_balanced(root: TreeNode) -> bool:
         if right['is_balanced'] is False:
             return {'is_balanced': False, 'height': None}
 
+        # check if for this node left and right are imbalanced
         if abs(left['height'] - right['height']) > 1:
             return {'is_balanced': False, 'height': None}
 
@@ -66,9 +67,10 @@ def get_lca(root: TreeNode,
         if right['count'] == 2:
             return right
 
-        # post-order processing
+        # post-order processing, check if current-node is a or b
         count = left['count'] + right['count'] + (a, b).count(node)
 
+        # if count becomes 2, then this node is the lca
         return {'count': count,
                 'lca': node if count == 2 else None}
 
@@ -152,10 +154,10 @@ def get_kth_node(root: TreeNode, k: int) -> TreeNode:
             # this is the kth node
             return curr
         elif left_count >= k:
-            # k is to the left of current
+            # k is to the left of current, hence we don't decrement k
             curr = curr.left
         else:
-            # kth is to the right of current
+            # kth node is to the right of current
             # - 1 is for current node
             curr = curr.right
             k = k - left_count - 1
@@ -172,6 +174,7 @@ def get_successor(node: TreeNode) -> TreeNode:
             curr = curr.left
         return curr
     curr = node
+    # we have to traverse up and find first node which is parent from left
     while curr:
         if curr.parent and curr.parent.left is curr:
             return curr.parent
@@ -279,6 +282,7 @@ def reconstruct_bt(inorder: List[int], preorder: List[int]) -> TreeNode:
 #   9.13 form a linked-list from the leaves of a binary tree
 def create_list_of_leaves(root: TreeNode) -> List[TreeNode]:
     def _get_leaf_list(node: TreeNode, seq: List[int]):
+        # leaf-node
         if node.left is None and node.right is None:
             seq.append(node.data)
             return
@@ -314,6 +318,7 @@ def compute_right_sibling_tree(node: TreeNode):
 
 def compute_right_sibling_tree_recur(root: TreeNode):
     def _compute_right_sibling_tree_recur(node: TreeNode):
+        # pre-order assignment of siblings, top-down
         if node is None:
             return
         if node.left:
@@ -341,6 +346,7 @@ def _get_height(node: TreeNode):
 # 9.14 compute the exterior of a binary tree
 def exterior_binary_tree(root: TreeNode) -> List[int]:
     def _traverse_left(node: TreeNode):
+        # if node is none of node is leaf
         if node is None or (node.left is None and node.right is None):
             return
         # pre-order processing
@@ -374,13 +380,13 @@ def exterior_binary_tree(root: TreeNode) -> List[int]:
 
     exterior = [root.data]
 
-    # traverse left branch
+    # traverse left branch, in pre-order
     _traverse_left(root.left)
     # traverse leaves of root.left
     _traverse_leaves(root.left)
     # traverse leaves of root.right
     _traverse_leaves(root.right)
-    # traverse right branch
+    # traverse right branch, in post-order
     _traverse_right(root.right)
 
     return exterior

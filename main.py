@@ -2,9 +2,12 @@ from linked_list import linked_list_problems
 from binary_tree import binary_tree_problems
 from typing import List
 from random import randint
+import string
 
 x = 0
 factor = 47
+
+base64_map = string.ascii_lowercase + string.ascii_lowercase + string.digits + '-_'
 
 
 def hash(key, mod=None):
@@ -33,6 +36,10 @@ def rolling_hash(pattern, limit):
         curr_hash = curr_hash * factor + ord(curr[-1])
 
         print("{}:{}".format(curr, curr_hash))
+
+
+def base64_hash(url: str) -> str:
+    pass
 
 
 def subset_sum(input, target):
@@ -121,13 +128,14 @@ def equalSubSetSumPartition(s):
     else:
         return []
 
+
 def _swap(a, b, seq):
     temp = seq[a]
     seq[a] = seq[b]
     seq[b] = temp
 
-def find_kth_largest(list, k):
 
+def find_kth_largest(list, k):
     def _get_pivot_idx(left, right, idx):
 
         # move elem at idx to end
@@ -267,3 +275,7 @@ if __name__ == '__main__':
     print(hash('www.sumithaswar.com', 1000000))
     print(hash('www.google.com', 1000000))
     # print(hash('2a89f374ba8df3e5eefe475bdf61d176', 1000000000))
+
+    test_url = "https://drive.google.com/file/d/1itbw9WYstpJMFVYqRYdKcVQVADRGVpnQ/view"
+
+    print(base64_hash(test_url))
