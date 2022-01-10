@@ -19,7 +19,7 @@ It is a basic online library which lists a few undergrad level CS material from 
 5. Big O Notations (ref-material no. 3 or 5)
 
 For people with Computer Science background or even a few years of programming experience this 
-should be a good refresher. Its just to get your hands a little dirty, to get re-introduced. 
+should be a good refresher. It's just to get your hands a little dirty, to get re-introduced. 
 Also for the go-getters I highly recommend no. 4, as stated on the web-page it is one of the neatest 
 pointer/recursion problems you will ever see. It is an advanced problem that uses linked lists, 
 binary trees, and recursion.
@@ -65,7 +65,13 @@ system design problems. They may/may-not be of your interest. Nonetheless,
 they are very will written and some of them are prominent in the Computer Science 
 community.
 - [MapReduce: Simplified Data Processing on Large Clusters](https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf)
+- [The Google File System](https://static.googleusercontent.com/media/research.google.com/en//archive/gfs-sosp2003.pdf)
 - [Communicating Sequential Processes](https://www.cs.cmu.edu/~crary/819-f09/Hoare78.pdf)
+- [The Design of a Practical System for Fault-Tolerant VMs](https://www.cs.princeton.edu/courses/archive/fall16/cos418/papers/scales-vm.pdf)
+- [Spanner, TrueTime and the CAP Theorem](https://research.google/pubs/pub45855/)
+- [In Search of an Understandable Consensus Algorithm](https://raft.github.io/raft.pdf)
+
+Following are more specific to my interest and background in dist. trace logging
 - [FlumeJava: Easy, Efficient Data-Parallel Pipelines](https://research.google/pubs/pub35650/)
 - [MillWheel: Fault Tolerant Stream Processing at Internet Scale](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/41378.pdf)
 - [The Dataflow Model: A Practical Approach...](https://research.google/pubs/pub43864/)
