@@ -144,7 +144,7 @@ def build_random_tree():
          4   8
         /   / \
        11  13  4
-       / \      \
+       / \\      \
       7   2      1
     """
     _11 = TreeNode(11, TreeNode(7), TreeNode(2))
