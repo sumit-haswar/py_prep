@@ -272,10 +272,27 @@ class Solution:
 
 
 if __name__ == '__main__':
-    print(hash('www.sumithaswar.com', 1000000))
-    print(hash('www.google.com', 1000000))
-    # print(hash('2a89f374ba8df3e5eefe475bdf61d176', 1000000000))
+    # print(hash('www.sumithaswar.com', 1000000))
+    # print(hash('www.google.com', 1000000))
+    # # print(hash('2a89f374ba8df3e5eefe475bdf61d176', 1000000000))
+    #
+    # test_url = "https://drive.google.com/file/d/1itbw9WYstpJMFVYqRYdKcVQVADRGVpnQ/view"
+    i = 0
+    n1, n2 = 0, 1
 
-    test_url = "https://drive.google.com/file/d/1itbw9WYstpJMFVYqRYdKcVQVADRGVpnQ/view"
+    seq = []
+    while i < 20:
+        nth = n1 + n2
+        seq.append(nth)
 
-    print(base64_hash(test_url))
+        n1 = n2
+        n2 = nth
+
+        ratio = (n1 + n2)/n2
+        print(ratio)
+
+        i += 1
+
+    print(seq)
+    # print(base64_hash(test_url))
+
