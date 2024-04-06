@@ -2,6 +2,14 @@ from node import Node
 from typing import List, Optional
 
 
+def append_node(head: Node, value: int) -> Node:
+    """adds new node to the tail of the list"""
+    pass
+
+def copy_list(head:Node) -> Node:
+    """takes a list and returns a complete copy of the list"""
+    pass
+
 def length(head: Node) -> int:
     pass
 
