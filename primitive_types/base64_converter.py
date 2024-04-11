@@ -1,14 +1,14 @@
 import string
 
 
-class Base64Converter():
+class Base64Converter:
 
     def __init__(self):
         self.lookup = string.digits + string.ascii_lowercase + string.ascii_uppercase + "-_"
         self.base = 64
 
     def encode(self, value):
-        """convert a decimal value to base-64 value """
+        """convert a decimal value to base-64 value"""
         key = []
         curr_val = value
         while curr_val >= 64:

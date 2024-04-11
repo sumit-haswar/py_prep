@@ -1,5 +1,5 @@
 import heapq
-from typing import List, Iterable
+from typing import Iterable, List
 
 
 # boot camp
@@ -55,12 +55,8 @@ def sort_inc_dec_array(a: List[int]) -> List[int]:
     result = []
     for idx in range(1, len(a) + 1):
         prev = a[idx - 1]
-        if (idx == len(a)
-                or (is_increasing and a[idx] <= prev)
-                or (not is_increasing and a[idx] < prev)):
-            result.append(
-                a[start_idx: idx] if is_increasing else a[idx - 1:start_idx - 1:-1]
-            )
+        if idx == len(a) or (is_increasing and a[idx] <= prev) or (not is_increasing and a[idx] < prev):
+            result.append(a[start_idx:idx] if is_increasing else a[idx - 1 : start_idx - 1 : -1])
             start_idx = idx
             is_increasing = not is_increasing
 
@@ -86,7 +82,7 @@ def sort_k_sorted_array(A: Iterable[int], k: int):
     return result
 
 
-class Star():
+class Star:
     def __init__(self, earth_distance):
         self.earth_distance = earth_distance
 
@@ -127,9 +123,7 @@ def compute_stream_median(stream: Iterable[int]) -> List[int]:
             max_top = heapq.heappop(max_heap)
             heapq.heappush(min_heap, -1 * max_top)
 
-        median = ((min_heap[0] + (max_heap[0] * -1)) * 0.5) \
-            if len(min_heap) == len(max_heap) \
-            else min_heap[0]
+        median = ((min_heap[0] + (max_heap[0] * -1)) * 0.5) if len(min_heap) == len(max_heap) else min_heap[0]
         result.append(median)
 
     return result

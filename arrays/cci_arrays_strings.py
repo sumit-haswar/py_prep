@@ -1,6 +1,6 @@
-from typing import List
-import string
 import functools
+import string
+from typing import List
 
 
 #   1.1 is unique
@@ -16,7 +16,7 @@ def is_unique(input: str) -> bool:
 def is_unique_bit_map(input: str) -> bool:
     bitmap = 0
     for c in input:
-        code = ord(c) - ord('a')
+        code = ord(c) - ord("a")
         if bitmap & (1 << code):
             return False
         bitmap = bitmap | (1 << code)
@@ -24,7 +24,7 @@ def is_unique_bit_map(input: str) -> bool:
 
 
 def is_unique_sort(input: str) -> bool:
-    sorted_input = ''.join(sorted(input))
+    sorted_input = "".join(sorted(input))
     idx = 1
     while idx < len(sorted_input):
         if sorted_input[idx - 1] == sorted_input[idx]:
@@ -37,11 +37,11 @@ def is_unique_sort(input: str) -> bool:
 def is_permutation(a: str, b: str) -> bool:
     lookup = [0] * 256
     for c in a:
-        code = ord(c) - ord('a')
+        code = ord(c) - ord("a")
         lookup[code] += 1
 
     for c in b:
-        code = ord(c) - ord('a')
+        code = ord(c) - ord("a")
         lookup[code] -= 1
         if lookup[code] < 0:
             return False
@@ -60,28 +60,28 @@ def is_permutation_sort(a: str, b: str) -> bool:
 #   1.3 URLify
 def get_url(input: str) -> str:
     # count number of spaces
-    count = functools.reduce(lambda cnt, ch: cnt + (1 if ch == ' ' else 0), input, 0)
-    write_stream = [' '] * (len(input) + count * 2)
+    count = functools.reduce(lambda cnt, ch: cnt + (1 if ch == " " else 0), input, 0)
+    write_stream = [" "] * (len(input) + count * 2)
     write_idx = 0
     for ch in input:
-        if ch == ' ':
-            write_stream[write_idx] = '%'
-            write_stream[write_idx + 1] = '2'
-            write_stream[write_idx + 2] = '0'
+        if ch == " ":
+            write_stream[write_idx] = "%"
+            write_stream[write_idx + 1] = "2"
+            write_stream[write_idx + 2] = "0"
             write_idx += 3
         else:
             write_stream[write_idx] = ch
             write_idx += 1
 
     # arr = list(input)
-    return ''.join(write_stream)
+    return "".join(write_stream)
 
 
 #   1.4 Palindrome permutation
 def is_palindromic(input: str) -> bool:
     lookup = 0
     for ch in input:
-        code = ord(ch) - ord('a')
+        code = ord(ch) - ord("a")
         # flip code bit
         lookup = lookup ^ (1 << code)
 
@@ -117,6 +117,7 @@ def compress_string(text: str) -> bool:
 #   1.7 rotate matrix
 def rotate_matrix(matrix: List[List[int]]):
     pass
+
 
 #   1.8 zero matrix
 #   1.9 string rotation

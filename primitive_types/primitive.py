@@ -47,17 +47,19 @@ def get_parity_caching(num):
     # num is 64 bit in size
     # create parity cache of 0 - (2^16 - 1)
     parity_cache = {}
-    for i in range(0, 2 ** 16):
+    for i in range(0, 2**16):
         parity_cache[i] = get_parity_use_lowest_set(i)
 
     # divide num into 4 sub words of 16 bits each
     shift_size = 16
-    mask = (2 ** 16) - 1
+    mask = (2**16) - 1
 
-    result = parity_cache[num >> (3 * shift_size)] \
-             ^ parity_cache[(num >> (2 * shift_size)) & mask] \
-             ^ parity_cache[(num >> shift_size) & mask] \
-             ^ parity_cache[num & mask]
+    result = (
+        parity_cache[num >> (3 * shift_size)]
+        ^ parity_cache[(num >> (2 * shift_size)) & mask]
+        ^ parity_cache[(num >> shift_size) & mask]
+        ^ parity_cache[num & mask]
+    )
 
     return result
 
@@ -66,7 +68,7 @@ def get_parity_xor(num):
     powers = [5, 4, 3, 2, 1, 0]
     for power in powers:
         shift_bits = 1 << power
-        num ^= (num >> shift_bits)
+        num ^= num >> shift_bits
 
     return num & 1
 
@@ -102,12 +104,12 @@ def reverse_bits(num):
 def reverse_bits_cached(num):
     # create cache of reverse from 0 to 65,535
     reverse_cache = {}
-    for entry in range(0, (2 ** 16)):
+    for entry in range(0, (2**16)):
         reverse_cache[entry] = reverse_bits(entry)
 
     # now for 4 sub-words in num 3(16),2(16),1(16) and 0(16)
     shift_size = 16
-    mask = (2 ** 16) - 1
+    mask = (2**16) - 1
 
     msb = reverse_cache[num & mask] << (3 * shift_size)
     # >> by shift_size --> & with mask to clear --> look-up in cache --> left shift by twice
@@ -160,11 +162,13 @@ class Rectangle:
 
 def _is_intersecting(rectangle_1: Rectangle, rectangle_2: Rectangle):
     """two rects are intersecting if r1.x falls within r2.x + width and vice versa and
-     r1.y falls within r2.y + height"""
-    return rectangle_1.x <= (rectangle_2.x + rectangle_2.width) \
-           and rectangle_2.x <= (rectangle_1.x + rectangle_1.width) \
-           and rectangle_1.y <= (rectangle_2.y + rectangle_2.height) \
-           and rectangle_2.y <= (rectangle_1.y + rectangle_1.height)
+    r1.y falls within r2.y + height"""
+    return (
+        rectangle_1.x <= (rectangle_2.x + rectangle_2.width)
+        and rectangle_2.x <= (rectangle_1.x + rectangle_1.width)
+        and rectangle_1.y <= (rectangle_2.y + rectangle_2.height)
+        and rectangle_2.y <= (rectangle_1.y + rectangle_1.height)
+    )
 
 
 def intersecting_rectangle(rectangle_1: Rectangle, rectangle_2: Rectangle):
@@ -174,11 +178,13 @@ def intersecting_rectangle(rectangle_1: Rectangle, rectangle_2: Rectangle):
     x = max(rectangle_1.x, rectangle_2.x)
     y = max(rectangle_1.y, rectangle_2.y)
 
-    width = min(rectangle_1.x + rectangle_1.width, rectangle_2.x + rectangle_2.width) \
-            - max(rectangle_1.x, rectangle_2.x)
+    width = min(rectangle_1.x + rectangle_1.width, rectangle_2.x + rectangle_2.width) - max(
+        rectangle_1.x, rectangle_2.x
+    )
 
-    height = min(rectangle_1.y + rectangle_1.height, rectangle_2.y + rectangle_2.height) \
-             - max(rectangle_1.y, rectangle_2.y)
+    height = min(rectangle_1.y + rectangle_1.height, rectangle_2.y + rectangle_2.height) - max(
+        rectangle_1.y, rectangle_2.y
+    )
 
     return Rectangle(x, y, width, height)
 
@@ -212,14 +218,14 @@ def my_a_to_i(s: str) -> int:
     factor = 1
     while curr_idx < len(s):
         curr_char = s[curr_idx]
-        if curr_char == ' ':
+        if curr_char == " ":
             curr_idx += 1
             continue
-        elif curr_char in ['+', '-']:
+        elif curr_char in ["+", "-"]:
             if sign_set:
                 break
             sign_set = True
-            if curr_char == '-':
+            if curr_char == "-":
                 factor = -1
         elif _is_digit(curr_char):
             digits.append(string.digits.index(curr_char))
@@ -238,7 +244,7 @@ def my_separator(text):
     result = []
     for ch in text:
         # !?',;.
-        if ch in [' ', ',', '.', '?', '!', ';']:
+        if ch in [" ", ",", ".", "?", "!", ";"]:
             if buffer:
                 result.append("".join(buffer))
                 buffer = []
@@ -249,7 +255,7 @@ def my_separator(text):
     return result
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(my_separator("words and 987"))
     print(my_separator("4193.   with, words"))
     print(my_separator("     -42"))

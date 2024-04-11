@@ -7,7 +7,7 @@ prereqs_courses = [
     ["Computer Networks", "Computer Architecture"],
     ["Algorithms", "Foundations of Computer Science"],
     ["Computer Architecture", "Data Structures"],
-    ["Software Design", "Computer Networks"]
+    ["Software Design", "Computer Networks"],
 ]
 
 
@@ -22,6 +22,7 @@ prereqs_courses = [
 
 # Sample output 1:
 # 	"Data Structures"
+
 
 def get_mid_course(prereq_course_list: List):
     prereq_course_map = {}
@@ -58,6 +59,6 @@ def get_mid_course(prereq_course_list: List):
         return course_list[mid]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     mid_course = get_mid_course(prereqs_courses)
     print(mid_course)

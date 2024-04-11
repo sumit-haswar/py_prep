@@ -1,6 +1,7 @@
 import unittest
-from binary_tree import util
+
 from binary_search_trees import *
+from binary_tree import util
 from binary_tree.epi_binary_trees import is_balanced
 
 
@@ -60,15 +61,11 @@ class EpiBinarySearchTreesTestCase(unittest.TestCase):
         self.assertTrue(util.tree_equal(bst, expected))
 
     def test_find_closest_elements_in_sorted_array(self):
-        input = [[5, 10, 15],
-                 [3, 6, 9, 12, 15],
-                 [8, 16, 24]]
+        input = [[5, 10, 15], [3, 6, 9, 12, 15], [8, 16, 24]]
         actual = find_closest_elements_in_sorted_array(input)
         self.assertEqual(1, actual)
 
-        input = [[5, 10, 15, 24],
-                 [3, 6, 9, 12, 15, 24],
-                 [8, 16, 24]]
+        input = [[5, 10, 15, 24], [3, 6, 9, 12, 15, 24], [8, 16, 24]]
         actual = find_closest_elements_in_sorted_array(input)
         self.assertEqual(0, actual)
 
@@ -110,24 +107,24 @@ class EpiBinarySearchTreesTestCase(unittest.TestCase):
     def test_clients_credits_info(self):
         cci = ClientsCreditsInfo()
         data = [
-            {'client_id': 'john-pablo', 'credit': 100},
-            {'client_id': 'jim-smith', 'credit': 80},
-            {'client_id': 'ema-scott', 'credit': 95},
+            {"client_id": "john-pablo", "credit": 100},
+            {"client_id": "jim-smith", "credit": 80},
+            {"client_id": "ema-scott", "credit": 95},
         ]
 
         for client in data:
-            cci.insert(client['client_id'], client['credit'])
+            cci.insert(client["client_id"], client["credit"])
 
         max = cci.get_max()
-        self.assertTrue('john-pablo' in max)
+        self.assertTrue("john-pablo" in max)
 
-        cci.insert('jim-ross', 200)
-        self.assertTrue('jim-ross' in cci.get_max())
-        cci.remove('jim-ross')
-        self.assertTrue('john-pablo' in cci.get_max())
+        cci.insert("jim-ross", 200)
+        self.assertTrue("jim-ross" in cci.get_max())
+        cci.remove("jim-ross")
+        self.assertTrue("john-pablo" in cci.get_max())
 
-        self.assertDictEqual({'credit': 80, 'client_id': 'jim-smith'}, cci.lookup('jim-smith'))
+        self.assertDictEqual({"credit": 80, "client_id": "jim-smith"}, cci.lookup("jim-smith"))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

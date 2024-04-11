@@ -7,14 +7,10 @@ For details regarding problem and solutions pls refer the original document:
 """
 
 from .node import Node
-from .util import print_list, \
-    get_random_list, \
-    push, \
-    length, \
-    create_list
-
+from .util import create_list, get_random_list, length, print_list, push
 
 # Solutions to linked-list problems defined in: http://cslibrary.stanford.edu/105/
+
 
 # 3. build at head with push()
 def build_at_head():
@@ -50,7 +46,7 @@ def count_occurrence(head, elem):
     curr = head
     count = 0
     while curr:
-        if (curr.data == elem):
+        if curr.data == elem:
             count = count + 1
         curr = curr.next
 
@@ -71,7 +67,7 @@ def get_nth(head, idx):
         curr = curr.next
         curr_idx = curr_idx + 1
 
-    raise Exception('invalid idx')
+    raise Exception("invalid idx")
 
 
 # 3. delete list
@@ -176,10 +172,10 @@ def front_back_split(head):
     slow = head
     fast = head.next
 
-    if (fast is None):
+    if fast is None:
         return (slow, None)
 
-    if (fast.next is None):
+    if fast.next is None:
         slow.next = None
         return (slow, fast)
 

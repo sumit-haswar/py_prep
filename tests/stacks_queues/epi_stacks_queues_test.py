@@ -1,15 +1,16 @@
 import unittest
-from stacks_queues import \
-    MaxStack, \
-    evaluate_rpn_expression, \
-    is_string_well_formed, \
-    get_sunset_view, \
-    get_tree_nodes_by_level, \
-    ArrayQueue, \
-    StackQueue, \
-    MaxQueue
 
 from binary_tree.util import build_1_to_10_bst
+from stacks_queues import (
+    ArrayQueue,
+    evaluate_rpn_expression,
+    get_sunset_view,
+    get_tree_nodes_by_level,
+    is_string_well_formed,
+    MaxQueue,
+    MaxStack,
+    StackQueue,
+)
 
 
 class EpiStacksQueuesTestCase(unittest.TestCase):
@@ -32,26 +33,53 @@ class EpiStacksQueuesTestCase(unittest.TestCase):
         self.assertEqual(44, max_stack.get_max())
 
     def test_evaluate_rpn_expression(self):
-        result = evaluate_rpn_expression('5 3 2 * +')
+        result = evaluate_rpn_expression("5 3 2 * +")
         self.assertEqual(11, result)
 
-        result = evaluate_rpn_expression('9 4 / 1 2 + -')
+        result = evaluate_rpn_expression("9 4 / 1 2 + -")
         self.assertEqual(-1, result)
 
-        result = evaluate_rpn_expression('10 6 9 3 + -11 * / * 17 + 5 +')
+        result = evaluate_rpn_expression("10 6 9 3 + -11 * / * 17 + 5 +")
         self.assertEqual(22, result)
 
     def test_is_string_well_formed(self):
-        self.assertTrue(is_string_well_formed(''))
-        self.assertTrue(is_string_well_formed('[]{}(){[()]}'))
-        self.assertFalse(is_string_well_formed('[]{}(){[(]}'))
+        self.assertTrue(is_string_well_formed(""))
+        self.assertTrue(is_string_well_formed("[]{}(){[()]}"))
+        self.assertFalse(is_string_well_formed("[]{}(){[(]}"))
 
     def test_get_sunset_view(self):
         actual = get_sunset_view(iter([6, 9, 3, 9, 5, 16, 9, 13]))
         self.assertEqual([7, 5], actual)
-        actual = get_sunset_view(iter([17, 15, 3, 15, 32, 14, 21, 26, 8, 34,
-                                       42, 14, 5, 4, 13, 42, 19, 36, 30, 14,
-                                       45, 20, 43, 13]))
+        actual = get_sunset_view(
+            iter(
+                [
+                    17,
+                    15,
+                    3,
+                    15,
+                    32,
+                    14,
+                    21,
+                    26,
+                    8,
+                    34,
+                    42,
+                    14,
+                    5,
+                    4,
+                    13,
+                    42,
+                    19,
+                    36,
+                    30,
+                    14,
+                    45,
+                    20,
+                    43,
+                    13,
+                ]
+            )
+        )
         self.assertEqual([23, 22, 20], actual)
 
     def test_get_tree_nodes_by_level(self):
@@ -80,10 +108,10 @@ class EpiStacksQueuesTestCase(unittest.TestCase):
             self.assertEqual(e * 11, sq.dequeue())
 
         sq = ArrayQueue(5)
-        for e in range(1,10):
+        for e in range(1, 10):
             sq.enqueue(e * 11)
 
-        for e in range(1,10):
+        for e in range(1, 10):
             self.assertEqual(e * 11, sq.dequeue())
 
     def test_max_queue(self):
@@ -107,6 +135,5 @@ class EpiStacksQueuesTestCase(unittest.TestCase):
         self.assertEqual(265, mq.dequeue())
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

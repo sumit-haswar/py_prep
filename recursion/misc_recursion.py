@@ -1,6 +1,7 @@
 from typing import List
-from util import is_char
+
 from binary_tree import TreeNode
+from util import is_char
 
 
 def all_subsets(input: str) -> List:
@@ -10,7 +11,7 @@ def all_subsets(input: str) -> List:
             return
 
         curr_char = input[curr_idx]
-        for i in [curr_char, '']:
+        for i in [curr_char, ""]:
             slate.append(i)
             # for duplicate entries in input skip over the duplicates, just taking the current one
             # curr_idx + k, where k is the count of total occurrence of
@@ -68,9 +69,9 @@ def remove_invalid_parentheses(expression: str) -> List[str]:
     def _exp_valid(exp):
         stack = []
         for ch in exp:
-            if ch == '(':
+            if ch == "(":
                 stack.append(ch)
-            elif ch == ')':
+            elif ch == ")":
                 if not stack:
                     return False
                 stack.pop()
@@ -92,7 +93,7 @@ def remove_invalid_parentheses(expression: str) -> List[str]:
             return
 
         curr_char = expression[curr_idx]
-        if curr_char in ('(', ')'):
+        if curr_char in ("(", ")"):
             _remove_invalid_parentheses(curr_idx + 1, curr_expression)
             _remove_invalid_parentheses(curr_idx + 1, curr_expression + curr_char)
         else:
@@ -101,7 +102,7 @@ def remove_invalid_parentheses(expression: str) -> List[str]:
     result = []
     min_exp_len = [0]
 
-    _remove_invalid_parentheses(0, '')
+    _remove_invalid_parentheses(0, "")
 
     return result
 
@@ -152,7 +153,7 @@ def binary_strings(digits: int) -> List:
 def all_decimal_numbers(total_digits: int):
     def _all_decimal_numbers(curr: int, curr_num):
         if curr == total_digits:
-            result.append(''.join([str(x) for x in curr_num]))
+            result.append("".join([str(x) for x in curr_num]))
             return
 
         for digit in range(10):
@@ -176,9 +177,9 @@ def perform_op(expr_list, op):
             left_num = int(result[-1])
             right_num = int(expr_list[idx + 1])
 
-            if op == '*':
+            if op == "*":
                 r = left_num * right_num
-            elif op == '+':
+            elif op == "+":
                 r = left_num + right_num
             else:
                 raise Exception("invalid operation")
@@ -203,7 +204,7 @@ def eval_expr(expr):
     expr_list = []
     buffer = []
     for ch in expr:
-        if ch in ['*', '+']:
+        if ch in ["*", "+"]:
             expr_list.append("".join(buffer))
             expr_list.append(ch)
             buffer = []
@@ -213,9 +214,9 @@ def eval_expr(expr):
         expr_list.append("".join(buffer))
 
     # pass 1 for calculating all *
-    result = perform_op(expr_list, '*')
+    result = perform_op(expr_list, "*")
     # pass 2 for calculating all +
-    result = perform_op(result, '+')
+    result = perform_op(result, "+")
 
     return result[0]
 
@@ -229,7 +230,7 @@ def generate_all_expressions(s, target):
                 result.append(partial_exp)
             return
 
-        for op in ['', '*', '+']:
+        for op in ["", "*", "+"]:
             if not op:
                 # simply add curr digit to expression, 1 --> 12
                 _generate_all_expressions(curr_idx + 1, partial_exp + s[curr_idx])
@@ -249,7 +250,7 @@ def check_if_sum_possible(arr, k):
 
         if curr_idx >= len(arr):
             s = 0
-            sum_seq = [x for x in slate if x != float('inf')]
+            sum_seq = [x for x in slate if x != float("inf")]
             for e in sum_seq:
                 s += e
             if sum_seq and s == k:
@@ -257,7 +258,7 @@ def check_if_sum_possible(arr, k):
             return
 
         curr_num = arr[curr_idx]
-        for i in [curr_num, float('inf')]:
+        for i in [curr_num, float("inf")]:
             slate.append(i)
             _check_sum_possible(arr, slate, curr_idx + 1)
             del slate[-1]

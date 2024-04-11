@@ -1,7 +1,8 @@
+import heapq
+from typing import List
+
 from .node import Node
 from .util import create_list, length
-from typing import List
-import heapq
 
 
 #   7.1 merge two sorted lists
@@ -191,6 +192,7 @@ class HeapItem:
     def __lt__(self, other):
         return self.val < other.val
 
+
 def merge_k_sorted_linked_list(lists: List[Node]):
     min_heap = []
 
@@ -205,12 +207,16 @@ def merge_k_sorted_linked_list(lists: List[Node]):
         curr_item = heapq.heappop(min_heap)
 
         if curr_item.list_node.next:
-            heapq.heappush(min_heap, HeapItem(curr_item.list_node.next.val, curr_item.list_node.next))
+            heapq.heappush(
+                min_heap,
+                HeapItem(curr_item.list_node.next.val, curr_item.list_node.next),
+            )
 
         tail.next = curr_item.list_node
         tail = curr_item.list_node
 
     return head.next
+
 
 def _reverse(list):
     if list is None or list.next is None:

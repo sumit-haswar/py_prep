@@ -1,33 +1,34 @@
-import typing
-from typing import List, Iterable, Optional
-from binary_tree import TreeNode
-from binary_tree import *
 import heapq
+import typing
+from typing import Iterable, List, Optional
+
+from binary_tree import *
+from binary_tree import TreeNode
 
 
 #   9.1 test if tree is height balanced
 def is_balanced(root: TreeNode) -> bool:
     def _is_balanced(node: TreeNode):
         if not node:
-            return {'is_balanced': True, 'height': -1}
+            return {"is_balanced": True, "height": -1}
 
         left = _is_balanced(node.left)
 
-        if left['is_balanced'] is False:
-            return {'is_balanced': False, 'height': None}
+        if left["is_balanced"] is False:
+            return {"is_balanced": False, "height": None}
 
         right = _is_balanced(node.right)
-        if right['is_balanced'] is False:
-            return {'is_balanced': False, 'height': None}
+        if right["is_balanced"] is False:
+            return {"is_balanced": False, "height": None}
 
         # check if for this node left and right are imbalanced
-        if abs(left['height'] - right['height']) > 1:
-            return {'is_balanced': False, 'height': None}
+        if abs(left["height"] - right["height"]) > 1:
+            return {"is_balanced": False, "height": None}
 
-        height = max(left['height'], right['height']) + 1
-        return {'is_balanced': True, 'height': height}
+        height = max(left["height"], right["height"]) + 1
+        return {"is_balanced": True, "height": height}
 
-    return _is_balanced(root)['is_balanced']
+    return _is_balanced(root)["is_balanced"]
 
 
 #   9.2 test if binary tree is symmetric
@@ -36,9 +37,7 @@ def is_symmetric(root: TreeNode) -> bool:
         if a is None and b is None:
             return True
         elif a is not None and b is not None:
-            return a.data == b.data \
-                   and _is_symmetric(a.left, b.right) \
-                   and _is_symmetric(a.right, b.left)
+            return a.data == b.data and _is_symmetric(a.left, b.right) and _is_symmetric(a.right, b.left)
         else:
             return False
 
@@ -46,35 +45,31 @@ def is_symmetric(root: TreeNode) -> bool:
 
 
 #   9.3 get lca in a binary tree
-def get_lca(root: TreeNode,
-            node_a: TreeNode,
-            node_b: TreeNode) -> Optional[int]:
+def get_lca(root: TreeNode, node_a: TreeNode, node_b: TreeNode) -> Optional[int]:
     def _get_lca(node: TreeNode, a: TreeNode, b: TreeNode):
         # base case
         if node is None:
-            return {'count': 0,
-                    'lca': None}
+            return {"count": 0, "lca": None}
 
         # look left
         left = _get_lca(node.left, a, b)
 
-        if left['count'] == 2:
+        if left["count"] == 2:
             return left
 
         # look right
         right = _get_lca(node.right, a, b)
 
-        if right['count'] == 2:
+        if right["count"] == 2:
             return right
 
         # post-order processing, check if current-node is a or b
-        count = left['count'] + right['count'] + (a, b).count(node)
+        count = left["count"] + right["count"] + (a, b).count(node)
 
         # if count becomes 2, then this node is the lca
-        return {'count': count,
-                'lca': node if count == 2 else None}
+        return {"count": count, "lca": node if count == 2 else None}
 
-    return _get_lca(root, node_a, node_b)['lca']
+    return _get_lca(root, node_a, node_b)["lca"]
 
 
 #   9.4 get lca when nodes have parent pointers
@@ -125,9 +120,9 @@ def get_path_with_sum(root: TreeNode, sum: int):
             if value == 0:
                 return True, path
             else:
-                return False, ''
+                return False, ""
         if path:
-            path += ',' + str(node.data)
+            path += "," + str(node.data)
         else:
             path = str(node.data)
 
@@ -141,8 +136,8 @@ def get_path_with_sum(root: TreeNode, sum: int):
 
         return False, path
 
-    result = _get_path_with_sum(root, sum, '')
-    return result[1] if result[0] else ''
+    result = _get_path_with_sum(root, sum, "")
+    return result[1] if result[0] else ""
 
 
 #   9.8 kth node in an inorder traversal
@@ -266,15 +261,11 @@ def reconstruct_bt(inorder: List[int], preorder: List[int]) -> TreeNode:
         right_pre_start = left_pre_end + 1
         right_pre_end = pre_end
 
-        return TreeNode(node_data,
-                        _reconstruct_bt(left_in_start,
-                                        left_in_end,
-                                        left_pre_start,
-                                        left_pre_end),
-                        _reconstruct_bt(right_in_start,
-                                        right_in_end,
-                                        right_pre_start,
-                                        right_pre_end))
+        return TreeNode(
+            node_data,
+            _reconstruct_bt(left_in_start, left_in_end, left_pre_start, left_pre_end),
+            _reconstruct_bt(right_in_start, right_in_end, right_pre_start, right_pre_end),
+        )
 
     return _reconstruct_bt(0, len(inorder) - 1, 0, len(preorder) - 1)
 
@@ -337,7 +328,7 @@ def compute_right_sibling_tree_recur(root: TreeNode):
 def _get_height(node: TreeNode):
     height = -1
     curr = node
-    while (curr):
+    while curr:
         height += 1
         curr = curr.parent
     return height

@@ -1,4 +1,4 @@
-class Heap():
+class Heap:
 
     def __init__(self, list):
         self.data = list.copy() if list else []
@@ -64,7 +64,7 @@ class Heap():
         if self.data:
             return self.data[0]
         else:
-            raise Exception('empty heap !')
+            raise Exception("empty heap !")
 
     def swap(self, idx_a, idx_b):
         temp = self.data[idx_a]

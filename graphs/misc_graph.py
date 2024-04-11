@@ -1,10 +1,10 @@
 import collections
 from collections import defaultdict
 from typing import List
-from graphs.set_union import SetUnion
-from graphs.graph_node import GraphNode, Node, Edge
-from graphs.bfs import Bfs
 
+from graphs.bfs import Bfs
+from graphs.graph_node import Edge, GraphNode, Node
+from graphs.set_union import SetUnion
 
 # Given an 2-d array of integers, find the size of the largest contiguous block
 # (horizontally/vertically connected only) of numbers with the same value.
@@ -130,7 +130,7 @@ def get_tri_cycle(curr_node, source_node, level, seq, graph_map, tri_cycles):
 
     if curr_node == source_node and level == 3:
         curr_seq = set(sorted(seq))
-        trio_signature = '-'.join([str(e) for e in curr_seq])
+        trio_signature = "-".join([str(e) for e in curr_seq])
         if trio_signature not in tri_cycles:
             tri_cycles[trio_signature] = curr_seq
         return
@@ -159,8 +159,10 @@ class Cell:
 def _iter_bfs(matrix, origin_cell, word_lookup, result):
     pass
 
+
 def _dfs(matrix, origin_cell, word_lookup, result):
     pass
+
 
 def find_words_in_matrix(matrix, word_lookup):
     rows = len(matrix)
@@ -178,17 +180,17 @@ def find_words_in_matrix(matrix, word_lookup):
 
 def top_sort(graph):
     def _top_sort(node):
-        node.color = 'gray'
+        node.color = "gray"
         for neighbor in node.edges:
-            if neighbor.color != 'black':
+            if neighbor.color != "black":
                 _top_sort(neighbor)
 
         result.append(node.val)
-        node.color = 'black'
+        node.color = "black"
 
     result = []
     for val, node in graph.items():
-        if node.color == 'white':
+        if node.color == "white":
             _top_sort(node)
 
     return result
@@ -244,7 +246,7 @@ def count_connected_components(graph: List[GraphNode]):
     bfs = Bfs()
 
     for node in graph:
-        if node.state == 'undiscovered':
+        if node.state == "undiscovered":
             bfs.bfs(node)
             connected_components += 1
 
@@ -255,29 +257,29 @@ def count_connected_components(graph: List[GraphNode]):
 def two_color_graph(graph: List[GraphNode]):
     class TwoColorBfs(Bfs):
         def _complement_color(self, color):
-            if color == 'white':
-                return 'black'
-            elif color == 'black':
-                return 'white'
+            if color == "white":
+                return "black"
+            elif color == "black":
+                return "white"
             else:
-                return 'uncolored'
+                return "uncolored"
 
         def process_edge(self, source: GraphNode, sink: GraphNode):
             if color_map[source.val] == color_map[sink.val]:
-                raise Exception('Graph is not bipartite')
+                raise Exception("Graph is not bipartite")
             color_map[sink.val] = self._complement_color(source.color)
 
     color_map = {}
     for node in graph:
-        color_map[node.val] = 'uncolored'
+        color_map[node.val] = "uncolored"
 
     bipartite = True
 
     two_color_bfs = TwoColorBfs()
 
     for node in graph:
-        if node.state == 'undiscovered':
-            color_map[node.val] = 'white'
+        if node.state == "undiscovered":
+            color_map[node.val] = "white"
             two_color_bfs.bfs(node)
 
     return bipartite
@@ -295,6 +297,7 @@ def two_color_graph(graph: List[GraphNode]):
 
 # -- -- -- -- -- -- weighted graph algorithms -- -- -- -- -- --
 
+
 def create_mst_prims(graph, start_node: Node):
     # set to determine if a node is in the mst we are constructing
     in_tree = set()
@@ -304,7 +307,7 @@ def create_mst_prims(graph, start_node: Node):
     # node and distance map
     distance = {}
     for key in graph.keys():
-        distance[key] = float('inf')
+        distance[key] = float("inf")
     distance[start_node.val] = 0
 
     # parent-of map
@@ -322,7 +325,7 @@ def create_mst_prims(graph, start_node: Node):
                 parent[adj_node_val] = curr_node.val
 
         # iter over all vertices of graph and set curr_node to min of unvisited
-        min_dist = float('inf')
+        min_dist = float("inf")
         for node_val in graph.keys():
             node = graph[node_val]
             if node.val not in in_tree and min_dist > distance[node.val]:
@@ -338,7 +341,7 @@ def create_mst_kruskal(graph) -> List[Edge]:
     edge_set = set()
     for node_val, node in graph.items():
         for sink, weight in node.edges.items():
-            edge_key = ''.join(sorted((node_val, sink)))
+            edge_key = "".join(sorted((node_val, sink)))
             if edge_key not in edge_set:
                 edge_set.add(edge_key)
                 edges.append(Edge(node_val, sink, weight))
@@ -365,7 +368,7 @@ def dijkstra(graph, start_node: Node):
     # create distance map for each node, init start to 0
     distance = {}
     for node_val in graph.keys():
-        distance[node_val] = float('inf')
+        distance[node_val] = float("inf")
     distance[start_node.val] = 0
 
     # node - parent lookup
@@ -381,7 +384,7 @@ def dijkstra(graph, start_node: Node):
                 distance[adj_node] = distance[curr_node.val] + weight  ##
                 parent_of[adj_node] = curr_node.val  ##
 
-        dist = float('inf')
+        dist = float("inf")
         # get the min non-visited of all nodes in graph
         for node_val, node in graph.items():
             if node_val not in visited and distance[node_val] < dist:
@@ -404,7 +407,7 @@ def floyd_warshall(graph):
     for node_val in range(len(graph)):
         curr_row = []
         for node_val in range(len(graph)):
-            curr_row.append(float('inf'))
+            curr_row.append(float("inf"))
         adj_matrix.append(curr_row)
 
     for node_val, node in graph.items():
@@ -430,24 +433,20 @@ def floyd_warshall(graph):
 # 3 4 4 4 3 4
 # 2 4 3 3 3 4
 # 2 4 4 4 4 4
-input = [[3, 3, 3, 3, 3, 1],
-         [3, 4, 4, 4, 3, 4],
-         [2, 4, 3, 3, 3, 4],
-         [2, 4, 4, 4, 4, 4]]
+input = [[3, 3, 3, 3, 3, 1], [3, 4, 4, 4, 3, 4], [2, 4, 3, 3, 3, 4], [2, 4, 4, 4, 4, 4]]
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     matrix = [
-        ['a', 'n', 'g'],
-        ['t', 'd', 'a'],
-        ['l', 'a', 'r'],
+        ["a", "n", "g"],
+        ["t", "d", "a"],
+        ["l", "a", "r"],
     ]
     lookup = set()
-    lookup.add('and')
-    lookup.add('a')
-    lookup.add('ant')
-    lookup.add('atlas')
-    lookup.add('anger')
-    lookup.add('at')
-    lookup.add('ragna')
+    lookup.add("and")
+    lookup.add("a")
+    lookup.add("ant")
+    lookup.add("atlas")
+    lookup.add("anger")
+    lookup.add("at")
+    lookup.add("ragna")
     find_words_in_matrix(matrix, lookup)
-

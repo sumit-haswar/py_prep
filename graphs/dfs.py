@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+
 from .graph_node import GraphNode
 
 
@@ -13,15 +14,15 @@ class Dfs(ABC):
 
     # @abstractmethod
     def pre_process_node(self, node: GraphNode):
-        print('pre process node: {}'.format(node.val))
+        print("pre process node: {}".format(node.val))
 
     # @abstractmethod
     def post_process_node(self, node: GraphNode):
-        print('post process node: {}'.format(node.val))
+        print("post process node: {}".format(node.val))
 
     @abstractmethod
     def process_edge(self, parent: GraphNode, child: GraphNode):
-        print('process edge: {} --> {}'.format(parent.val, child.val))
+        print("process edge: {} --> {}".format(parent.val, child.val))
 
     def dfs(self, node: GraphNode):
         if self.terminate:
@@ -56,7 +57,7 @@ class FindingCycles(Dfs):
             self.parent_of[node] = -1
 
     def process_edge(self, parent: GraphNode, child: GraphNode):
-        print('process edge: {} --> {}'.format(parent.val, child.val))
+        print("process edge: {} --> {}".format(parent.val, child.val))
         if child.discovered and self.parent_of[parent.val] != child.val:
             print("!!!! cycle detected !!!!")
 
@@ -87,4 +88,4 @@ if __name__ == "__main__":
 
     finding_cycles = FindingCycles([1, 2, 3, 6])
     finding_cycles.dfs(one)
-    print('dfs complete')
+    print("dfs complete")

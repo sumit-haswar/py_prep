@@ -1,6 +1,7 @@
 """
 # popular sorting algorithms
 """
+
 from heap import Heap
 
 
@@ -126,6 +127,7 @@ def _merge_2(arr, left, mid, right):
         arr[curr] = i
         curr += 1
 
+
 def _merge(list, left, mid, right):
     left_size = mid - left + 1
     right_size = right - mid
@@ -190,6 +192,7 @@ def heap_sort(list):
 # bucket sort
 
 # radix sort
+
 
 def _get_min(list, start, end):
     min = list[start]

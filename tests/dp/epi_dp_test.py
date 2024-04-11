@@ -1,4 +1,5 @@
 import unittest
+
 from dp import *
 
 
@@ -46,5 +47,5 @@ class EpiDPTestCase(unittest.TestCase):
         self.assertEqual(6, maximum)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

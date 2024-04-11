@@ -25,7 +25,7 @@ def print_n_ary_bfs(root):
             next_queue.append(child)
 
         if len(curr_queue) == 0:
-            print('--')
+            print("--")
             # current level is done
             temp = curr_queue
             curr_queue = next_queue
@@ -62,7 +62,7 @@ def build_random_n_ary_tree():
     return root
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     root = build_random_n_ary_tree()
     # print_n_ary_bfs(root)
     print_n_ary_dfs(root)

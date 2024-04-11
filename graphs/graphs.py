@@ -1,8 +1,8 @@
 from collections import deque
 from string import ascii_lowercase, ascii_uppercase
 
-
 # Complete the function below.
+
 
 def _get_neighbors(row, col):
     top = (row - 1, col)
@@ -24,7 +24,7 @@ class XY:
 def _get_start(grid, rows, cols):
     for i in range(rows):
         for j in range(cols):
-            if grid[i][j] == '@':
+            if grid[i][j] == "@":
                 return i, j
 
 
@@ -64,16 +64,16 @@ def find_shortest_path(grid):
 
             char = grid[r][c]
 
-            if char == '#':
+            if char == "#":
                 continue
-            elif (char == '.' or char == '@') and visited[r][c] is False:
+            elif (char == "." or char == "@") and visited[r][c] is False:
                 # visited[r][c] = True
                 neighbor_node = XY(r, c)
                 neighbor_node.path_so_far = [] + curr.path_so_far
                 neighbor_node.path_so_far.append([neighbor_node.row, neighbor_node.col])
                 neighbor_node.path_keys = curr.path_keys
                 queue.append(neighbor_node)
-            elif char == '+':
+            elif char == "+":
                 # goal found!
                 curr.path_so_far.append([r, c])
                 return curr.path_so_far
@@ -95,15 +95,9 @@ def find_shortest_path(grid):
                 queue.append(neighbor_node)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # grid = ["...B",
     #         ".b#.",
     #         "@#+."]
-    grid = [
-        "+B...",
-        "####.",
-        "##b#.",
-        "a...A",
-        "##@##"
-    ]
+    grid = ["+B...", "####.", "##b#.", "a...A", "##@##"]
     print(find_shortest_path(grid))

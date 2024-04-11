@@ -1,21 +1,22 @@
 import unittest
-from binary_tree import util
-from binary_tree import TreeNode
-from binary_tree.epi_binary_trees import \
-    is_symmetric, \
-    is_balanced, \
-    get_lca, \
-    get_parent_pointer_lca, \
-    get_path_sum, \
-    get_path_with_sum, \
-    get_kth_node, \
-    get_successor, \
-    inorder_traversal, \
-    reconstruct_bt, \
-    compute_right_sibling_tree, \
-    create_list_of_leaves, \
-    compute_right_sibling_tree_recur, \
-    exterior_binary_tree
+
+from binary_tree import TreeNode, util
+from binary_tree.epi_binary_trees import (
+    compute_right_sibling_tree,
+    compute_right_sibling_tree_recur,
+    create_list_of_leaves,
+    exterior_binary_tree,
+    get_kth_node,
+    get_lca,
+    get_parent_pointer_lca,
+    get_path_sum,
+    get_path_with_sum,
+    get_successor,
+    inorder_traversal,
+    is_balanced,
+    is_symmetric,
+    reconstruct_bt,
+)
 
 
 class EpiBinaryTreesTestCase(unittest.TestCase):
@@ -125,7 +126,7 @@ class EpiBinaryTreesTestCase(unittest.TestCase):
     def test_exterior_binary_tree(self):
         tree = util.build_1_to_10_bst()
         list = exterior_binary_tree(tree)
-        self.assertListEqual([5,3,2,1,4,6,8,10,9], list)
+        self.assertListEqual([5, 3, 2, 1, 4, 6, 8, 10, 9], list)
 
     # todo complete unit-test
     def test_compute_right_sibling_tree(self):
@@ -161,5 +162,5 @@ class EpiBinaryTreesTestCase(unittest.TestCase):
         print(node.data)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

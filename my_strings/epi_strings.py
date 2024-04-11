@@ -1,6 +1,7 @@
+from functools import reduce
 import string
 from typing import List
-from functools import reduce
+
 from arrays import my_reverse
 
 
@@ -21,13 +22,13 @@ def int_to_string(x: int) -> str:
         x //= 10
 
     if is_negative:
-        result.append('-')
+        result.append("-")
 
-    return ''.join(c for c in reversed(result))
+    return "".join(c for c in reversed(result))
 
 
 def string_to_int(s: str) -> int:
-    is_negative = True if s[0] == '-' else False
+    is_negative = True if s[0] == "-" else False
 
     result = 0
     for curr in s[is_negative:]:
@@ -38,7 +39,7 @@ def string_to_int(s: str) -> int:
 
 #   6.2 base conversion
 def convert_base(n_string: str, b1: int, b2: int) -> str:
-    is_negative = n_string[0] == '-'
+    is_negative = n_string[0] == "-"
     num_int = _convert_to_int(n_string[is_negative:], b1)
     return _convert_to_base(num_int, b2, is_negative)
 
@@ -53,9 +54,9 @@ def _convert_to_base(num: int, base: int, is_negative: bool) -> str:
         num //= base
 
     if is_negative:
-        result.append('-')
+        result.append("-")
 
-    return ''.join(x for x in reversed(result))
+    return "".join(x for x in reversed(result))
 
 
 def _convert_to_int(num_list, base: int) -> int:
@@ -71,10 +72,10 @@ def replace_and_remove(s: List[str], size: int) -> int:
     write_idx = 0
     a_count = 0
     for idx in range(size):
-        if s[idx] != 'b':
+        if s[idx] != "b":
             s[write_idx] = s[idx]
             write_idx += 1
-        if s[idx] == 'a':
+        if s[idx] == "a":
             a_count += 1
 
     curr_idx = write_idx - 1
@@ -82,11 +83,11 @@ def replace_and_remove(s: List[str], size: int) -> int:
     final_size = write_idx + 1
 
     while curr_idx >= 0:
-        if s[curr_idx] == 'a':
+        if s[curr_idx] == "a":
             # write 2 dd's
-            s[write_idx] = 'd'
+            s[write_idx] = "d"
             write_idx -= 1
-            s[write_idx] = 'd'
+            s[write_idx] = "d"
             write_idx -= 1
         else:
             s[write_idx] = s[curr_idx]
@@ -124,7 +125,7 @@ def reverse_words(s: List[str]):
     left = 0
     right = 0
     while right < len(s):
-        if s[right] == ' ':
+        if s[right] == " ":
             my_reverse(s, left, right - 1)
             right += 1
             left = right
@@ -139,13 +140,13 @@ def reverse_words(s: List[str]):
 #   6.8 convert from roman to decimal
 def roman_to_int(s: str) -> int:
     look_up = {
-        'I': 1,
-        'V': 5,
-        'X': 10,
-        'L': 50,
-        'C': 100,
-        'D': 500,
-        'M': 1000,
+        "I": 1,
+        "V": 5,
+        "X": 10,
+        "L": 50,
+        "C": 100,
+        "D": 500,
+        "M": 1000,
     }
     sum = look_up[s[-1]]
     # start with the second last char
@@ -181,7 +182,7 @@ def rle_decode(input: str) -> str:
 
         curr_idx += 1
 
-    return ''.join(result)
+    return "".join(result)
 
 
 def rle_encode(input: str) -> str:
@@ -197,7 +198,7 @@ def rle_encode(input: str) -> str:
 
         curr_idx += 1
 
-    return ''.join(result)
+    return "".join(result)
 
 
 #   6.12 find first occurrence of a substring
@@ -209,16 +210,13 @@ def rabin_karp(pattern: str, text: str) -> int:
     pattern_hash = reduce(lambda val, char: val * base + ord(char), pattern, 0)
 
     # create hash of the first len(pattern) characters of the text
-    text_hash = reduce(lambda val, char: val * base + ord(char),
-                       text[:len(pattern)],
-                       0)
+    text_hash = reduce(lambda val, char: val * base + ord(char), text[: len(pattern)], 0)
 
     # power is used to REMOVE the leftmost char hash when rolling
     power_s = pow(base, len(pattern) - 1)
 
     for pivot in range(len(pattern), len(text)):
-        if pattern_hash == text_hash \
-                and pattern == text[pivot - len(pattern): pivot]:
+        if pattern_hash == text_hash and pattern == text[pivot - len(pattern) : pivot]:
             return pivot - len(pattern)
 
         # remove the left char
@@ -227,10 +225,11 @@ def rabin_karp(pattern: str, text: str) -> int:
         text_hash = text_hash * base + ord(text[pivot])
 
     # check the last len(pattern) chars from the text
-    if pattern_hash == text_hash and pattern == text[-len(pattern):]:
+    if pattern_hash == text_hash and pattern == text[-len(pattern) :]:
         return len(text) - len(pattern)
 
     return -1
+
 
 # Former Coding Interview Question: Compression and Decompression
 # 3[abc]4[ab]c  --> abcabcabcababababc
@@ -244,17 +243,18 @@ def decompress(text: str) -> str:
     while idx < len(text):
         curr = text[idx]
 
-        if curr == '[':
+        if curr == "[":
             # curr_seq must be a number push to stack and clear
-            count = int(''.join(curr_seq))
+            count = int("".join(curr_seq))
             num_stack.append(count)
-        elif curr == ']':
+        elif curr == "]":
             # termination of bracket, so process
             pass
         else:
             curr_seq.append(curr)
 
         idx += 1
+
 
 #   6.7 look and say problem
 #   6.10 write a string sinusoidally

@@ -1,18 +1,20 @@
 import unittest
 import uuid
 
-from primitive_types import power, \
-    clear_lowest, \
-    set_lowest, \
-    bit_count, \
-    get_parity_use_lowest_set, \
-    get_parity_caching, \
-    get_parity_xor, \
-    swap_bits, \
-    reverse_bits, \
-    reverse_digits, \
-    reverse_bits_cached
-from primitive_types import Base64Converter
+from primitive_types import (
+    Base64Converter,
+    bit_count,
+    clear_lowest,
+    get_parity_caching,
+    get_parity_use_lowest_set,
+    get_parity_xor,
+    power,
+    reverse_bits,
+    reverse_bits_cached,
+    reverse_digits,
+    set_lowest,
+    swap_bits,
+)
 
 
 class PrimitiveTestCase(unittest.TestCase):
@@ -94,12 +96,13 @@ class PrimitiveTestCase(unittest.TestCase):
 
     def test_base64_converter(self):
         converter = Base64Converter()
-        self.assertEqual("1A",converter.encode(100))
+        self.assertEqual("1A", converter.encode(100))
         self.assertEqual("1Z", converter.encode(125))
         self.assertEqual("4PBO", converter.encode(1259890))
-        print(converter.encode(1000000000)) # XCIE0
+        print(converter.encode(1000000000))  # XCIE0
 
         self.assertEqual(1259890, converter.decode("4PBO"))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

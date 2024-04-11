@@ -1,12 +1,12 @@
 import collections
 import string
-from typing import Tuple, List, Set
+from typing import List, Set, Tuple
 
 WHITE = 0
 BLACK = 1
 
 
-class Team():
+class Team:
     def __init__(self, name, victories):
         self.name = name
         self.victories = victories
@@ -15,7 +15,7 @@ class Team():
         return str(self.name)
 
 
-class Coordinate():
+class Coordinate:
     def __init__(self, x, y, val=0):
         self.x = x
         self.y = y
@@ -28,13 +28,13 @@ class Coordinate():
         return "{}:{}".format(self.x, self.y)
 
 
-class GraphVertex():
+class GraphVertex:
     WHITE, GRAY, BLACK = range(3)
 
     def __init__(self, val=0):
         self.val = val
         self.color = GraphVertex.WHITE
-        self.edges: List['GraphVertex'] = []
+        self.edges: List["GraphVertex"] = []
 
     def __str__(self):
         return "{} -> {} edges".format(str(self.val), len(self.edges))
@@ -239,7 +239,7 @@ def transform_string(dictionary: Set[str], start: str, end: str):
 
         for idx in range(len(word)):
             for c in string.ascii_lowercase:
-                candidate = word[:idx] + c + word[idx + 1:]
+                candidate = word[:idx] + c + word[idx + 1 :]
                 if candidate in dictionary:
                     dictionary.remove(candidate)
                     q.append((candidate, d + 1))
@@ -252,10 +252,11 @@ def transform_string(dictionary: Set[str], start: str, end: str):
 #   ---- advanced graph algorithms ----
 #   18.8 Team Photo Day - 2
 
+
 def get_dfs_traversal(node: GraphVertex):
     def _dfs(curr: GraphVertex, curr_path: List[int]):
         if not curr.edges:
-            path.append('->'.join([str(x) for x in curr_path]))
+            path.append("->".join([str(x) for x in curr_path]))
             return
 
         for edge in curr.edges:
@@ -300,9 +301,4 @@ def topological_sort(graph: List[GraphVertex]) -> List[int]:
 
 
 def _get_adjacent_cells(x, y):
-    return [
-        (x + 1, y),
-        (x - 1, y),
-        (x, y + 1),
-        (x, y - 1)
-    ]
+    return [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]

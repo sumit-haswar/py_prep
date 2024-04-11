@@ -134,9 +134,9 @@ def coin_change_recur(total: int, coins: List[int]) -> int:
         for curr_coin in coins:
             _coin_change_recur(sub_total - curr_coin, coin_count + 1)
 
-    min_so_far = [float('inf')]
+    min_so_far = [float("inf")]
     _coin_change_recur(total, 0)
-    return min_so_far[0] if min_so_far[0] != float('inf') else -1
+    return min_so_far[0] if min_so_far[0] != float("inf") else -1
 
 
 def coin_change_greedy():
@@ -153,7 +153,7 @@ def coin_change_memoized(total: int, coins: List[int]):
             dp_memo[curr_total] = 0
             return 0
 
-        min_val = float('inf')
+        min_val = float("inf")
         for coin in coins:
             if curr_total - coin >= 0:
                 min_val = min(min_val, _coin_change_memo(curr_total - coin) + 1)
@@ -176,7 +176,7 @@ def coin_change_dp(total, coins):
         dp_lookup[coin] = 1
 
     for idx in range(1, total + 1):
-        min_val = float('inf')
+        min_val = float("inf")
         for coin in coins:
             if idx - coin >= 0:
                 min_val = min(min_val, dp_lookup[idx - coin])
@@ -324,8 +324,7 @@ def subset_sum_memoized(nums):
         for i in [nums[curr_idx], None]:
             if i:
                 slate.append(i)
-            curr_res = curr_res or \
-                       _subset_sum_memo(slate, curr_idx + 1, curr_sum - (i if i else 0))
+            curr_res = curr_res or _subset_sum_memo(slate, curr_idx + 1, curr_sum - (i if i else 0))
             if i:
                 del slate[-1]
         dp_lookup[curr_sum] = curr_res
@@ -365,8 +364,7 @@ def subset_sum_dp(nums):
     for row in range(len(nums) - 1, -1, -1):
         for col in range(1, target_sum + 1):
             left_col = col - nums[row]
-            dp_lookup[row][col] = dp_lookup[row + 1][col] \
-                                  or (dp_lookup[row + 1][left_col] if left_col >= 0 else False)
+            dp_lookup[row][col] = dp_lookup[row + 1][col] or (dp_lookup[row + 1][left_col] if left_col >= 0 else False)
 
     print(dp_lookup)
     return dp_lookup[0][target_sum]
@@ -390,9 +388,11 @@ def edit_distance_recur(s1: str, s2: str) -> int:
             # delete
             # insert
             # replace
-            return min(_edit_distance_recur(s1, s2, s1_idx - 1, s2_idx, edit_dist + 1),
-                       _edit_distance_recur(s1, s2, s1_idx, s2_idx - 1, edit_dist + 1),
-                       _edit_distance_recur(s1, s2, s1_idx - 1, s2_idx - 1, edit_dist + 1))
+            return min(
+                _edit_distance_recur(s1, s2, s1_idx - 1, s2_idx, edit_dist + 1),
+                _edit_distance_recur(s1, s2, s1_idx, s2_idx - 1, edit_dist + 1),
+                _edit_distance_recur(s1, s2, s1_idx - 1, s2_idx - 1, edit_dist + 1),
+            )
 
     return _edit_distance_recur(s1, s2, len(s1) - 1, len(s2) - 1, 0)
 
@@ -416,10 +416,10 @@ def edit_distance_dp(from_str: str, to_str: str) -> int:
     for r in range(1, rows):
         for c in range(1, cols):
             # delete, look to upper row(from_str)
-            d_dist = table[r-1][c] + 1
+            d_dist = table[r - 1][c] + 1
 
             # insert, look for
-            i_dist = table[r][c-1] + 1
+            i_dist = table[r][c - 1] + 1
 
             # replace
             r_dist = table[r - 1][c - 1] + (0 if from_str[r - 1] == to_str[c - 1] else 1)
@@ -435,7 +435,7 @@ def edit_distance_dp(from_str: str, to_str: str) -> int:
 # from source-vertex to dest-vertex
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # step_costs = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
     # print(min_cost_stair_climb(step_costs))
     # print(min_cost_stair_climb_dp(step_costs))
@@ -469,5 +469,5 @@ if __name__ == '__main__':
     # print(subset_sum_dp([1, 2, 3, 4, 5, 7]))
     # print(subset_sum_dp([1, 3, 4]))
 
-    print(edit_distance_recur('qwerty', 'wart'))
-    print(edit_distance_dp('qwerty', 'wart'))
+    print(edit_distance_recur("qwerty", "wart"))
+    print(edit_distance_dp("qwerty", "wart"))

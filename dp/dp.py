@@ -2,6 +2,7 @@
 # Output: 3
 # Three ways to reach: [{2, 2, 3}, {2, 3, 2}, {3, 2, 2}]
 
+
 def countWaysToClimbRecur(steps, n):
     def _countWaysToClimb(n):
         # base-case
@@ -107,12 +108,7 @@ def maxStolenValueDp(values):
 # 7 8 9
 # – 0 –
 
-phone_keypad = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
-    [1, 0, 1]
-]
+phone_keypad = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 0, 1]]
 
 neighbors_map = {
     0: [4, 6],
@@ -124,8 +120,7 @@ neighbors_map = {
     6: [1, 7, 0],
     7: [2, 6],
     8: [1, 3],
-    9: [2, 4]
-
+    9: [2, 4],
 }
 
 
@@ -205,6 +200,7 @@ def num_phone_numbers_dp():
 # Output: 5
 # The possible numbers of length 3: 160, 161, 167, 181, 183
 
+
 def find_prefix_index(dictionary, txt):
     prefix_idx_list = []
     for pivot_idx in range(1, len(txt)):
@@ -228,10 +224,10 @@ def wordBreakCountRecur(dictionary, txt):
 
         for candidates in find_prefix_index(dictionary, curr_txt):
             curr_prefix = curr_txt[:candidates]
-            _wordBreakCountRecur(prefix + ' ' + curr_prefix, curr_txt[candidates:])
+            _wordBreakCountRecur(prefix + " " + curr_prefix, curr_txt[candidates:])
 
     result = []
-    _wordBreakCountRecur('', txt)
+    _wordBreakCountRecur("", txt)
     return len(result)
 
 
@@ -249,17 +245,17 @@ def wordBreakCount(dictionary, txt):
         count = 0
         for candidate in find_prefix_index(dictionary, curr_txt):
             curr_prefix = curr_txt[:candidate]
-            count = count + _wordBreakCount(prefix + ' ' + curr_prefix, curr_txt[candidate:])
+            count = count + _wordBreakCount(prefix + " " + curr_prefix, curr_txt[candidate:])
 
         dp_map[curr_txt] = count
         return count
 
     dp_map = {}
-    _wordBreakCount('', txt)
+    _wordBreakCount("", txt)
     return dp_map[txt]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # print(maxStolenValue([1, 2, 4, 5, 1]))
     # print(maxStolenValue([6, 1, 2, 7]))
     #
@@ -274,6 +270,6 @@ if __name__ == '__main__':
     # print(num_phone_numbers_recur(1, 7))
     # print(num_phone_numbers_memo(1, 7))
     dictionary = {"kick", "start", "kickstart", "is", "awe", "some", "awesome"}
-    txt = 'kickstartisawesome'
+    txt = "kickstartisawesome"
     print(wordBreakCountRecur(dictionary, "kickstartisawesome"))
     print(wordBreakCount(dictionary, "kickstartisawesome"))

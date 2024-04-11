@@ -1,6 +1,6 @@
-
 # link list using arrays
 # link list using stacks
+
 
 # Q using []
 class Queue:
@@ -16,11 +16,12 @@ class Queue:
 
 
 # Stack using Q
-class LinkList():
+class LinkList:
     pass
 
+
 # list using arrays
-class MyList():
+class MyList:
 
     def __init__(self):
         pass

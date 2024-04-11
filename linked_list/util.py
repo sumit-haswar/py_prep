@@ -1,5 +1,6 @@
-from .node import Node
 import random
+
+from .node import Node
 
 
 def get_ordered_linked_list():
@@ -23,6 +24,7 @@ def create_list(arr):
         prev = curr
     return head
 
+
 def create_list_tail(arr):
     head = Node(arr[0])
     prev = head
@@ -31,6 +33,7 @@ def create_list_tail(arr):
         prev.next = curr
         prev = curr
     return head, prev
+
 
 def get_123_list():
     three = Node(3, None)

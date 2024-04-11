@@ -41,8 +41,7 @@ def binomial_coefficients_recur(n, k):
     def _binomial_coefficients_recur(n, k):
         if n <= 1 or k == 0 or n == k:
             return 1
-        return _binomial_coefficients_recur(n - 1, k) \
-               + _binomial_coefficients_recur(n - 1, k - 1)
+        return _binomial_coefficients_recur(n - 1, k) + _binomial_coefficients_recur(n - 1, k - 1)
 
     return _binomial_coefficients_recur(n, k)
 
@@ -75,11 +74,11 @@ def longest_increasing_subsequence():
 
 
 def get_partitions_diff(partitions_str):
-    partitions = partitions_str.split('|')
-    min_val = float('inf')
-    max_val = float('-inf')
+    partitions = partitions_str.split("|")
+    min_val = float("inf")
+    max_val = float("-inf")
     for partition in partitions:
-        books = partition.split(',')
+        books = partition.split(",")
         total_pages = sum([int(x) for x in books])
         min_val = min(total_pages, min_val)
         max_val = max(total_pages, max_val)
@@ -92,18 +91,18 @@ def partition(books: List[int], k: int):
         # base-case
         if curr_idx == k:
             if books:
-                partitions_str = curr_partition + '|' + ','.join([str(x) for x in books])
+                partitions_str = curr_partition + "|" + ",".join([str(x) for x in books])
                 print(partitions_str)
                 diff = get_partitions_diff(partitions_str)
                 if global_min[0] is None:
                     # result.clear()
                     # result.append(partitions_str.split('|'))
-                    result['partition'] = partitions_str.split('|')
+                    result["partition"] = partitions_str.split("|")
                     global_min[0] = diff
                 elif diff < global_min[0]:
                     # result.clear()
                     # result.append(partitions_str.split('|'))
-                    result['partition'] = partitions_str.split('|')
+                    result["partition"] = partitions_str.split("|")
                     global_min[0] = min(diff, global_min[0])
             return
 
@@ -111,17 +110,22 @@ def partition(books: List[int], k: int):
             left = books[:div]
             rest = books[div:]
 
-            _partition(rest,
-                       curr_partition + '|' + ','.join([str(x) for x in left]) if curr_partition else ','.join(
-                           [str(x) for x in left]),
-                       total_books,
-                       curr_idx + 1)
+            _partition(
+                rest,
+                (
+                    curr_partition + "|" + ",".join([str(x) for x in left])
+                    if curr_partition
+                    else ",".join([str(x) for x in left])
+                ),
+                total_books,
+                curr_idx + 1,
+            )
 
     result = {}
     total_books = len(books)
     global_min = [None]
-    _partition(books, '', total_books, 1)
-    return global_min[0], result['partition']
+    _partition(books, "", total_books, 1)
+    return global_min[0], result["partition"]
 
 
 def partition_dp(seq: List[int], k: int):
@@ -146,7 +150,7 @@ def partition_dp(seq: List[int], k: int):
     for i in range(1, n):
         curr_row = [prefix_sum[i]]
         for j in range(1, k):
-            curr_row.append(float('-inf'))
+            curr_row.append(float("-inf"))
         m.append(curr_row)
 
     # dp table for dividers
@@ -160,7 +164,7 @@ def partition_dp(seq: List[int], k: int):
 
                 cost = max(m[x][partitions - 1], prefix_sum[elems] - prefix_sum[x])
 
-                if m[elems][partitions] == float('-inf') or m[elems][partitions] > cost:
+                if m[elems][partitions] == float("-inf") or m[elems][partitions] > cost:
                     m[elems][partitions] = cost
 
     print(m)

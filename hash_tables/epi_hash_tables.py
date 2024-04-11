@@ -1,6 +1,7 @@
-import typing
-from typing import List, Set, Dict
 import collections
+import typing
+from typing import Dict, List, Set
+
 from binary_tree import TreeNode
 from linked_list import Node
 
@@ -8,15 +9,13 @@ from linked_list import Node
 def find_anagrams(list: List[str]) -> List[List[str]]:
     anagram_map = {}
     for word in list:
-        signature = ''.join(sorted(word))
+        signature = "".join(sorted(word))
         if signature in anagram_map:
             anagram_map[signature].append(word)
         else:
             anagram_map[signature] = [word]
 
-    return [word_list for word_list in
-            anagram_map.values()
-            if len(word_list) > 1]
+    return [word_list for word_list in anagram_map.values() if len(word_list) > 1]
 
 
 class ContactList:
@@ -57,7 +56,7 @@ def is_anonymous_letter_possible(letter_text: str, magazine_text: str) -> bool:
 
 
 #   12.3 implement an ISBN cache
-class LruCache():
+class LruCache:
     def __init__(self):
         self.map = {}
         self.head = None
@@ -84,15 +83,15 @@ class LruCache():
             val.next = curr_head
             self.head = val
 
-        return val.data['val']
+        return val.data["val"]
 
     def add(self, key: str, val):
-        node = Node({'key': key, 'val': val})
+        node = Node({"key": key, "val": val})
         self.map[key] = node
 
         if self.count == self.threshold:  # remove from tail
 
-            lru_key = self.tail.data['key']
+            lru_key = self.tail.data["key"]
             del self.map[lru_key]
 
             new_lru = self.tail.prev
@@ -143,7 +142,7 @@ def get_lca(node_a: TreeNode, node_b: TreeNode) -> TreeNode:
 #   12.5 find the nearest repeated entries in an array
 def get_nearest_repeated_entries(text: str):
     result = {"start": -1, "end": -1}
-    diff = float('inf')
+    diff = float("inf")
     word_last_idx_map = {}
     for idx, word in enumerate(text.split(" ")):
         if word in word_last_idx_map:
@@ -151,8 +150,8 @@ def get_nearest_repeated_entries(text: str):
             curr_diff = abs(last_idx - idx)
             if curr_diff < diff:
                 diff = curr_diff
-                result['start'] = last_idx
-                result['end'] = idx
+                result["start"] = last_idx
+                result["end"] = idx
 
         word_last_idx_map[word] = idx
 
@@ -161,7 +160,7 @@ def get_nearest_repeated_entries(text: str):
 
 #   12.6 find the smallest subarray covering all values
 def get_smallest_subarray_cover(input: str, keywords: Set[str]):
-    text = input.split(' ')
+    text = input.split(" ")
 
     keyword_set = collections.Counter(keywords)
     remaining_keywords = len(keyword_set)
@@ -235,6 +234,7 @@ def get_longest_contained_interval(array: List[int]):
             result = max(result, upper_bound - lower_bound - 1)
 
     return result
+
 
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 # todo

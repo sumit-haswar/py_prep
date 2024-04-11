@@ -1,32 +1,39 @@
 import unittest
-from heap import k_longest_strings, \
-    merge_sorted_streams, \
-    sort_inc_dec_array, \
-    sort_k_sorted_array, \
-    get_k_closest_stars, \
-    compute_stream_median, \
-    Star, \
-    get_k_largest_in_heap
+
+from heap import (
+    compute_stream_median,
+    get_k_closest_stars,
+    get_k_largest_in_heap,
+    k_longest_strings,
+    merge_sorted_streams,
+    sort_inc_dec_array,
+    sort_k_sorted_array,
+    Star,
+)
 
 
 class EpiHeapsTestCase(unittest.TestCase):
 
     def test_k_longest_strings(self):
         list = [
-            'green tea',
-            'jenga',
-            'adidas',
-            'dark souls',
-            'this is a long string',
-            'this is a very long string',
-            'xbox'
+            "green tea",
+            "jenga",
+            "adidas",
+            "dark souls",
+            "this is a long string",
+            "this is a very long string",
+            "xbox",
         ]
         result = k_longest_strings(4, iter(list))
-        self.assertSetEqual({'green tea',
-                             'dark souls',
-                             'this is a long string',
-                             'this is a very long string'},
-                            set(result))
+        self.assertSetEqual(
+            {
+                "green tea",
+                "dark souls",
+                "this is a long string",
+                "this is a very long string",
+            },
+            set(result),
+        )
 
     def test_merge_sorted_streams(self):
         iterators = [
@@ -93,14 +100,124 @@ class EpiHeapsTestCase(unittest.TestCase):
         k_largest = get_k_largest_in_heap(heap, 5)
         self.assertListEqual([10, 9, 8, 8, 7], k_largest)
 
-        heap = [76, 75, 75, 71, 61, 74, 73, 63, 61, 51, 51, 59, 69, 56, 56, 58, 54, 43, 39, 48, 43, 45, 48, 59, 56,
-                45, 33, 40, 51, 48, 54, 41, 37, 54, 30, 17, 40, 26, 37, 11, 3, 24, 21, 37, 0, 12, 30, 28, 42,
-                10, 0, 1, 27, 22, 6, 38, 6, 37, 39, 7, 16, 0, 0, 0, 39, 7, 4, 36, 39, 30, 6, 10, 2, 9, 3, 15, 25, 19]
+        heap = [
+            76,
+            75,
+            75,
+            71,
+            61,
+            74,
+            73,
+            63,
+            61,
+            51,
+            51,
+            59,
+            69,
+            56,
+            56,
+            58,
+            54,
+            43,
+            39,
+            48,
+            43,
+            45,
+            48,
+            59,
+            56,
+            45,
+            33,
+            40,
+            51,
+            48,
+            54,
+            41,
+            37,
+            54,
+            30,
+            17,
+            40,
+            26,
+            37,
+            11,
+            3,
+            24,
+            21,
+            37,
+            0,
+            12,
+            30,
+            28,
+            42,
+            10,
+            0,
+            1,
+            27,
+            22,
+            6,
+            38,
+            6,
+            37,
+            39,
+            7,
+            16,
+            0,
+            0,
+            0,
+            39,
+            7,
+            4,
+            36,
+            39,
+            30,
+            6,
+            10,
+            2,
+            9,
+            3,
+            15,
+            25,
+            19,
+        ]
 
         k_largest = get_k_largest_in_heap(heap, 30)
-        self.assertListEqual([76, 75, 75, 74, 73, 71, 69, 63, 61, 61, 59, 59, 58, 56, 56, 56, 54, 54, 54, 51,
-                              51, 51, 48, 48, 48, 45, 45, 43, 43, 42],
-                             k_largest)
+        self.assertListEqual(
+            [
+                76,
+                75,
+                75,
+                74,
+                73,
+                71,
+                69,
+                63,
+                61,
+                61,
+                59,
+                59,
+                58,
+                56,
+                56,
+                56,
+                54,
+                54,
+                54,
+                51,
+                51,
+                51,
+                48,
+                48,
+                48,
+                45,
+                45,
+                43,
+                43,
+                42,
+            ],
+            k_largest,
+        )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

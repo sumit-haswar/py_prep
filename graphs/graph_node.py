@@ -1,10 +1,9 @@
-
 class GraphNode:
     def __init__(self, val):
         self.val = val
         self.edges = []
-        self.color = 'white'
-        self.state = 'undiscovered'
+        self.color = "white"
+        self.state = "undiscovered"
         self.processed = False
         self.discovered = False
 
@@ -35,8 +34,7 @@ class Edge:
         self.weight = weight
 
     def __lt__(self, other):
-        return self.weight < other.weight \
-            if self.weight != other.weight else self.sink < other.sink
+        return self.weight < other.weight if self.weight != other.weight else self.sink < other.sink
 
     def __str__(self):
         return "{} <--{}--> {}".format(self.source, self.weight, self.sink)

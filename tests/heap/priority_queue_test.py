@@ -1,6 +1,6 @@
-from heap import PriorityQueue
-
 import unittest
+
+from heap import PriorityQueue
 
 
 class PriorityQueueTest(unittest.TestCase):
@@ -24,5 +24,5 @@ class PriorityQueueTest(unittest.TestCase):
         self.assertEqual(101, pq.get_max())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

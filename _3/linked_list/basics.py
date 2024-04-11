@@ -1,32 +1,83 @@
-from node import Node
 from typing import List, Optional
+
+from _3.linked_list.node import Node
 
 
 def append_node(head: Node, value: int) -> Node:
     """adds new node to the tail of the list"""
-    pass
+    if head is None:
+        return Node(value)
 
-def copy_list(head:Node) -> Node:
+    curr = head
+    while curr.next is not None:
+        curr = curr.next
+
+    new_node = Node(value)
+    curr.next = new_node
+
+    return head
+
+
+def copy_list(head: Node) -> Optional[Node]:
     """takes a list and returns a complete copy of the list"""
-    pass
+    if not head:
+        return None
+
+    new_head = Node(head.val)
+    new_curr = new_head
+
+    curr = head.next
+    while curr:
+        new_node = Node(curr.val)
+
+        new_curr.next = new_node
+
+        new_curr = new_node
+        curr = curr.next
+
+    return new_head
 
 def length(head: Node) -> int:
-    pass
+    list_len = 0
+    curr = head
+
+    while curr:
+        list_len = list_len + 1
+        curr = curr.next
+
+    return list_len
 
 
 def push(curr_head: Node, val) -> Node:
-    pass
+    """adds a single node to the head of the list"""
+    new_node = Node(val, curr_head)
+    # new_node.next = curr_head
+    return new_node
 
 
-# count
+# count number of times a given int occurs in a list
 def get_count(head: Node, val: int) -> int:
-    pass
+    curr = head
+    count = 0
+    while curr:
+        if curr.val == val:
+            count += 1
+        curr = curr.next
+
+    return count
 
 
 # get nth
-def get_nth(head: Node, n: int) -> Node:
-    pass
+def get_nth(head: Node, n: int) -> Optional[Node]:
+    curr_idx = 0
+    curr = head
+    while curr:
+        if curr_idx == n:
+            return curr
+        curr_idx += 1
+        curr = curr.next
 
+    return None
 
 # pop
 def pop(head: Node) -> Node:
@@ -46,10 +97,21 @@ def sorted_insert(head: Node, val: int) -> Node:
 # insert sort
 
 
-# append list a to b
+# append list b to a
 def append(head_a: Node, head_b: Node) -> Node:
-    pass
+    if not head_a:
+        return head_b
+    elif not head_b:
+        return head_a
 
+    curr_a = head_a
+    while curr_a.next is not None:
+        curr_a = curr_a.next
+
+    # curr_a is now tail of list a
+    curr_a.next = head_b
+
+    return head_a
 
 # front back split
 # Given a list, split it into two sub-lists — one for the front half, and one for the back half. If
@@ -109,16 +171,39 @@ def reverse(head: Node) -> Node:
 def reverse_recur(node: Node) -> Optional[Node]:
     pass
 
+
 def create_linked_list(expr: str) -> Node:
     pass
 
-def _create_list(arr: List[int]):
-    pass
 
+def _create_list(arr: List[int]) -> Node:
+
+    head = Node(arr[0])
+    curr = head
+
+    for elem in arr[1:]:
+        new_node = Node(elem)
+        curr.next = new_node
+        curr = new_node
+
+    return head
 
 def _print_list(head: Node):
-    pass
+    if not head:
+        print("empty list!")
+        return
+
+    list_elem : List[str] = []
+    curr = head
+    while curr:
+        list_elem.append(str(curr.val))
+        curr = curr.next
+    print("->".join(list_elem))
 
 
 if __name__ == "__main__":
-    pass
+    print("main!")
+
+    curr_list = _create_list([1,2,3,4,5])
+
+    _print_list(get_nth(curr_list, 5))

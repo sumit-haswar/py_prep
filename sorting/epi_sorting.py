@@ -1,11 +1,12 @@
-from typing import List, Tuple
 import bisect
-from linked_list.epi_linked_lists import merge_sorted_list
+from typing import List, Tuple
+
 from linked_list import Node
+from linked_list.epi_linked_lists import merge_sorted_list
 
 
 # boot-camp
-class Student():
+class Student:
 
     def __init__(self, name, gpa):
         self.name = name
@@ -32,7 +33,7 @@ def intersect_two_sorted_lists_binary_search(arr1: List[int], arr2: List[int]) -
             return True
         return False
 
-    #wlog arr1 is longer than arr2
+    # wlog arr1 is longer than arr2
     if len(arr2) > len(arr1):
         arr1, arr2 = arr2, arr1
     result = []
@@ -68,8 +69,7 @@ def intersect_two_sorted_lists(arr_a: List[int], arr_b: List[int]) -> List[int]:
 
 
 #   13.2 merge two sorted arrays
-def merge_sorted_arrays(a: List[int], a_count,
-                        b: List[int], b_count) -> List[int]:
+def merge_sorted_arrays(a: List[int], a_count, b: List[int], b_count) -> List[int]:
     # write from the right
     write_idx = a_count + b_count - 1
 
@@ -110,7 +110,7 @@ def get_h_index(citations: List[int]) -> int:
 
 
 #   13.4 remove first name duplicates
-class Name():
+class Name:
     def __init__(self, first, last):
         self.first = first
         self.last = last
@@ -119,8 +119,7 @@ class Name():
         return self.first == other.first
 
     def __lt__(self, other):
-        return (self.last < other.last) \
-            if self.first == other.first else self.first < other.first
+        return (self.last < other.last) if self.first == other.first else self.first < other.first
 
     def __str__(self):
         return "{} {}".format(self.first, self.last)
@@ -138,13 +137,13 @@ def eliminate_duplicates(names: List[Name]):
     return names
 
 
-class Event():
+class Event:
     def __init__(self, start, finish):
         self.start = start
         self.finish = finish
 
 
-class EndPoint():
+class EndPoint:
     def __init__(self, val, is_start=True):
         self.val = val
         self.is_start = is_start
@@ -176,13 +175,13 @@ def find_max_simultaneous_events(events: List[Event]) -> int:
         if endpoint.is_start:
             curr += 1
             max_events = max(max_events, curr)
-        else:   # decrement if EP is end
+        else:  # decrement if EP is end
             curr -= 1
 
     return max_events
 
 
-class Interval():
+class Interval:
     def __init__(self, left, right, is_left_closed=True, is_right_closed=True):
         self.left = left
         self.right = right
@@ -197,8 +196,7 @@ class Interval():
 
 
 #   13.7 merging intervals
-def add_interval(intervals: List[Interval],
-                 new_interval: Interval) -> List[Interval]:
+def add_interval(intervals: List[Interval], new_interval: Interval) -> List[Interval]:
     if not intervals:
         return [new_interval]
 
@@ -207,15 +205,13 @@ def add_interval(intervals: List[Interval],
     idx = 0
     while idx < len(intervals):
         curr = intervals[idx]
-        if (curr.left <= new_interval.left <= curr.right) \
-                or (curr.left <= new_interval.right <= curr.right):
+        if (curr.left <= new_interval.left <= curr.right) or (curr.left <= new_interval.right <= curr.right):
             break
         result.append(curr)
         idx += 1
 
     # combine curr and new_interval
-    new_interval = Interval(min(curr.left, new_interval.left),
-                            max(curr.right, new_interval.right))
+    new_interval = Interval(min(curr.left, new_interval.left), max(curr.right, new_interval.right))
     # keep combining till current is to right of new_interval
     idx += 1
     while idx < len(intervals) and new_interval.right > intervals[idx].left:
@@ -234,8 +230,9 @@ def union_of_intervals(intervals: List[Interval]):
         if abs(interval_1.left - interval_1.right) < abs(interval_2.left - interval_2.right):
             interval_1, interval_2 = interval_2, interval_1
 
-        if (interval_1.left <= interval_2.left <= interval_1.right) \
-                or (interval_1.left <= interval_2.right <= interval_1.right):
+        if (interval_1.left <= interval_2.left <= interval_1.right) or (
+            interval_1.left <= interval_2.right <= interval_1.right
+        ):
             return True
         else:
             return False
@@ -302,7 +299,7 @@ def group_by_age(names: List[Tuple]):
             del age_to_indices[curr]
 
 
-class Team():
+class Team:
 
     def __init__(self, players: List[int]):
         self.players = players
@@ -338,8 +335,8 @@ def stable_sort_linked_list(head: Node):
     if pre_slow:
         pre_slow.next = None
 
-    return merge_sorted_list(stable_sort_linked_list(head),
-                             stable_sort_linked_list(slow))
+    return merge_sorted_list(stable_sort_linked_list(head), stable_sort_linked_list(slow))
+
 
 # todo
 #   13.5 smallest non-constructible value

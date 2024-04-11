@@ -1,11 +1,12 @@
-from typing import List, Iterator
-from binary_tree import TreeNode
 from collections import deque
+from typing import Iterator, List
+
+from binary_tree import TreeNode
 
 
 # -- stacks --
 #   8.1 stack with max api
-class MaxStack():
+class MaxStack:
 
     def __init__(self):
         self._stack = []
@@ -27,13 +28,13 @@ class MaxStack():
 #   8.2 evaluate RPN (reverse polish notation)
 def evaluate_rpn_expression(exp: str) -> int:
     calc = {
-        '+': lambda x, y: x + y,
-        '-': lambda x, y: x - y,
-        '*': lambda x, y: x * y,
-        '/': lambda x, y: (int)(x / y)
+        "+": lambda x, y: x + y,
+        "-": lambda x, y: x - y,
+        "*": lambda x, y: x * y,
+        "/": lambda x, y: (int)(x / y),
     }
     stack = []
-    for curr in exp.split(' '):
+    for curr in exp.split(" "):
         if curr not in calc:
             stack.append(int(curr))
         else:
@@ -47,7 +48,7 @@ def evaluate_rpn_expression(exp: str) -> int:
 
 #   8.3 is a string well-formed
 def is_string_well_formed(s: str):
-    look_up = {'}': '{', ']': '[', ')': '('}
+    look_up = {"}": "{", "]": "[", ")": "("}
     stack = []
     for ch in s:
         if ch not in look_up:
@@ -62,6 +63,7 @@ def is_string_well_formed(s: str):
 
 # todo  8.4 normalize path-names
 
+
 #   (8.5) compute buildings with sunset-view
 def get_sunset_view(itr: Iterator[int]) -> List[int]:
     """
@@ -73,18 +75,19 @@ def get_sunset_view(itr: Iterator[int]) -> List[int]:
     for idx, building in enumerate(itr):
         if stack:
             top = stack[-1]
-            while building > top['height']:
+            while building > top["height"]:
                 stack.pop()
                 if not stack:
                     break
                 top = stack[-1]
 
-        stack.append({'idx': idx, 'height': building})
+        stack.append({"idx": idx, "height": building})
 
-    return [elem['idx'] for elem in reversed(stack)]
+    return [elem["idx"] for elem in reversed(stack)]
 
 
 # -- -- -- -- queues -- -- -- --
+
 
 #   8.6 compute binary tree nodes in order of inc. depth
 def get_tree_nodes_by_level(root: TreeNode) -> List[List[int]]:
@@ -114,7 +117,7 @@ def get_tree_nodes_by_level(root: TreeNode) -> List[List[int]]:
 
 
 #   8.7 implement a circular queue
-class ArrayQueue():
+class ArrayQueue:
 
     def __init__(self, capacity=10):
         self._q = [0] * capacity
@@ -125,7 +128,7 @@ class ArrayQueue():
 
     def enqueue(self, elem):
         if len(self._q) == self.count:  # resize
-            self._q = (self._q[self.head:] + self._q[:self.head])
+            self._q = self._q[self.head :] + self._q[: self.head]
             self.head, self.tail = 0, self.count
             self._q = self._q + [0] * (len(self._q) * 2 - len(self._q))
 
@@ -142,7 +145,7 @@ class ArrayQueue():
 
 
 #   8.8 implement a queue using stack
-class StackQueue():
+class StackQueue:
 
     def __init__(self):
         self._en = []
@@ -159,7 +162,7 @@ class StackQueue():
 
 
 #   (8.9) implement a queue with max api
-class MaxQueue():
+class MaxQueue:
 
     def __init__(self):
         self._q = deque()

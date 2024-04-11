@@ -1,7 +1,8 @@
 import string
 
+
 def calculate(s: str) -> int:
-    expression = '(' + s.replace(' ', '') + ')'
+    expression = "(" + s.replace(" ", "") + ")"
 
     stack = []
 
@@ -9,12 +10,12 @@ def calculate(s: str) -> int:
     curr_multiplier = 1
 
     for ch in reversed(expression):
-        if ch == ')':
+        if ch == ")":
             if curr_val:
                 stack.append(curr_val)
                 curr_val, curr_multiplier = 0, 1
             stack.append(ch)
-        elif ch == '(':
+        elif ch == "(":
             if curr_val:
                 stack.append(curr_val)
                 curr_val, curr_multiplier = 0, 1
@@ -22,10 +23,10 @@ def calculate(s: str) -> int:
             res = 0
             while stack:
                 curr = stack.pop()
-                if curr == ')':
+                if curr == ")":
                     break
-                elif curr in ('-', '+'):
-                    if curr == '+':
+                elif curr in ("-", "+"):
+                    if curr == "+":
                         res = res + stack.pop()
                     else:
                         res = res - stack.pop()
@@ -47,6 +48,7 @@ def calculate(s: str) -> int:
             stack.append(ch)
 
     return stack[0]
+
 
 if __name__ == "__main__":
     # val = calculate('7 - 8 + 9 + 2 + 11')

@@ -50,8 +50,7 @@ def find_maximum_subarray_brute_force(array: List[int]) -> (int, List[int]):
 
 
 def find_maximum_subarray(array: List[int]) -> int:
-    """builds max subarray from left to right, using dp approach
-    """
+    """builds max subarray from left to right, using dp approach"""
     sum = []
     maximum = 0
     for i in range(len(array)):
@@ -74,4 +73,3 @@ def levenshtein_distance(a: str, b: str) -> int:
     #
     # matrix = [[-1] * len(b) for _ in a]
     # _levenshtein_distance(len(a) - 1, len(b) - 1)
-

@@ -1,7 +1,7 @@
 from .heap import Heap
 
 
-class PriorityQueue():
+class PriorityQueue:
 
     def __init__(self, list):
         self.heap = Heap(list)
@@ -32,7 +32,6 @@ class PriorityQueue():
 
         self.heap.data[idx] = new_val
 
-        while idx > 0 \
-                and self.heap.data[self.heap.parent(idx)] < self.heap.data[idx]:
+        while idx > 0 and self.heap.data[self.heap.parent(idx)] < self.heap.data[idx]:
             self.heap.swap(idx, self.heap.parent(idx))
             idx = self.heap.parent(idx)
