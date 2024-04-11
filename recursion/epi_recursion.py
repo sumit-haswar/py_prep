@@ -1,19 +1,21 @@
 from typing import List
+
 from arrays.epi_arrays import get_next_permutation
 from binary_tree import TreeNode
 
 PHONE_MAP = [
-    '0',
-    '1',
-    'ABC',
-    'DEF',
-    'GHI',
-    'JKL',
-    'MNO',
-    'PQRS',
-    'TUV',
-    'WXYZ',
+    "0",
+    "1",
+    "ABC",
+    "DEF",
+    "GHI",
+    "JKL",
+    "MNO",
+    "PQRS",
+    "TUV",
+    "WXYZ",
 ]
+
 
 #   15.1 the towers of hanoi problem
 def compute_tower_hanoi(num_rings):
@@ -43,7 +45,7 @@ def get_phone_mnemonic(phone_number: str):
 
         # base-case we have reached the end of current "slate"
         if curr_idx == len(phone_number):
-            number = ''.join(mnemonic_list)
+            number = "".join(mnemonic_list)
             result.append(number)
             return
 

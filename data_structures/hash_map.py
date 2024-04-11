@@ -1,7 +1,8 @@
 from .ds import Entry
 
+
 # implement hashmap using python list
-class HashMap():
+class HashMap:
 
     def __init__(self):
         self._hash_map = [None] * 100

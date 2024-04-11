@@ -5,8 +5,8 @@ def minWindow(s: str, t: str) -> str:
 
     def _get_best_result(left, right, text, best):
         if best is None:
-            return text[left:right + 1]
-        curr = text[left:right + 1]
+            return text[left : right + 1]
+        curr = text[left : right + 1]
         best = curr if len(curr) < len(best) else best
         return best
 
@@ -78,5 +78,5 @@ def get_max_rectangle_area_origin(matrix):
 
 
 if __name__ == "__main__":
-    min_cover = minWindow('ADOBECODEBANC', 'ABC')
+    min_cover = minWindow("ADOBECODEBANC", "ABC")
     print(min_cover)

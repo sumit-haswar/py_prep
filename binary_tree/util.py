@@ -1,11 +1,14 @@
-from .tree_node import TreeNode
 import typing
+
+from .tree_node import TreeNode
 
 
 def print_node(node):
-    node_str = '{0}<-- [{1}] -->{2}'.format(node.left.val if node.left else 'null',
-                                            node.val,
-                                            node.right.val if node.right else 'null')
+    node_str = "{0}<-- [{1}] -->{2}".format(
+        node.left.val if node.left else "null",
+        node.val,
+        node.right.val if node.right else "null",
+    )
     print(node_str)
 
 
@@ -216,8 +219,10 @@ def tree_equal(node_a, node_b):
     if not node_a and not node_b:
         return True
     elif node_a and node_b:
-        return node_a.data == node_b.data \
-               and tree_equal(node_a.left, node_b.left) \
-               and tree_equal(node_a.right, node_b.right)
+        return (
+            node_a.data == node_b.data
+            and tree_equal(node_a.left, node_b.left)
+            and tree_equal(node_a.right, node_b.right)
+        )
     else:
         return False

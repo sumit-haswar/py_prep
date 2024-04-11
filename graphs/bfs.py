@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
-from .graph_node import GraphNode
 import collections
+
+from .graph_node import GraphNode
 
 
 class Bfs(ABC):
@@ -21,20 +22,20 @@ class Bfs(ABC):
         parent_of = {}
         queue = collections.deque()
         queue.append(start_node)
-        start_node.state = 'discovered'
+        start_node.state = "discovered"
         parent_of[start_node.val] = None
 
         while queue:
             curr = queue.popleft()
             self.pre_process_node(curr)
-            curr.state = 'processed'
+            curr.state = "processed"
 
             for neighbor in curr.edges:
-                if neighbor.color != 'processed':  # or graph.is_directed is True
+                if neighbor.color != "processed":  # or graph.is_directed is True
                     self.process_edge(curr, neighbor)
-                if neighbor.color != 'discovered':
+                if neighbor.color != "discovered":
                     queue.append(neighbor)
-                    neighbor.state = 'discovered'
+                    neighbor.state = "discovered"
                     parent_of[neighbor.val] = curr.val
                 # we do nothing if node is processed or discovered
 

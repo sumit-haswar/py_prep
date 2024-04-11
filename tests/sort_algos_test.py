@@ -1,11 +1,8 @@
-from sort_algos import selection_sort, \
-    heap_sort, \
-    insertion_sort, \
-    quick_sort, \
-    merge_sort
 from random import randint
-
 import unittest
+
+from sort_algos import heap_sort, insertion_sort, merge_sort, quick_sort, selection_sort
+
 
 class SortAlgosTest(unittest.TestCase):
 

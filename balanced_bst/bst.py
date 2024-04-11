@@ -1,7 +1,8 @@
 # This class structure and code is derived from Erik Demaine's `AVL trees, AVL sort` lecture
 # https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-notes/
 
-class BSTNode():
+
+class BSTNode:
 
     def __init__(self, key, parent, left=None, right=None):
         self.key = key
@@ -25,7 +26,7 @@ class BSTNode():
         else:
             return self.left.find_min()
 
-    def next_larger(self) -> 'BSTNode':
+    def next_larger(self) -> "BSTNode":
         """Returns the node with the next larger key (the successor) in the BST."""
         # if right node exists, find left-most of sub-tree at right
         if self.right is not None:
@@ -53,8 +54,8 @@ class BSTNode():
                 node.parent = self
 
     def delete(self):
-        if not self.left or not self.right: # node either has no left OR no right child
-            if self is self.parent.left:    # if this node is left child of its parent
+        if not self.left or not self.right:  # node either has no left OR no right child
+            if self is self.parent.left:  # if this node is left child of its parent
                 self.parent.left = self.left or self.right
                 if self.parent.left:
                     self.parent.left.parent = self.parent
@@ -70,12 +71,12 @@ class BSTNode():
             return next_node.delete()
 
 
-class BST():
+class BST:
 
-    def __init__(self, root: BSTNode=None):
+    def __init__(self, root: BSTNode = None):
         self.root = root
 
-    def find(self, key:int):
+    def find(self, key: int):
         return self.root.find(key)
 
     def find_min(self):

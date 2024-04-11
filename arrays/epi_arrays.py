@@ -1,6 +1,5 @@
+from math import floor, sqrt
 import random
-from math import sqrt, floor
-
 from typing import List
 
 
@@ -60,11 +59,11 @@ def dutch_flag_sort(balls):
 
         curr_ball = balls[curr_idx]
 
-        if curr_ball == 'R':
+        if curr_ball == "R":
             _swap(balls, curr_idx, red_idx)
             red_idx += 1
             curr_idx += 1
-        elif curr_ball == 'B':
+        elif curr_ball == "B":
             _swap(balls, curr_idx, blue_idx)
             blue_idx -= 1
         else:
@@ -309,8 +308,7 @@ def is_valid_sudoku(grid):
 
     # check block
     block_size = floor(sqrt(len(grid)))
-    block_range = [(idx * block_size)
-                   for idx in range(block_size)]
+    block_range = [(idx * block_size) for idx in range(block_size)]
 
     for block_row in block_range:
         for block_col in block_range:
@@ -336,10 +334,12 @@ def apply_permutation():
 #   5.18 compute the spiral ordering of a 2-d array
 #   5.19 rotate a 2-d array
 
+
 def _swap(list, idx_a, idx_b):
     temp = list[idx_a]
     list[idx_a] = list[idx_b]
     list[idx_b] = temp
 
-if __name__ == '__main__':
-    print(get_next_permutation([2,5,4,3]))
+
+if __name__ == "__main__":
+    print(get_next_permutation([2, 5, 4, 3]))

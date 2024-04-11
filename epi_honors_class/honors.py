@@ -1,7 +1,8 @@
-from typing import List
-from linked_list import Node
-from binary_tree import TreeNode
 import collections
+from typing import List
+
+from binary_tree import TreeNode
+from linked_list import Node
 
 
 class TrafficElement:
@@ -57,10 +58,12 @@ class Building:
     def __str__(self):
         return "{}-{}, {}".format(self.left, self.right, self.height)
 
+
 class HeadAndTail:
-    def __init__(self,head, tail):
+    def __init__(self, head, tail):
         self.head = head
         self.tail = tail
+
 
 #   24.01 gcd
 def gcd_mod(x: int, y: int) -> int:
@@ -140,7 +143,7 @@ def rook_attack(matrix: List[List[int]]):
 
 #   24.08 justify text
 def justify_text(text: str, limit: int) -> List[str]:
-    text_list = text.split(' ')
+    text_list = text.split(" ")
 
     result = []
     curr_line = []
@@ -150,16 +153,16 @@ def justify_text(text: str, limit: int) -> List[str]:
         if curr_line_len + len(word) + len(curr_line) > limit:
 
             for i in range(limit - curr_line_len):
-                curr_line[i % max(len(curr_line) - 1, 1)] += ' '
-            result.append(''.join(curr_line))
+                curr_line[i % max(len(curr_line) - 1, 1)] += " "
+            result.append("".join(curr_line))
             curr_line = []
             curr_line_len = 0
         curr_line.append(word)
         curr_line_len += len(word)
 
-    last_line = ' '.join(curr_line)
+    last_line = " ".join(curr_line)
     # pad spaces to the right of the last line
-    last_line = last_line + ' ' * (limit - len(last_line))
+    last_line = last_line + " " * (limit - len(last_line))
     return result + [last_line]
 
 
@@ -220,8 +223,7 @@ def calculate_traffic_volumes(arr: List[TrafficElement], width: int):
         while traffic_elem.time - max_q.get_head().time > width:
             max_q.dequeue()
 
-        result.append(TrafficElement(traffic_elem.time,
-                                     max_q.get_max().volume))
+        result.append(TrafficElement(traffic_elem.time, max_q.get_max().volume))
 
     return result
 
@@ -239,6 +241,7 @@ def binary_search_unknown_length(seq: List[int], k: int):
 #   24.18 find line through most points
 
 #   24.19 convert a sorted doubly linked list into a BST
+
 
 #   24.20 convert a bst to sorted doubly linked list
 def bst_to_doubly_linked_list(root: TreeNode) -> TreeNode:
@@ -262,7 +265,6 @@ def bst_to_doubly_linked_list(root: TreeNode) -> TreeNode:
         # now, curr head and tail is: left (if present) and right (if present)
         return HeadAndTail(left.head or treenode, right.tail or treenode)
 
-
     return _bst_to_doubly_linked_list(root).head
 
 
@@ -273,7 +275,7 @@ def is_match(regex: str, s: str) -> bool:
         if not regex:
             return True
 
-        if regex == '$':
+        if regex == "$":
             # string should now be empty
             return not s
 
@@ -282,7 +284,7 @@ def is_match(regex: str, s: str) -> bool:
             # check for <<something>>*
             # start with second-char of string and compare previous
             string_pivot = 1
-            while string_pivot <= len(s) and regex[0] in ('.', s[string_pivot - 1]):
+            while string_pivot <= len(s) and regex[0] in (".", s[string_pivot - 1]):
                 if _is_match(regex[2:], s[string_pivot:]):
                     return True
                 string_pivot += 1
@@ -291,7 +293,7 @@ def is_match(regex: str, s: str) -> bool:
 
         # lock-step comparison for direct match and .,
         # recur for rest
-        return (s and regex[0] in ('.', s[0])) and _is_match(regex[1:], s[1:])
+        return (s and regex[0] in (".", s[0])) and _is_match(regex[1:], s[1:])
 
     if regex[0] == "^":
         return _is_match(regex[1:], s)
@@ -330,17 +332,17 @@ def calculate_trapping_water(heights: List[int]) -> int:
 
     def _get_capacity(seq):
         capacity = 0
-        max_height = float('-inf')
+        max_height = float("-inf")
         for height in seq:
             if height >= max_height:
                 max_height = height
             else:
-                capacity += (max_height - height)
+                capacity += max_height - height
 
         return capacity
 
     capacity_left = _get_capacity(heights[:max_idx])
-    capacity_right = _get_capacity(reversed(heights[max_idx + 1:]))
+    capacity_right = _get_capacity(reversed(heights[max_idx + 1 :]))
 
     return capacity_left + capacity_right
 

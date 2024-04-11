@@ -1,28 +1,29 @@
 import unittest
+
 from graphs import *
 
 
 class EpiGraphsTestCase(unittest.TestCase):
     def test_can_team_a_beat_team_b(self):
         matches = [
-            ('ger', 'eng'),
-            ('ger', 'bra'),
-            ('bra', 'arg'),
-            ('arg', 'bel'),
-            ('fra', 'bra'),
-            ('mex', 'ger'),
-            ('ita', 'ger'),
-            ('ita', 'fra'),
-            ('esp', 'ita'),
+            ("ger", "eng"),
+            ("ger", "bra"),
+            ("bra", "arg"),
+            ("arg", "bel"),
+            ("fra", "bra"),
+            ("mex", "ger"),
+            ("ita", "ger"),
+            ("ita", "fra"),
+            ("esp", "ita"),
         ]
 
-        result = can_team_a_beat_team_b('ger', 'bel', matches)
+        result = can_team_a_beat_team_b("ger", "bel", matches)
         self.assertTrue(result)
 
-        result = can_team_a_beat_team_b('fra', 'ita', matches)
+        result = can_team_a_beat_team_b("fra", "ita", matches)
         self.assertFalse(result)
 
-        result = can_team_a_beat_team_b('mex', 'bel', matches)
+        result = can_team_a_beat_team_b("mex", "bel", matches)
         self.assertTrue(result)
 
     def test_search_maze(self):
@@ -33,7 +34,7 @@ class EpiGraphsTestCase(unittest.TestCase):
             [1, 0, 1, 1, 0],
             [0, 1, 0, 0, 0],
             [1, 0, 0, 1, 0],
-            [0, 0, 1, 0, 0]
+            [0, 0, 1, 0, 0],
         ]
         path = search_maze(maze, start, end)
         self.assertTrue(len(path) > 0)
@@ -43,7 +44,7 @@ class EpiGraphsTestCase(unittest.TestCase):
             [1, 0, 1, 1, 1],
             [0, 1, 0, 0, 0],
             [1, 0, 0, 1, 0],
-            [0, 0, 1, 0, 0]
+            [0, 0, 1, 0, 0],
         ]
 
         path2 = search_maze(maze2, start, end)
@@ -55,7 +56,7 @@ class EpiGraphsTestCase(unittest.TestCase):
             [1, 1, 1, 1, 1],
             [1, 0, 1, 0, 1],
             [1, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0]
+            [1, 0, 0, 0, 0],
         ]
 
         flip_color(matrix, (3, 2))
@@ -65,7 +66,7 @@ class EpiGraphsTestCase(unittest.TestCase):
             [1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1]
+            [1, 1, 1, 1, 1],
         ]
 
         for idx, row in enumerate(matrix):
@@ -78,7 +79,7 @@ class EpiGraphsTestCase(unittest.TestCase):
             [1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1]
+            [1, 1, 1, 1, 1],
         ]
 
         for idx, row in enumerate(matrix):
@@ -90,7 +91,7 @@ class EpiGraphsTestCase(unittest.TestCase):
             [1, 1, 0, 1, 1],
             [1, 0, 1, 0, 1],
             [1, 0, 0, 0, 1],
-            [0, 1, 1, 1, 0]
+            [0, 1, 1, 1, 0],
         ]
 
         fill_surrounded_region(matrix)
@@ -100,7 +101,7 @@ class EpiGraphsTestCase(unittest.TestCase):
             [1, 1, 0, 1, 1],
             [1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1],
-            [0, 1, 1, 1, 0]
+            [0, 1, 1, 1, 0],
         ]
 
         for idx, row in enumerate(matrix):
@@ -124,9 +125,7 @@ class EpiGraphsTestCase(unittest.TestCase):
         d.edges.extend([e, f, g])
         x.edges.append(y)
 
-        graph = [
-            a, b, c, d, e, f, g, x, y
-        ]
+        graph = [a, b, c, d, e, f, g, x, y]
 
         self.assertFalse(is_deadlocked(graph))
 
@@ -147,9 +146,7 @@ class EpiGraphsTestCase(unittest.TestCase):
         _3.edges.extend([_4, _5, _6])
         _7.edges.append(_8)
 
-        graph = [
-            _0,_1,_2,_3,_4,_5,_6,_7,_8
-        ]
+        graph = [_0, _1, _2, _3, _4, _5, _6, _7, _8]
         expected = [8, 7, 4, 5, 6, 3, 1, 0, 2]
 
         top_sort = topological_sort(graph)
@@ -174,9 +171,7 @@ class EpiGraphsTestCase(unittest.TestCase):
         x.edges.append(y)
         e.edges.append(b)
 
-        graph = [
-            a, b, c, d, e, f, g, x, y
-        ]
+        graph = [a, b, c, d, e, f, g, x, y]
 
         self.assertTrue(is_deadlocked(graph))
 
@@ -206,11 +201,11 @@ class EpiGraphsTestCase(unittest.TestCase):
 
     def test_transform_string(self):
         dictionary = self._get_dictionary()
-        path_len = transform_string(dictionary, 'bat', 'dag')
+        path_len = transform_string(dictionary, "bat", "dag")
         self.assertEqual(2, path_len)
 
         dictionary = self._get_dictionary()
-        path_len = transform_string(dictionary, 'dot', 'bag')
+        path_len = transform_string(dictionary, "dot", "bag")
         self.assertEqual(3, path_len)
 
     def _create_simple_graph(self):
@@ -236,16 +231,16 @@ class EpiGraphsTestCase(unittest.TestCase):
 
     def _get_dictionary(self):
         dictionary = set()
-        dictionary.add('cat')
-        dictionary.add('dog')
-        dictionary.add('dat')
-        dictionary.add('bat')
-        dictionary.add('cot')
-        dictionary.add('dot')
-        dictionary.add('dag')
-        dictionary.add('bag')
+        dictionary.add("cat")
+        dictionary.add("dog")
+        dictionary.add("dat")
+        dictionary.add("bat")
+        dictionary.add("cot")
+        dictionary.add("dot")
+        dictionary.add("dag")
+        dictionary.add("bag")
         return dictionary
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

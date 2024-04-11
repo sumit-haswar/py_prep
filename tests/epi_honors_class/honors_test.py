@@ -1,7 +1,8 @@
 import unittest
+
+from binary_tree.util import build_1_to_10_bst, build_epi_bst
 from epi_honors_class import *
 from linked_list.util import create_list, get_list_from_linked_list
-from binary_tree.util import build_epi_bst, build_1_to_10_bst
 
 
 class MyTestCase(unittest.TestCase):
@@ -18,20 +19,21 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(45, gcd_mod(945, 900))
 
     def test_rotate_array(self):
-        self.assertListEqual([22, 45, 78, 6, 89, 90],
-                             rotate_array([6, 89, 90, 22, 45, 78], 3))
+        self.assertListEqual([22, 45, 78, 6, 89, 90], rotate_array([6, 89, 90, 22, 45, 78], 3))
 
-        self.assertListEqual([45, 78, 89, 90, 154, 99, 22],
-                             rotate_array([89, 90, 154, 99, 22, 45, 78], 2))
+        self.assertListEqual(
+            [45, 78, 89, 90, 154, 99, 22],
+            rotate_array([89, 90, 154, 99, 22, 45, 78], 2),
+        )
 
     def test_justify_text(self):
-        actual = justify_text('the quick brown fox jumped over the lazy dogs', 11)
+        actual = justify_text("the quick brown fox jumped over the lazy dogs", 11)
         expected = [
-            'the   quick',
-            'brown   fox',
-            'jumped over',
-            'the    lazy',
-            'dogs       '
+            "the   quick",
+            "brown   fox",
+            "jumped over",
+            "the    lazy",
+            "dogs       ",
         ]
         self.assertListEqual(expected, actual)
 
@@ -67,7 +69,7 @@ class MyTestCase(unittest.TestCase):
             TrafficElement(6, 2.6),
             TrafficElement(8, 2.2),
             TrafficElement(9, 1.7),
-            TrafficElement(14, 1.7)
+            TrafficElement(14, 1.7),
         ]
 
         result = calculate_traffic_volumes(traffic_volumes, 3)
@@ -79,7 +81,7 @@ class MyTestCase(unittest.TestCase):
             (6, 3.7),
             (8, 2.6),
             (9, 2.6),
-            (14, 1.7)
+            (14, 1.7),
         ]
         idx = 0
         for traffic_elem in result:
@@ -139,5 +141,5 @@ class MyTestCase(unittest.TestCase):
         print(dll_seq)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -1,5 +1,5 @@
-from typing import List
 from abc import ABC, abstractmethod
+from typing import List
 
 
 class Backtrack(ABC):
@@ -65,7 +65,7 @@ class Subsets(Backtrack):
             if a[idx]:
                 solution.append(idx)
 
-        self.result.append(','.join(str(x) for x in solution))
+        self.result.append(",".join(str(x) for x in solution))
 
 
 class Permutation(Backtrack):
@@ -78,7 +78,7 @@ class Permutation(Backtrack):
         for idx in range(1, k + 1):
             solution.append(a[idx])
 
-        self.result.append(','.join(str(x) for x in solution))
+        self.result.append(",".join(str(x) for x in solution))
 
     def construct_candidates(self, a, k, input_data, candidates):
         in_perm = set()
@@ -105,10 +105,10 @@ class AllPaths(Backtrack):
         solution = []
         for i in range(1, k + 1):
             solution.append("{}".format(a[i]))
-        self.result.append(','.join(solution))
+        self.result.append(",".join(solution))
 
     def is_a_solution(self, a, k, input_data):
-        return a[k] == input_data['dest']
+        return a[k] == input_data["dest"]
 
     def construct_candidates(self, a, k, input_data, candidates):
         visited = set()
@@ -118,7 +118,7 @@ class AllPaths(Backtrack):
             visited.add(a[i])
 
         if k == 1:  # in first execution the only candidate is the source
-            candidates.append(input_data['source'])
+            candidates.append(input_data["source"])
             return 1
         else:
             # get the last node of current recursion tree

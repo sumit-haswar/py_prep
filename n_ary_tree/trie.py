@@ -1,7 +1,7 @@
-from typing import Optional, List
+from typing import List, Optional
 
 
-class TrieNode():
+class TrieNode:
 
     def __init__(self, word=None):
         self.is_word = False
@@ -9,7 +9,7 @@ class TrieNode():
         self.children = {}
 
 
-class Trie():
+class Trie:
 
     def __init__(self):
         self.root = TrieNode()
@@ -25,7 +25,7 @@ class Trie():
             else:
                 for ch in word[idx:]:
                     prefix_till_now.append(ch)
-                    new_node = TrieNode(''.join(prefix_till_now))
+                    new_node = TrieNode("".join(prefix_till_now))
                     curr.children[ch] = new_node
                     curr = new_node
                 break

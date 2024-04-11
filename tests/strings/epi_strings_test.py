@@ -1,24 +1,26 @@
 import unittest
-from my_strings import \
-    string_to_int, \
-    int_to_string, \
-    convert_base, \
-    is_palindromic, \
-    is_palindrome, \
-    replace_and_remove, \
-    reverse_words, \
-    roman_to_int, \
-    rle_encode, \
-    rle_decode, \
-    rabin_karp
+
+from my_strings import (
+    convert_base,
+    int_to_string,
+    is_palindrome,
+    is_palindromic,
+    rabin_karp,
+    replace_and_remove,
+    reverse_words,
+    rle_decode,
+    rle_encode,
+    roman_to_int,
+    string_to_int,
+)
 
 
 class StringsTestCase(unittest.TestCase):
 
     def test_is_palindromic(self):
-        self.assertTrue(is_palindromic('qwertyytrewq'))
-        self.assertTrue(is_palindromic('qwertytrewq'))
-        self.assertFalse(is_palindromic('qwertyuxytrewq'))
+        self.assertTrue(is_palindromic("qwertyytrewq"))
+        self.assertTrue(is_palindromic("qwertytrewq"))
+        self.assertFalse(is_palindromic("qwertyuxytrewq"))
 
     def test_int_to_string(self):
         actual = int_to_string(7867)
@@ -45,22 +47,22 @@ class StringsTestCase(unittest.TestCase):
         self.assertEqual("-F61", actual)
 
     def test_replace_remove(self):
-        input = list('abxyzdab')
+        input = list("abxyzdab")
         final_size = replace_and_remove(input, 8)
-        self.assertListEqual(list('ddxyzddd'), input[:final_size])
+        self.assertListEqual(list("ddxyzddd"), input[:final_size])
 
-        input = list('bbxayzdab')
+        input = list("bbxayzdab")
         final_size = replace_and_remove(input, 9)
-        self.assertListEqual(list('xddyzddd'), input[:final_size])
+        self.assertListEqual(list("xddyzddd"), input[:final_size])
 
     def test_is_palindrome(self):
-        actual = is_palindrome('A man, a plan, a canal, Panama.')
+        actual = is_palindrome("A man, a plan, a canal, Panama.")
         self.assertTrue(actual)
 
         actual = is_palindrome("Murder? for a jar of red rum!")
         self.assertTrue(actual)
 
-        actual = is_palindrome('Ray a ray')
+        actual = is_palindrome("Ray a ray")
         self.assertFalse(actual)
 
     def test_reverse_words(self):
@@ -102,5 +104,5 @@ class StringsTestCase(unittest.TestCase):
         self.assertEqual(-1, idx)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

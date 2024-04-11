@@ -16,9 +16,11 @@ def insert(node: TreeNode, val: int) -> TreeNode:
 
 # size
 
+
 # max-depth
 def size(node: TreeNode) -> int:
     pass
+
 
 def get_max_depth(node: TreeNode) -> int:
     pass
@@ -32,6 +34,7 @@ def get_min_val(node: TreeNode) -> int:
 # print-tree
 
 # print post-order
+
 
 # has path sum
 def has_path_sum(node: TreeNode, curr_val: int, val: int) -> bool:

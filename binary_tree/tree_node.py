@@ -1,10 +1,6 @@
 class TreeNode:
 
-    def __init__(self,
-                 data=None,
-                 left=None,
-                 right=None,
-                 parent=None):
+    def __init__(self, data=None, left=None, right=None, parent=None):
         self.data = data
         self.val = data
         self.left = left
@@ -14,9 +10,11 @@ class TreeNode:
         self.next = None
 
     def __str__(self):
-        return '{} <-- {} --> {}'.format(self.left.data if self.left else 'None',
-                                         self.data,
-                                         self.right.data if self.right else 'None')
+        return "{} <-- {} --> {}".format(
+            self.left.data if self.left else "None",
+            self.data,
+            self.right.data if self.right else "None",
+        )
 
     def is_leaf(self):
         if self.left is None and self.right is None:

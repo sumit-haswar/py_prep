@@ -91,8 +91,7 @@ def has_path_sum_2(root, sum):
     elif root is None:
         return False
 
-    return has_path_sum(root.left, sum - root.val) \
-           or has_path_sum(root.right, sum - root.val)
+    return has_path_sum(root.left, sum - root.val) or has_path_sum(root.right, sum - root.val)
 
 
 # 8.Given a binary tree, print out all of its root-to-leaf paths.
@@ -107,7 +106,7 @@ def print_all_paths(root, path_so_far):
         return
 
     if path_so_far:
-        path_so_far = path_so_far + ' -> ' + str(root.val)
+        path_so_far = path_so_far + " -> " + str(root.val)
     else:
         path_so_far = str(root.val)
     print_all_paths(root.left, path_so_far)
@@ -151,8 +150,7 @@ def same_tree(tree_a, tree_b):
         return True
     elif tree_a is not None and tree_b is not None:
         if tree_a.val == tree_b.val:
-            return same_tree(tree_a.left, tree_b.left) \
-                   and same_tree(tree_a.right, tree_b.right)
+            return same_tree(tree_a.left, tree_b.left) and same_tree(tree_a.right, tree_b.right)
         else:
             return False
     else:
@@ -181,8 +179,7 @@ def is_bst_inefficient(root):
             return False
 
     # recursive calls
-    if is_bst_inefficient(root.right) is False \
-            or is_bst_inefficient(root.left) is False:
+    if is_bst_inefficient(root.right) is False or is_bst_inefficient(root.left) is False:
         return False
 
     return True
@@ -199,39 +196,35 @@ def is_bst(root, min, max):
     if root.val > max:
         return False
 
-    return is_bst(root.left, min, root.val) \
-           and is_bst(root.right, root.val, max)
+    return is_bst(root.left, min, root.val) and is_bst(root.right, root.val, max)
 
 
 def is_bst_bfs(root):
     if root is None:
         return True
 
-    queue = [{'node': root, 'min': 0, 'max': 99999}]
+    queue = [{"node": root, "min": 0, "max": 99999}]
 
-    while (queue):
+    while queue:
         curr = queue.pop()
-        curr_node = curr['node']
+        curr_node = curr["node"]
 
         # check if this node does to break the bst constraint
-        if curr_node.val < curr['min'] or curr_node.val > curr['max']:
+        if curr_node.val < curr["min"] or curr_node.val > curr["max"]:
             return False
 
         # add left and right to the queue
         if curr_node.left:
-            queue.append({'node': curr_node.left,
-                          'min': curr['min'],
-                          'max': curr_node.val})
+            queue.append({"node": curr_node.left, "min": curr["min"], "max": curr_node.val})
 
         if curr_node.right:
-            queue.append({'node': curr_node.right,
-                          'min': curr_node.val,
-                          'max': curr['max']})
+            queue.append({"node": curr_node.right, "min": curr_node.val, "max": curr["max"]})
 
     return True
 
 
 # todo tree-list recursion problem !!
+
 
 class NodeInfo:
     def __init__(self, min_val, max_val, is_bst=False, size=0, max_size=0):
@@ -293,12 +286,13 @@ def find_largest_bst_count(root):
 
     return root_info.max_size
 
+
 def main():
     # todo create binary trees util build methods
     #   for example: root = build_1_to_10_bst()
     #   invoke required methods to be tested
 
-    print('is-bst bfs')
+    print("is-bst bfs")
     assert is_bst_bfs(build_123())
     assert is_bst_bfs(build_random_non_bst()) is False
     assert is_bst_bfs((build_1_to_10_bst()))

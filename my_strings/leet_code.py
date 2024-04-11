@@ -1,6 +1,6 @@
-from typing import List
-import math
 import collections
+import math
+from typing import List
 
 
 # Input:
@@ -23,7 +23,7 @@ def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
         curr_word_count = len(words[idx])
 
         if len(buffer) + curr_word_count <= maxWidth:  # 0 + 4
-            buffer.extend((' ' if buffer else '') + curr_word)
+            buffer.extend((" " if buffer else "") + curr_word)
             buffer_word_count += 1
             idx += 1
         else:  # curr word will overflow!
@@ -34,7 +34,7 @@ def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
 
     # last line, process buffer if non-empty
     if buffer:
-        line = ''.join(buffer) + (' ' * (maxWidth - len(buffer)))
+        line = "".join(buffer) + (" " * (maxWidth - len(buffer)))
         result.append(line)
 
     return result
@@ -58,7 +58,7 @@ def _left_divide_total(total, count):
 
 def _format_line(buffer, word_count, max_width):
     if len(buffer) == max_width:
-        return ''.join(buffer)
+        return "".join(buffer)
 
     # total ws on right
     right_pad = max_width - len(buffer)
@@ -66,7 +66,7 @@ def _format_line(buffer, word_count, max_width):
     ws_count = word_count - 1
 
     if ws_count == 0:
-        return ''.join(buffer) + ' ' * right_pad
+        return "".join(buffer) + " " * right_pad
 
     total_ws = right_pad + ws_count
 
@@ -76,16 +76,16 @@ def _format_line(buffer, word_count, max_width):
     write_stream = []
     read_idx = 0
     while len(write_stream) <= max_width and read_idx < len(buffer):
-        if buffer[read_idx] == ' ':
+        if buffer[read_idx] == " ":
             for i in range(ws_groups[group_idx]):
-                write_stream.append(' ')
+                write_stream.append(" ")
             read_idx += 1
             group_idx += 1
         else:
             write_stream.append(buffer[read_idx])
             read_idx += 1
 
-    return ''.join(write_stream)
+    return "".join(write_stream)
 
 
 def minWindow(s: str, t: str) -> str:
@@ -101,12 +101,12 @@ def minWindow(s: str, t: str) -> str:
     while right < len(s):
         if curr_count == count:
             # left -> right contains t, so keep incrementing left
-            result = s[left: right]
+            result = s[left:right]
             while left < len(s):
                 curr = s[left]
                 if curr not in counter:
                     left += 1
-                    result = s[left: right]
+                    result = s[left:right]
                 else:
                     counter[curr] += 1
                     if counter[curr] == 1:
@@ -114,7 +114,7 @@ def minWindow(s: str, t: str) -> str:
                         break
                     else:
                         left += 1
-                        result = s[left: right]
+                        result = s[left:right]
             if best_result:
                 best_result = result if len(result) < len(best_result) else best_result
             else:
@@ -138,7 +138,7 @@ def _between_0_and_255(num: str) -> bool:
 
 
 def _contains_trailing_zeros(num: str) -> bool:
-    if len(num) > 1 and num[0] == '0':
+    if len(num) > 1 and num[0] == "0":
         return True
 
 
@@ -150,30 +150,30 @@ def _is_ipv6(num: str) -> bool:
 
 
 def valid_ip_address(ip: str) -> str:
-    if '.' in ip:
-        components = ip.split('.')
+    if "." in ip:
+        components = ip.split(".")
         if len(components) != 4:
-            return 'Neither'
+            return "Neither"
         for component in components:
             if not _between_0_and_255(component) or _contains_trailing_zeros(component):
                 return "Neither"
 
-        return 'IPv4'
+        return "IPv4"
 
-    elif ':' in ip:
-        components = ip.split(':')
+    elif ":" in ip:
+        components = ip.split(":")
         if len(components) != 8:
-            return 'Neither'
+            return "Neither"
         for component in components:
             if not _is_ipv6(component):
-                return 'Neither'
+                return "Neither"
 
-        return 'IPv6'
+        return "IPv6"
     else:
-        return 'Neither'
+        return "Neither"
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     ips = [
         "192.168.1.1",
@@ -184,7 +184,7 @@ if __name__ == '__main__':
         "2001:0db8:85a3:0000:0000:8a2e:0370:7334",
         "2001:db8:85a3:0:0:8A2E:0370:7334",
         "2001:0db8:85a3::8A2E:037j:7334",
-        "02001:0db8:85a3:0000:0000:8a2e:0370:7334"
+        "02001:0db8:85a3:0000:0000:8a2e:0370:7334",
     ]
 
     for ip in ips:

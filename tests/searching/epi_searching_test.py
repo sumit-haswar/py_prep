@@ -1,15 +1,16 @@
 import unittest
-from util import generate_random_list, \
-    generate_distinct_random_list
-from searching.epi_searching import \
-    find_first_occurrence, \
-    search_entry_equal_to_its_index, \
-    search_smallest, \
-    get_square_root, \
-    matrix_search, \
-    find_min_max_stream, \
-    find_kth_largest, \
-    find_duplicate_missing
+
+from searching.epi_searching import (
+    find_duplicate_missing,
+    find_first_occurrence,
+    find_kth_largest,
+    find_min_max_stream,
+    get_square_root,
+    matrix_search,
+    search_entry_equal_to_its_index,
+    search_smallest,
+)
+from util import generate_distinct_random_list, generate_random_list
 
 
 class EpiSearchingTestCase(unittest.TestCase):
@@ -24,36 +25,116 @@ class EpiSearchingTestCase(unittest.TestCase):
         self.assertEqual(5, find_first_occurrence(list, 300))
 
     def test_search_entry_equal_to_its_index(self):
-        self.assertEqual(11,
-                         search_entry_equal_to_its_index([-5, -3, -2, -1, 1,
-                                                          2, 3, 4, 6, 8, 9, 11]))
+        self.assertEqual(
+            11,
+            search_entry_equal_to_its_index([-5, -3, -2, -1, 1, 2, 3, 4, 6, 8, 9, 11]),
+        )
 
-        self.assertEqual(20,
-                         search_entry_equal_to_its_index([-12, -11, -10, -7, -6,
-                                                          -3, -2, 1, 3, 4, 6, 7,
-                                                          8, 9, 10, 12, 13, 15,
-                                                          16, 18, 20, 21, 22]))
+        self.assertEqual(
+            20,
+            search_entry_equal_to_its_index(
+                [
+                    -12,
+                    -11,
+                    -10,
+                    -7,
+                    -6,
+                    -3,
+                    -2,
+                    1,
+                    3,
+                    4,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    12,
+                    13,
+                    15,
+                    16,
+                    18,
+                    20,
+                    21,
+                    22,
+                ]
+            ),
+        )
 
     def test_search_smallest(self):
-        self.assertEqual(3,
-                         search_smallest([100, 101, 102, 2, 5]))
+        self.assertEqual(3, search_smallest([100, 101, 102, 2, 5]))
 
-        self.assertEqual(2,
-                         search_smallest([10, 11, -7, -5, -4, 0,
-                                          1, 4, 5, 6, 7, 8]))
+        self.assertEqual(2, search_smallest([10, 11, -7, -5, -4, 0, 1, 4, 5, 6, 7, 8]))
 
-        self.assertEqual(26,
-                         search_smallest([-23, -21, -18, -17, -13,
-                                          -12, -9, -2, -1, 0, 2,
-                                          7, 8, 10, 13, 14, 15,
-                                          16, 17, 19, 20, 22, 23,
-                                          25, 26, 27, -25, -24]))
-        self.assertEqual(23,
-                         search_smallest([-20, -15, -14, -10, -8,
-                                          -7, -6, -5, -4, -3, 0,
-                                          2, 4, 5, 7, 11, 14, 15,
-                                          16, 18, 21, 23, 24, -27,
-                                          -26, -25, -23]))
+        self.assertEqual(
+            26,
+            search_smallest(
+                [
+                    -23,
+                    -21,
+                    -18,
+                    -17,
+                    -13,
+                    -12,
+                    -9,
+                    -2,
+                    -1,
+                    0,
+                    2,
+                    7,
+                    8,
+                    10,
+                    13,
+                    14,
+                    15,
+                    16,
+                    17,
+                    19,
+                    20,
+                    22,
+                    23,
+                    25,
+                    26,
+                    27,
+                    -25,
+                    -24,
+                ]
+            ),
+        )
+        self.assertEqual(
+            23,
+            search_smallest(
+                [
+                    -20,
+                    -15,
+                    -14,
+                    -10,
+                    -8,
+                    -7,
+                    -6,
+                    -5,
+                    -4,
+                    -3,
+                    0,
+                    2,
+                    4,
+                    5,
+                    7,
+                    11,
+                    14,
+                    15,
+                    16,
+                    18,
+                    21,
+                    23,
+                    24,
+                    -27,
+                    -26,
+                    -25,
+                    -23,
+                ]
+            ),
+        )
 
     def test_get_square_root(self):
         self.assertEqual(12, get_square_root(150))
@@ -67,12 +148,14 @@ class EpiSearchingTestCase(unittest.TestCase):
         self.assertEqual(29446, get_square_root(867079849))
 
     def test_matrix_search(self):
-        matrix = [[-1, 2, 4, 4, 6],
-                  [1, 5, 5, 9, 21],
-                  [3, 6, 6, 9, 22],
-                  [3, 6, 8, 10, 24],
-                  [6, 8, 9, 12, 25],
-                  [7, 10, 12, 12, 25]]
+        matrix = [
+            [-1, 2, 4, 4, 6],
+            [1, 5, 5, 9, 21],
+            [3, 6, 6, 9, 22],
+            [3, 6, 8, 10, 24],
+            [6, 8, 9, 12, 25],
+            [7, 10, 12, 12, 25],
+        ]
 
         row, col = matrix_search(matrix, 7)
         self.assertEqual(5, row)
@@ -115,5 +198,5 @@ class EpiSearchingTestCase(unittest.TestCase):
         self.assertEqual(8, duplicate)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

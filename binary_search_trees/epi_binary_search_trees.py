@@ -1,8 +1,10 @@
+import collections
 import typing
 from typing import List, Optional
+
+from sortedcontainers import SortedDict, SortedList
+
 from binary_tree import TreeNode
-import collections
-from sortedcontainers import SortedList, SortedDict
 
 
 #   14.1 test if bt satisfies the bst property
@@ -14,35 +16,39 @@ def is_bst(root: TreeNode):
         if node.data < lower_bound or node.data > upper_bound:
             return False
 
-        return _is_bst(node.left, lower_bound, node.data) \
-               and _is_bst(node.right, node.data, upper_bound)
+        return _is_bst(node.left, lower_bound, node.data) and _is_bst(node.right, node.data, upper_bound)
 
-    return _is_bst(root, float('-inf'), float('inf'))
+    return _is_bst(root, float("-inf"), float("inf"))
 
 
 def is_bst_bfs(root: TreeNode) -> bool:
     queue = collections.deque()
 
     # add root to queue
-    queue.append({'node': root,
-                  'lower': float('-inf'),
-                  'upper': float('inf')})
+    queue.append({"node": root, "lower": float("-inf"), "upper": float("inf")})
 
     while queue:
         curr = queue.popleft()
         # check if curr violates bst:
-        if curr['node'].data < curr.get('lower') \
-                or curr['node'].data > curr.get('upper'):
+        if curr["node"].data < curr.get("lower") or curr["node"].data > curr.get("upper"):
             return False
 
-        if curr['node'].left:
-            queue.append({'node': curr['node'].left,
-                          'lower': float('-inf'),
-                          'upper': curr['node'].data})
-        if curr['node'].right:
-            queue.append({'node': curr['node'].right,
-                          'lower': curr['node'].data,
-                          'upper': float('inf')})
+        if curr["node"].left:
+            queue.append(
+                {
+                    "node": curr["node"].left,
+                    "lower": float("-inf"),
+                    "upper": curr["node"].data,
+                }
+            )
+        if curr["node"].right:
+            queue.append(
+                {
+                    "node": curr["node"].right,
+                    "lower": curr["node"].data,
+                    "upper": float("inf"),
+                }
+            )
 
     return True
 
@@ -91,7 +97,8 @@ def get_lca(root: TreeNode, a: int, b: int):
         else:
             # go right
             return _get_lca(node.right, a, b)
-    #wlog assume a < b
+
+    # wlog assume a < b
     if b < a:
         a, b = b, a
 
@@ -128,9 +135,11 @@ def build_bst_from_preorder(seq: List[int]):
         while idx < len(seq) and seq[idx] < seq[left]:
             idx += 1
         # idx now points to root element of right tree
-        return TreeNode(seq[left],
-                        _build_bst_from_preorder(left + 1, idx - 1),
-                        _build_bst_from_preorder(idx, right))
+        return TreeNode(
+            seq[left],
+            _build_bst_from_preorder(left + 1, idx - 1),
+            _build_bst_from_preorder(idx, right),
+        )
 
     return _build_bst_from_preorder(0, len(seq) - 1)
 
@@ -157,7 +166,7 @@ def build_bst_from_preorder_optimal(seq: List[int]):
         return TreeNode(root_val, left, right)
 
     curr_root_idx = [0]
-    return _build_bst_from_preorder_optimal(float('-inf'), float('inf'))
+    return _build_bst_from_preorder_optimal(float("-inf"), float("inf"))
 
 
 #   14.6 find the closest entries in 3 sorted arrays
@@ -180,7 +189,7 @@ def find_closest_elements_in_sorted_array(list_of_list: List[List[int]]):
         if min_val:
             bst.add(Node(min_val, iterator))
 
-    min_distance_so_far = float('inf')
+    min_distance_so_far = float("inf")
     while True:
         # curr-distance is diff of left-most and right-most element of the bst
         curr_distance = abs(bst[0].val - bst[-1].val)
@@ -205,9 +214,11 @@ def create_bst(seq: List[int]):
 
         mid_idx = left + (right - left) // 2
 
-        return TreeNode(seq[mid_idx],
-                        _create_bst(left, mid_idx - 1),
-                        _create_bst(mid_idx + 1, right))
+        return TreeNode(
+            seq[mid_idx],
+            _create_bst(left, mid_idx - 1),
+            _create_bst(mid_idx + 1, right),
+        )
 
     return _create_bst(0, len(seq) - 1)
 
@@ -241,8 +252,7 @@ def pair_includes_ancestor_and_descendant_of_m(candidate_0, candidate_1, node):
         if curr_node.data == possible_descendant.data:
             return True
         else:
-            curr_node = curr_node.left \
-                if possible_descendant.data < curr_node.data else curr_node.right
+            curr_node = curr_node.left if possible_descendant.data < curr_node.data else curr_node.right
 
     return False
 
@@ -308,8 +318,7 @@ class ClientsCreditsInfo:
     def lookup(self, client_id: str):
         credit = self.hash_map.get(client_id, None)
         if credit:
-            return {'client_id': client_id,
-                    'credit': credit + self.CREDIT}
+            return {"client_id": client_id, "credit": credit + self.CREDIT}
         else:
             return None
 
@@ -318,6 +327,7 @@ class ClientsCreditsInfo:
 
 
 #   todo (14.7) enumerate extended integers
+
 
 # -- -- -- -- -- -- -- -- Misc. BST problems -- -- -- ---- -- -- --
 def delete_node(root: TreeNode, key: int) -> TreeNode:

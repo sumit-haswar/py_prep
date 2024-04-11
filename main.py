@@ -1,20 +1,21 @@
-from linked_list import linked_list_problems
-from binary_tree import binary_tree_problems
-from typing import List
 from random import randint
 import string
+from typing import List
+
+from binary_tree import binary_tree_problems
+from linked_list import linked_list_problems
 
 x = 0
 factor = 47
 
-base64_map = string.ascii_lowercase + string.ascii_lowercase + string.digits + '-_'
+base64_map = string.ascii_lowercase + string.ascii_lowercase + string.digits + "-_"
 
 
 def hash(key, mod=None):
     hash = 0
     for ch in key:
         if not mod:
-            hash = (hash * factor + ord(ch))
+            hash = hash * factor + ord(ch)
         else:
             hash = (hash * factor + ord(ch)) % mod
     return hash
@@ -70,7 +71,7 @@ def all_perm_non_repeating(n):
 
         for i in range(len(seq)):
             slate.append(str(seq[i]))
-            _all_dec(slate, seq[:i] + seq[i + 1:])
+            _all_dec(slate, seq[:i] + seq[i + 1 :])
             del slate[-1]
 
     result = []
@@ -232,8 +233,8 @@ class Solution:
                     if sink in root_nodes:
                         root_nodes.remove(sink)
 
-                    node_color[source] = 'white'
-                    node_color[sink] = 'white'
+                    node_color[source] = "white"
+                    node_color[sink] = "white"
 
                     if source not in graph:
                         graph[source] = []
@@ -247,31 +248,31 @@ class Solution:
             curr_word_idx += 1
 
         def _dfs(curr_node):
-            if node_color[curr_node] == 'gray':
-                raise Exception('cycle detected')
-            node_color[curr_node] = 'gray'
+            if node_color[curr_node] == "gray":
+                raise Exception("cycle detected")
+            node_color[curr_node] = "gray"
 
             if curr_node in graph:
                 for neighbor in graph[curr_node]:
-                    if node_color[curr_node] != 'black':
+                    if node_color[curr_node] != "black":
                         _dfs(neighbor)
             top_sort.append(curr_node)
-            node_color[curr_node] = 'black'
+            node_color[curr_node] = "black"
 
         top_sort = []
         try:
             # _dfs(root)
             # perform dfs on graph starting with any char from rootset
             for root in root_nodes:
-                if node_color[root] == 'white':
+                if node_color[root] == "white":
                     _dfs(root)
         except Exception as ex:
             return ""
 
-        return ''.join([str(n) for n in reversed(top_sort)])
+        return "".join([str(n) for n in reversed(top_sort)])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # print(hash('www.sumithaswar.com', 1000000))
     # print(hash('www.google.com', 1000000))
     # # print(hash('2a89f374ba8df3e5eefe475bdf61d176', 1000000000))
@@ -288,11 +289,10 @@ if __name__ == '__main__':
         n1 = n2
         n2 = nth
 
-        ratio = (n1 + n2)/n2
+        ratio = (n1 + n2) / n2
         print(ratio)
 
         i += 1
 
     print(seq)
     # print(base64_hash(test_url))
-

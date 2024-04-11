@@ -1,4 +1,5 @@
 import unittest
+
 from my_strings import find_match
 
 
@@ -19,5 +20,5 @@ class StringsTestCase(unittest.TestCase):
         self.assertEqual(text.index(pattern), idx)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
