@@ -61,4 +61,4 @@ def _create_bt() -> TreeNode:
 if __name__ == "__main__":
     root = build_1_to_10_bst()
     # node = size(root)
-    print(node)
+    # print(node)
