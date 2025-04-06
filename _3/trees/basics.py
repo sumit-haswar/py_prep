@@ -77,7 +77,7 @@ def get_min_val(node: TreeNode) -> int:
 
 
 # min-val of a bst
-def get_min_val_bst(node: TreeNode) -> TreeNode:
+def get_min_val_bst(node: TreeNode) -> Optional[TreeNode]:
     if node is None:
         return node
 
@@ -87,7 +87,7 @@ def get_min_val_bst(node: TreeNode) -> TreeNode:
     return node
 
 
-def get_min_val_bst_iter(node: TreeNode) -> TreeNode:
+def get_min_val_bst_iter(node: TreeNode) -> Optional[TreeNode]:
     if node is None or node.left is None:
         return node
 

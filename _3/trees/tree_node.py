@@ -5,6 +5,7 @@ class TreeNode:
         self.left = left
         self.right = right
         self.count = 0
+        self.parent = None
 
     def __str__(self):
         return f"{self.left.val if self.left else None} <-- {self.val} --> {self.right.val if self.right else None}"
