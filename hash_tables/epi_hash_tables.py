@@ -1,5 +1,4 @@
 import collections
-import typing
 from typing import Dict, List, Set
 
 from binary_tree import TreeNode
@@ -202,7 +201,7 @@ def get_longest_subarray_with_distinct_values(A: List[int]):
             if elem_last_idx >= longest_distinct_subarray_start_idx:
                 # curr non-distinct range
                 curr_result = idx - longest_distinct_subarray_start_idx
-                if result is None or curr_result > result:
+                if curr_result > result:
                     result = curr_result
                     result_idx = (longest_distinct_subarray_start_idx, idx - 1)
                 # subarray now becomes last distinct + 1, shift idx to right
@@ -220,7 +219,6 @@ def get_longest_contained_interval(array: List[int]):
     result = 0
     for elem in array:
         if elem in lookup:
-
             lower_bound = elem - 1
             while lower_bound in lookup:
                 lookup.remove(lower_bound)

@@ -7,3 +7,12 @@ class Node:
 
     def __str__(self):
         return f"{self.val} -> {self.next.val if self.next else ''}"
+
+    def print_till_tail(self):
+        curr = self
+        values = []
+        while curr:
+            values.append(str(curr.val))
+            curr = curr.next
+
+        print(",".join(values))
