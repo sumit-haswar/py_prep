@@ -13,7 +13,7 @@ def find_least_greater_than(arr: List[int], elem: int) -> Optional[int]:
         elif mid_elem > elem:   # discard right sub-array and look left
             candidate = mid_elem
             right = mid_idx - 1
-        else:
+        else: # mid_elem == elem, keep looking right
             right = mid_idx - 1
 
     return candidate
