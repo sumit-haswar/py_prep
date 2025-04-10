@@ -81,7 +81,7 @@ def matrix_search(matrix, num):
     # start with top right
     curr_row = 0
     curr_col = cols - 1
-    while curr_row < rows and curr_col < cols:
+    while curr_row < rows and curr_col >= 0:
         if matrix[curr_row][curr_col] == num:
             return curr_row, curr_col
         elif matrix[curr_row][curr_col] < num:  # go down
@@ -119,6 +119,8 @@ def find_kth_largest(list: List[int], k: int) -> int:
     def _get_pivot_idx(left, right, idx) -> int:
         # move idx to right
         idx_val = list[idx]
+
+        # swap pivot to right
         list[idx] = list[right]
         list[right] = idx_val
 
@@ -151,9 +153,9 @@ def find_kth_largest(list: List[int], k: int) -> int:
         if pivot_idx == k - 1:
             return list[pivot_idx]
         elif pivot_idx < k - 1:
-            return _find_kth_largest(pivot_idx + 1, right)
+            return _find_kth_largest(pivot_idx + 1, right) # look right
         else:
-            return _find_kth_largest(left, pivot_idx - 1)
+            return _find_kth_largest(left, pivot_idx - 1) # look left
 
     return _find_kth_largest(0, len(list) - 1)
 
@@ -762,3 +764,12 @@ if __name__ == "__main__":
     ]
     # [-12, -68, 73, -55, -9, 5, 75]
     print(find_top_k_frequent_elements(list, 7))
+
+    matrix = [
+        [5, 9, 12, 15],
+        [6, 10, 13, 16],
+        [7, 11, 14, 23],
+        [8, 11.5, 14.5, 26]
+    ]
+
+    print(matrix_search(matrix, 3))

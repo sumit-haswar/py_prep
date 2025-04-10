@@ -264,7 +264,7 @@ def get_lca(node_a: TreeNode, node_b: TreeNode) -> Optional[TreeNode]:
 
 
 # 12.6 find the smallest sub-array covering all values
-def find_smallest_covering_sub_array(text: List[str], keywords: set[str]):
+def find_smallest_covering_sub_array(text: List[str], keywords: set):
     left, right = 0, 0
     start, end = None, None
 
