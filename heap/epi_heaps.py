@@ -55,7 +55,11 @@ def sort_inc_dec_array(a: List[int]) -> List[int]:
     result = []
     for idx in range(1, len(a) + 1):
         prev = a[idx - 1]
-        if idx == len(a) or (is_increasing and a[idx] <= prev) or (not is_increasing and a[idx] < prev):
+        # we write to result when:
+            # 1. idx is right of last element, basically idx == len(a)
+            # 2. we have a decrement when we are expecting an increment
+            # 3. we have an increment when we are expecting a decrement
+        if idx == len(a) or (is_increasing and prev >= a[idx]) or (not is_increasing and a[idx] < prev):
             result.append(a[start_idx:idx] if is_increasing else a[idx - 1 : start_idx - 1 : -1])
             start_idx = idx
             is_increasing = not is_increasing
