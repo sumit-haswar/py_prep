@@ -66,7 +66,7 @@ class PriorityQueue():
 
     def pop_max(self):
         if self._size == 0:
-            raise Exception("queue empty")
+            raise Exception("queue empty!")
 
         curr_max = self._pq[0]
         # swap last-element with first element
