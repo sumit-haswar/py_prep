@@ -1,6 +1,7 @@
 from typing import List
 import collections
 
+
 class Event:
     def __init__(self, start: int = None, end: int = None):
         self.start = start
@@ -26,7 +27,7 @@ class Endpoint:
 
 
 class Student:
-    def __init__(self, first_name: str, last_name: str, age: int=None):
+    def __init__(self, first_name: str, last_name: str, age: int = None):
         self.first_name = first_name
         self.last_name = last_name
         self.age = age
@@ -140,7 +141,6 @@ def combine_intervals(events: List[Event]):
     return res
 
 
-
 # 13.9 partition and sort an array with many repeated entries, preferably "in-place"
 def partition_in_place(arr: List[Student]):
     age_counter = collections.Counter([s.age for s in arr])
@@ -159,7 +159,7 @@ def partition_in_place(arr: List[Student]):
 
         to_age = arr[from_idx].age
         to_idx = age_offset[arr[from_idx].age]
-        #swap
+        # swap
         arr[from_idx], arr[to_idx] = arr[to_idx], arr[from_idx]
 
         age_counter[to_age] -= 1
@@ -169,8 +169,6 @@ def partition_in_place(arr: List[Student]):
             del age_offset[to_age]
 
     return arr
-
-
 
 
 # 13.3 computing the h-index, find the largest h such that at least h entries >=h
@@ -191,14 +189,13 @@ def remove_first_name_duplicates(students: List[Student]) -> List[Student]:
     if not students or len(students) == 1:
         return students
 
-    students.sort() # students with same first-name are grouped together
+    students.sort()  # students with same first-name are grouped together
 
     write_idx = 1
     for candidate in students[1:]:
         if candidate != students[write_idx - 1]:
             students[write_idx] = candidate
             write_idx += 1
-
 
     return students[:write_idx]
 
@@ -228,11 +225,12 @@ def add_interval(events: List[Event], new_event: Event) -> List[Event]:
     return res + events[idx:]
 
 
-
 # todo
 #   13.11 implement a fast sorting algo for LINKED lists
 def merge_sort_linked_list():
     pass
+
+
 #   13.10
 #   13.5
 
@@ -257,13 +255,13 @@ if __name__ == "__main__":
     #                   Event(10,15)],
     #                  Event(3,7))
     x = partition_in_place([Student("greg", "", 14),
-                        Student("john", "", 12),
-                        Student("andy", "", 11),
-                        Student("jim", "", 13),
-                        Student("phil", "", 12),
-                        Student("bob", "", 13),
-                        Student("chip", "", 13),
-                        Student("tim", "", 14),
-                        ])
+                            Student("john", "", 12),
+                            Student("andy", "", 11),
+                            Student("jim", "", 13),
+                            Student("phil", "", 12),
+                            Student("bob", "", 13),
+                            Student("chip", "", 13),
+                            Student("tim", "", 14),
+                            ])
 
     print([str(x) for x in x])
