@@ -120,3 +120,28 @@ def build_random_non_bst():
     eight = TreeNode(8, four, forty)
     twelve = TreeNode(12, eight, seven)
     return twelve
+
+def build_prime_bst():
+    _2 = TreeNode(2)
+    _5 = TreeNode(5)
+    _13 = TreeNode(13)
+    _31 = TreeNode(31)
+    _41 = TreeNode(41)
+    _53 = TreeNode(53)
+
+    _29 = TreeNode(29, None, _31)
+
+    _17 = TreeNode(17, _13, None)
+    _37 = TreeNode(37, _29, _41)
+
+    _3 = TreeNode(3, _2, _5)
+    _11 = TreeNode(11, None, _17)
+    _23 = TreeNode(23, None, _37)
+    _47 = TreeNode(47, None, _53)
+
+    _7 = TreeNode(7, _3, _11)
+
+    _43 = TreeNode(43, _23, _47)
+
+    return TreeNode(19, _7, _43)
+

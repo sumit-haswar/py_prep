@@ -448,15 +448,17 @@ def get_longest_subarray_with_distinct_values(input: List[int]) -> (int, int):
 
 if __name__ == "__main__":
 
-    my_cache = MyLruCache(4)
-    my_cache.insert("a", 50)
-    my_cache.insert("b", 60)
-    my_cache.insert("c", 70)
-    my_cache.insert("d", 80)
-    my_cache.insert("e", 90)
-    my_cache.print_cache()
+    # my_cache = MyLruCache(4)
+    # my_cache.insert("a", 50)
+    # my_cache.insert("b", 60)
+    # my_cache.insert("c", 70)
+    # my_cache.insert("d", 80)
+    # my_cache.insert("e", 90)
+    # my_cache.print_cache()
+    #
+    # my_cache.delete("e")
+    # my_cache.print_cache()
 
-    my_cache.delete("e")
-    my_cache.print_cache()
+    print(string_hash("553e7a24-5ec9-4815-8340-f03177fb468d", 2<<63))
 
     # print(res)
