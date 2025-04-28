@@ -4,11 +4,13 @@ from collections import deque
 from typing import Optional, List
 from sortedcontainers import SortedList, SortedDict
 
+
 def get_height(node: TreeNode) -> int:
     if node is None:
         return -1
 
     return max(get_height(node.left), get_height(node.right)) + 1
+
 
 def _get_range_status(val, left, right) -> str:
     if val < left:
@@ -17,6 +19,7 @@ def _get_range_status(val, left, right) -> str:
         return "between"
     else:
         return "right"
+
 
 #   14.1    test if a binary tree satisfies a bst property
 def is_bst(root: TreeNode) -> bool:
@@ -135,7 +138,7 @@ def generate_bst(pre_order_seq: List[int]) -> TreeNode:
 def generate_bst_optimal(pre_order_seq: List[int]) -> TreeNode:
     def _gen_bst(curr_root_idx, min_val, max_val) -> Optional[TreeNode]:
         # base-case
-        if curr_root_idx[0] >= len(pre_order_seq): #
+        if curr_root_idx[0] >= len(pre_order_seq):  #
             return None
         curr_root_val = pre_order_seq[curr_root_idx[0]]
         if curr_root_val < min_val or curr_root_val > max_val:
@@ -146,14 +149,12 @@ def generate_bst_optimal(pre_order_seq: List[int]) -> TreeNode:
         right = _gen_bst(curr_root_idx, curr_root_val, max_val)
         return TreeNode(curr_root_val, left, right)
 
-
     curr_root_idx = [0]
     return _gen_bst(curr_root_idx, float('-inf'), float('inf'))
 
 
 #   14.6    find the closest entries in three sorted arrays
 def find_closest_trio(lists: List[List[int]]) -> int:
-
     class Node:
         def __init__(self, val, iterator):
             self.val = val
@@ -189,7 +190,6 @@ def find_closest_trio(lists: List[List[int]]) -> int:
 
 #   14.8    build a min height BST from a sorted array
 def build_min_height_bst(arr: List[int]):
-
     def _build_bst(arr, left: int, right: int):
         if left > right:
             return None
@@ -197,7 +197,7 @@ def build_min_height_bst(arr: List[int]):
         if left == right:
             return TreeNode(arr[left])
 
-        mid_idx = left + (right - left)//2
+        mid_idx = left + (right - left) // 2
         curr_node = TreeNode(arr[mid_idx])
         curr_node.left = _build_bst(arr, left, mid_idx - 1)
         curr_node.right = _build_bst(arr, mid_idx + 1, right)
@@ -217,9 +217,9 @@ def are_nodes_ordered(parent_or_desc_a: TreeNode, parent_or_desc_b: TreeNode, mi
         if curr_a:
             if middle is curr_a:
                 break
-            elif middle.val > curr_a.val: # go right
+            elif middle.val > curr_a.val:  # go right
                 curr_a = curr_a.right
-            else: # middle.val < curr_a.val # go left
+            else:  # middle.val < curr_a.val # go left
                 curr_a = curr_a.left
 
         if curr_b:
@@ -250,7 +250,6 @@ def are_nodes_ordered(parent_or_desc_a: TreeNode, parent_or_desc_b: TreeNode, mi
 
 #   14.10   the range lookup problem, get all nodes of a binary-tree within a range
 def get_range_nodes_val(root: TreeNode, rng: List[int]) -> List[int]:
-
     def _get_range_nodes_val(curr_node: TreeNode, left, right):
         # base-case:
         if not curr_node:
@@ -263,7 +262,7 @@ def get_range_nodes_val(root: TreeNode, rng: List[int]) -> List[int]:
             _get_range_nodes_val(curr_node.left, left, right)
             res.append(curr_node.val)
             _get_range_nodes_val(curr_node.right, left, right)
-        else:   # 'right'
+        else:  # 'right'
             _get_range_nodes_val(curr_node.left, left, right)
 
         # in-order traversal
@@ -313,9 +312,9 @@ if __name__ == "__main__":
     _37 = root.right.left.right
     _7 = root.left
 
-    res = find_closest_trio([[3,3,6],
-                             [1,5,7],
-                             [4,9,10]])
+    res = find_closest_trio([[3, 3, 6],
+                             [1, 5, 7],
+                             [4, 9, 10]])
 
     client_credits = ClientCredits()
 
