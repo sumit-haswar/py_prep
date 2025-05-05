@@ -258,3 +258,6 @@ def decompress(text: str) -> str:
 
 #   6.7 look and say problem
 #   6.10 write a string sinusoidally
+
+if __name__ == "__main__":
+    replace_and_remove(["a","c","d","b","b","x","y","p"], 5)
