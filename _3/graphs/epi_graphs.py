@@ -10,10 +10,10 @@ class MatchResult:
 
 
 class Point:
-    def __init__(self, x, y, val=None):
+    def __init__(self, x, y, color='white'):
         self.x = x
         self.y = y
-        self.val = val
+        self.color = color
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
@@ -38,6 +38,14 @@ class Point:
 
         return False
 
+class GraphVertex:
+    def __init__(self, val):
+        self.val = val
+        self.color = 'white'
+        self.edges = []
+
+    def __str__(self):
+        return f"val: {self.val}"
 
 # graph boot camp
 def can_team_a_beat_team_b(matches: List[MatchResult], team_a: str, team_b: str) -> bool:
@@ -187,10 +195,73 @@ def flip_color(maze: List, point: Point) -> List:
 
 #   18.3    compute enclosed regions, take a 2D array with W or B, replace all Ws that cannot
 #               reach the boundary with a B
+def get_enclosed_region(maze: List) -> List:
+    # enter border Point
+    row_max = len(maze) - 1
+    col_max = len(maze[0]) - 1
+
+    dq = deque()
+    for row in range(len(maze)):
+        for col in range(len(maze[0])):
+            if row == 0 or row == row_max or col == 0 or col == col_max:
+                maze[row][col] = 'T'
+                dq.append(Point(row, col))
+
+    # flip border Ws to B
+    while dq:
+        curr_point = dq.popleft()
+        # maze[curr_point.x][curr_point.y] = 'T'
+        for neighbor in curr_point.get_neighbors():
+            if neighbor.is_out_of_bound(row_max, col_max) or maze[neighbor.x][neighbor.y] in ('W', 'T'):
+                continue
+            if maze[neighbor.x][neighbor.y] == 'B':
+                maze[curr_point.x][curr_point.y] = 'T'
+            dq.append(Point(neighbor.x, neighbor.y))
+
+    print([x for x in maze])
+
+    return maze
 
 #   18.5    clone a graph
+def clone_graph(root: GraphVertex):
+    dq = deque()
+
+    dq.append(root)
+    node_map = {root.val: GraphVertex(root.val)}
+
+    while dq:
+        curr_node = dq.popleft()
+        curr_node_clone = node_map[curr_node.val]
+
+        for edge in curr_node.edges:
+            if edge.val not in node_map:
+                edge_clone = GraphVertex(edge.val)
+                node_map[edge.val] = edge_clone
+                dq.append(edge)
+            else:
+                edge_clone = node_map[edge.val]
+
+            curr_node_clone.edges.append(edge_clone)
+
+    return node_map[root.val]
 
 #   18.4    deadlock detection
+def is_deadlocked(root : GraphVertex) -> bool:
+    def _is_deadlock(curr_node):
+        if curr_node.color == 'gray':
+            return True
+
+        curr_node.color = 'gray'
+        for edge in curr_node.edges:
+            res = _is_deadlock(edge)
+            if res:
+                return True
+
+        # done processing
+        curr_node.color = 'black'
+
+    return _is_deadlock(root)
+
 
 if __name__ == "__main__":
     # matches = [
@@ -205,14 +276,35 @@ if __name__ == "__main__":
     # res = can_team_a_beat_team_b(matches, "a", "y")
 
     maze = [
-        # 0     1       2
-        [False, False, False],  # 0
-        [True, True, True],  # 1
-        [False, False, False]  # 2
+        # 0    1    2    3    4
+        ['W', 'W', 'W', 'W', 'W'],      # 0
+        ['W', 'W', 'B', 'W', 'W'],      # 1
+        ['W', 'W', 'B', 'W', 'W'],      # 2
+        ['W', 'W', 'W', 'W', 'W'],      # 3
+        ['W', 'W', 'W', 'W', 'W'],      # 4
     ]
 
-    dictionary = {"cat", "hat", "matrix", "pat", "rat", "pot", "poo"}
+    # dictionary = {"cat", "hat", "matrix", "pat", "rat", "pot", "poo"}
+    a = GraphVertex('A')
+    b = GraphVertex('B')
+    c = GraphVertex('C')
+    d = GraphVertex('D')
+    e = GraphVertex('E')
+    f = GraphVertex('F')
 
-    res = flip_color(maze, Point(0, 0))
+    a.edges.append(b)
+
+    b.edges.append(c)
+    b.edges.append(d)
+
+    c.edges.append(e)
+
+    d.edges.append(e)
+
+    e.edges.append(f)
+
+    # f.edges.append(c)
+
+    res = clone_graph(a)
 
     print(res)
