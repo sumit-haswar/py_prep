@@ -235,6 +235,7 @@ def merge_sort_linked_list():
 #   13.5
 
 def _is_intersecting(event_a: Event, event_b: Event):
+    # wlog, event_a is before event_b
     if event_a.start > event_b.start:
         event_a, event_b = event_b, event_a
 
