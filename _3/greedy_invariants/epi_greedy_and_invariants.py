@@ -119,9 +119,10 @@ def compute_trapped_water(seq: List[int]) -> (int, int, int):
             max_water = curr_water
             res_left, res_right = left, right
 
+        # if left is lower in height than right, we shift left hoping to find taller building
         if seq[left] <= seq[right]:
             left += 1
-        else:
+        else: # seq[left] > seq[right]
             right -= 1
 
 
