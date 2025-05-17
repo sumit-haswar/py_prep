@@ -6,7 +6,6 @@ def generate_permutations(seq: List[int]):
     # refer: _3/combinatorial/backtrack.py
     pass
 
-
 #   15.5 generate the power-set/ all subsets of a list of elements
 def generate_power_set(seq: List[int]):
     # refer: _3/combinatorial/backtrack.py
@@ -24,8 +23,7 @@ def compute_phone_number_mnemonics(phone_number: List[int]):
     # refer: _3/combinatorial/backtrack.py
     pass
 
-
-#   15.6 generate all subsets of size k
+  #   15.6 generate all subsets of size k
 def generate_all_subsets_of_size_k(seq: List[int], k: int) -> List:
     pass
 
