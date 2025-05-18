@@ -97,6 +97,50 @@ def phone_number_mnemonics(phone_number: List[int]):
     backtrack(a, -1)
     return res
 
+def generate_all_permutations_of_size_k(seq: List[int], sample_size:int) -> List:
+    res = []
+
+    def _compute_candidates(a: List, k: int) -> List:
+        exclusion_set = set()
+        for idx in range(k):
+            exclusion_set.add(a[idx])
+
+        return [e for e in seq if e not in exclusion_set]
+
+    def _backtrack(a: List, k: int):
+        if k == (sample_size - 1):
+            # process a to generate result
+            res.append(a.copy())
+            return
+
+        k = k + 1
+        candidates = _compute_candidates(a, k)
+        for candidate in candidates:
+            a[k] = candidate
+            _backtrack(a, k)
+
+
+    _backtrack([None for _ in range(sample_size)], -1)
+    return res
+
+def generate_all_subsets_of_size_k(seq: List[int], subset_size: int) -> List:
+    def _backtrack(a: List, k: int):
+        if len(a) == subset_size:
+            # curr_res = [x for x in a]
+            res.append(a[:])
+            return
+
+        # k = k + 1
+        # candidates = [x for x in ]
+        for idx in range(k, len(seq)):
+            a.append(seq[idx])
+            _backtrack(a, idx + 1)
+            a.pop()
+
+    res = []
+    _backtrack([], 0)
+    return res
+
 def compute_subsets(seq: List[int]):
     a = [False for _ in seq]    # backtrack vector
 
@@ -111,8 +155,9 @@ if __name__ == "__main__":
     # res = []
     # phone_number.backtrack([None, None], -1, res, [23])
 
-    res = phone_number_mnemonics([2,3, 4])
-    # res = generate_all_subsets_of_size_k([1,2,3,4,5], 2)
+    # res = phone_number_mnemonics([2,3, 4])
+    res = generate_all_subsets_of_size_k([1,2,3,4,5], 2)
+    # res = generate_all_permutations_of_size_k([1,2,3,4,5], 2)
 
     print(len(res))
     print(res)
