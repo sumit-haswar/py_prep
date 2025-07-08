@@ -90,6 +90,7 @@ def has_three_sum(seq: List[int], target: int) -> bool:
     return False
 
 #   17.5, find the majority element of a stream or list
+#   Boyer-Moore Majority Voting Algorithm
 def find_majority(seq: Iterable[int]) -> int:
     candidate = None
     candidate_count = 0
@@ -99,7 +100,7 @@ def find_majority(seq: Iterable[int]) -> int:
             candidate_count += 1
         elif num == candidate:
             candidate_count += 1
-        else:
+        else:   # num is not current candidate
             candidate_count -= 1
 
     return candidate

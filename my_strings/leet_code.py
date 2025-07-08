@@ -1,7 +1,7 @@
 import collections
 import math
 from typing import List
-
+from collections import deque
 
 # Input:
 # words = ["This", "is", "an", "example", "of", "text", "justification."]
@@ -12,7 +12,7 @@ from typing import List
 #    "example  of text",
 #    "justification.  "
 # ]
-def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
+def fullJustify(words: List[str], maxWidth: int) -> List[str]:
     result = []
     buffer = []
     buffer_word_count = 0
@@ -26,7 +26,7 @@ def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
             buffer.extend((" " if buffer else "") + curr_word)
             buffer_word_count += 1
             idx += 1
-        else:  # curr word will overflow!
+        else:  # curr word will overflow!, so flush buffer to result
             line = _format_line(buffer, buffer_word_count, maxWidth)
             result.append(line)
             buffer = []
@@ -172,21 +172,55 @@ def valid_ip_address(ip: str) -> str:
     else:
         return "Neither"
 
+D = [1,2,3,4,5]
+R = [10,2,3,4,]
+
+def cheapest_flight():
+    overall_cheapest = float('inf')
+
+    _R = deque()
+    curr_min = float('inf')
+    for idx in range(len(R) - 1, -1 , -1):
+        curr = R[idx]
+        curr_min = min(curr_min, curr)
+        _R.appendleft(curr_min)
+
+    print(_R)
+    # for idx, price in enumerate(D);
+    #     pass
+
+    return overall_cheapest
 
 if __name__ == "__main__":
 
-    ips = [
-        "192.168.1.1",
-        "192.168.1.0",
-        "192.168.01.1",
-        "192.168.1.00",
-        "192.168@1.1",
-        "2001:0db8:85a3:0000:0000:8a2e:0370:7334",
-        "2001:db8:85a3:0:0:8A2E:0370:7334",
-        "2001:0db8:85a3::8A2E:037j:7334",
-        "02001:0db8:85a3:0000:0000:8a2e:0370:7334",
+    # res = fullJustify(["The", "words", "of", "our"], 7)
+    print(cheapest_flight())
+
+    grid = [
+        [1,2],
+        [1,2]
     ]
 
-    for ip in ips:
-        result = valid_ip_address(ip)
-        print("{}:{}".format(ip, result))
+    visited = []
+    for i in grid:
+        curr_row = []
+        for j in grid[0]:
+            curr_row.append(0)
+        visited.append(curr_row)
+
+    print(visited)
+    # ips = [
+    #     "192.168.1.1",
+    #     "192.168.1.0",
+    #     "192.168.01.1",
+    #     "192.168.1.00",
+    #     "192.168@1.1",
+    #     "2001:0db8:85a3:0000:0000:8a2e:0370:7334",
+    #     "2001:db8:85a3:0:0:8A2E:0370:7334",
+    #     "2001:0db8:85a3::8A2E:037j:7334",
+    #     "02001:0db8:85a3:0000:0000:8a2e:0370:7334",
+    # ]
+    #
+    # for ip in ips:
+    #     result = valid_ip_address(ip)
+    #     print("{}:{}".format(ip, result))

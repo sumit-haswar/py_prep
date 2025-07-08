@@ -430,10 +430,10 @@ def get_longest_subarray_with_distinct_values(input: List[int]) -> (int, int):
     res = (None, None)
     for idx, elem in enumerate(input):
         if elem in ht:
-            elem_last_idx = ht[elem]
+            elem_last_idx = ht[elem] # get left idx of this elem
             # we found a duplicate, so check if curr_seq length > longest_subarray_len
             if elem_last_idx >= longest_start_idx:
-                if longest_subarray_len is None or (idx - longest_start_idx > longest_subarray_len):
+                if longest_subarray_len is None or ((idx - longest_start_idx) > longest_subarray_len):
                     res = longest_start_idx, idx - 1
                     longest_subarray_len = idx - longest_start_idx
                 longest_start_idx = elem_last_idx + 1

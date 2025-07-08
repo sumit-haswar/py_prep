@@ -121,6 +121,9 @@ def build_random_non_bst():
     twelve = TreeNode(12, eight, seven)
     return twelve
 
+def build_123_bt():
+    return TreeNode(2, TreeNode(1), TreeNode(3))
+
 def build_prime_bst():
     _2 = TreeNode(2)
     _5 = TreeNode(5)
