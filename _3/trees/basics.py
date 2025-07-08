@@ -1,7 +1,7 @@
 from typing import Optional, List
 
 from _3.trees.tree_node import TreeNode
-from _3.trees.util import build_1_to_10_bst, build_random_non_bst, build_right_bst, build_left_bst
+from _3.trees.util import build_1_to_10_bst, build_random_non_bst, build_right_bst, build_left_bst, build_123_bt
 
 
 # lookup: find if a node exists in a binary-tree(non-bst)
@@ -231,8 +231,24 @@ def is_bst_v2(node: TreeNode) -> bool:
     return _is_bst_v2(node, -(2 << 31), (2 << 31))
 
 
-if __name__ == "__main__":
-    bst = build_right_bst()
+def all_paths(root: TreeNode):
 
-    node = is_bst_v2(bst)
-    print(node)
+    def _all_paths(node: TreeNode, curr_path: str):
+        if node is None:
+            return ""
+        # pre-order
+
+        left_path = _all_paths(node.left, curr_path)
+        right_path = _all_paths(node.right, curr_path)
+
+        # post-order
+        return f"{left_path} - {node.val} - {right_path}"
+
+    return _all_paths(root, "")
+
+
+
+if __name__ == "__main__":
+    bt = build_1_to_10_bst()
+    path = all_paths(bt)
+    print(path)

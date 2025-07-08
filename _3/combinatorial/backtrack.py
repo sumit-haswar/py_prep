@@ -63,7 +63,8 @@ def backtrack(a: List, k: int, res: List, seq: List):
         if not curr_res:
             res.append(None)
         else:
-            res.append("{" + ",".join([str(x) for x in curr_res]) + "}")
+            # res.append("{" + ",".join([str(x) for x in curr_res]) + "}")
+            res.append(",".join([str(x) for x in curr_res]))
 
         return
 
@@ -141,6 +142,15 @@ def generate_all_subsets_of_size_k(seq: List[int], subset_size: int) -> List:
     _backtrack([], 0)
     return res
 
+# def generate_all_subsequence(seq: List[int]):
+#
+#     def
+#
+#     def _backtrack(A, k, seq):
+#         pass
+
+
+
 def compute_subsets(seq: List[int]):
     a = [False for _ in seq]    # backtrack vector
 
@@ -156,8 +166,8 @@ if __name__ == "__main__":
     # phone_number.backtrack([None, None], -1, res, [23])
 
     # res = phone_number_mnemonics([2,3, 4])
-    res = generate_all_subsets_of_size_k([1,2,3,4,5], 2)
+    compute_subsets(["(", ")", "(", ")"])
     # res = generate_all_permutations_of_size_k([1,2,3,4,5], 2)
 
-    print(len(res))
-    print(res)
+    # print(len(res))
+    # print(res)
