@@ -112,7 +112,12 @@ def find_stream_median(arr: Iterator[int]) -> List[int]:
         if len(min_heap) > len(max_heap):
             heapq.heappush(max_heap, -1 * heapq.heappop(min_heap))
 
-        res.append((-max_heap[0] + min_heap[0]) * 0.5 if len(max_heap) == len(min_heap) else -max_heap[0])
+        if len(max_heap) == len(min_heap):
+            median = (-max_heap[0] + min_heap[0]) * 0.5
+        else:
+            median = -max_heap[0]
+
+        res.append(median)
 
     return res
 
