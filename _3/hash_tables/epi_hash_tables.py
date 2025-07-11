@@ -109,6 +109,7 @@ class MyLruCache:
         if node is self._tail:
             self._remove_from_back()
         elif node is self._head:
+            # remove from front
             new_head = self._head.next
             self._head.next = None
             if new_head:
@@ -206,7 +207,7 @@ class LruCache:
 def find_nearest_repeated_entries(input_text : List[str]):
     nearest = None
     res = None
-    lookup = {}
+    lookup : Dict[str, int] = {} # lookup saves word and its last occurrence index
     for idx, word in enumerate(input_text):
         if word in lookup:  # found duplicate word
             diff = abs(idx - lookup[word])
